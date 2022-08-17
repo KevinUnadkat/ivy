@@ -2,6 +2,10 @@ variable
 ========
 
 .. autofunction:: ivy.functional.ivy.gradients.variable
+
+.. autofunction:: ivy.container.container_methods.variable
+
+.. autofunction:: ivy.container.container_methods.static_variable
 |
 | **Supported Frameworks:**
 

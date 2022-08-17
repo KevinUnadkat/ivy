@@ -2,6 +2,10 @@ einops_repeat
 =============
 
 .. autofunction:: ivy.functional.ivy.general.einops_repeat
+
+.. autofunction:: ivy.container.container_methods.einops_repeat
+
+.. autofunction:: ivy.container.container_methods.static_einops_repeat
 |
 | **Supported Frameworks:**
 

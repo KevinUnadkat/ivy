@@ -2,6 +2,10 @@ shuffle
 =======
 
 .. autofunction:: ivy.functional.ivy.random.shuffle
+
+.. autofunction:: ivy.container.container_methods.shuffle
+
+.. autofunction:: ivy.container.container_methods.static_shuffle
 |
 | **Supported Frameworks:**
 

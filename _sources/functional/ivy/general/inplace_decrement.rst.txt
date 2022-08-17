@@ -2,6 +2,10 @@ inplace_decrement
 =================
 
 .. autofunction:: ivy.functional.ivy.general.inplace_decrement
+
+.. autofunction:: ivy.container.container_methods.static_inplace_decrement
+
+.. autofunction:: ivy.container.container_methods.inplace_decrement
 |
 | **Supported Frameworks:**
 

@@ -2,6 +2,10 @@ multinomial
 ===========
 
 .. autofunction:: ivy.functional.ivy.random.multinomial
+
+.. autofunction:: ivy.container.container_methods.static_multinomial
+
+.. autofunction:: ivy.container.container_methods.multinomial
 |
 | **Supported Frameworks:**
 
