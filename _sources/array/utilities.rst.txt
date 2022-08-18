@@ -13,5 +13,5 @@ Utilities
    :maxdepth: -1
    :caption: Utilities
 
-   utilities/ArrayWithUtility.rst
+   utilities/ArrayWithutilities.rst
 

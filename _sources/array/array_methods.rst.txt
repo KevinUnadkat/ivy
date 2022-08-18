@@ -194,7 +194,5 @@ Array methods
    array_methods/einsum.rst
    array_methods/all.rst
    array_methods/any.rst
-   array_methods/all.rst
-   array_methods/any.rst
    array_methods/add_ivy_array_instance_methods.rst
 

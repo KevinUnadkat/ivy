@@ -344,7 +344,6 @@ Citation
    array/sorting.rst
    array/statistical.rst
    array/utilities.rst
-   array/utility.rst
    array/wrapping.rst
 
 
