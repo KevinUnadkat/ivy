@@ -57,6 +57,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/data_type.html">Data type</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/device.html">Device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/elementwise.html">Elementwise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/extensions.html">Extensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/general.html">General</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/gradients.html">Gradients</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/layers.html">Layers</a></li>
@@ -448,7 +449,8 @@
 <span class="c1"># Retrieval</span>
 
 
-<div class="viewcode-block" id="dev"><a class="viewcode-back" href="../../../../functional/ivy/device/dev/dev_functional.html#ivy.functional.ivy.device.dev">[docs]</a><span class="k">def</span> <span class="nf">dev</span><span class="p">(</span>
+<div class="viewcode-block" id="dev"><a class="viewcode-back" href="../../../../functional/ivy/device/dev/dev_functional.html#ivy.functional.ivy.device.dev">[docs]</a><span class="nd">@handle_nestable</span>
+<span class="k">def</span> <span class="nf">dev</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span> <span class="o">/</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">as_native</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Device</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDevice</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -1166,9 +1168,13 @@
     <span class="k">if</span> <span class="n">num_chunks</span> <span class="o">!=</span> <span class="n">num_chunks_floored</span><span class="p">:</span>
         <span class="n">chunk_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dim_size</span> <span class="o">-</span> <span class="n">chunk_size</span> <span class="o">*</span> <span class="n">num_chunks_floored</span><span class="p">)</span>
     <span class="n">inputs_split</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">ivy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">chunk_sizes</span><span class="p">,</span> <span class="n">input_axes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">ivy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+            <span class="n">inp</span><span class="p">,</span> <span class="n">num_or_size_splits</span><span class="o">=</span><span class="n">chunk_sizes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">input_axes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">with_remainder</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">is_array</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
-        <span class="k">else</span> <span class="n">inp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">chunk_sizes</span><span class="p">,</span> <span class="n">input_axes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span> <span class="n">inp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+            <span class="n">num_or_size_splits</span><span class="o">=</span><span class="n">chunk_sizes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">input_axes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">with_remainder</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">inp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
     <span class="p">]</span>
     <span class="n">is_mean</span> <span class="o">=</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span>
@@ -1203,7 +1209,10 @@
         <span class="n">output_axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="n">num_outputs</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_axes</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
         <span class="n">output_axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">output_axes</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_outputs</span>
-    <span class="n">ret</span> <span class="o">=</span> <span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rets</span><span class="p">],</span> <span class="n">output_axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_outputs</span><span class="p">)]</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">ivy</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rets</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">output_axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_outputs</span><span class="p">)</span>
+    <span class="p">]</span>
     <span class="k">return</span> <span class="n">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">ret</span></div>
 
 

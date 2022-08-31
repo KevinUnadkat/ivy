@@ -57,6 +57,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/data_type.html">Data type</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/device.html">Device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/elementwise.html">Elementwise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/extensions.html">Extensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/general.html">General</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/gradients.html">Gradients</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../functional/ivy/layers.html">Layers</a></li>
@@ -130,7 +131,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;Collection of Ivy neural network layers in functional form.&quot;&quot;&quot;</span>
 
 <span class="c1"># global</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span>
 
 <span class="c1"># local</span>
 <span class="kn">import</span> <span class="nn">ivy</span>
@@ -149,8 +150,7 @@
 <span class="c1"># Linear #</span>
 
 
-<div class="viewcode-block" id="linear"><a class="viewcode-back" href="../../../../functional/ivy/layers/linear.html#ivy.functional.ivy.layers.linear">[docs]</a><span class="nd">@handle_nestable</span>
-<span class="k">def</span> <span class="nf">linear</span><span class="p">(</span>
+<div class="viewcode-block" id="linear"><a class="viewcode-back" href="../../../../functional/ivy/layers/linear/linear_functional.html#ivy.functional.ivy.layers.linear">[docs]</a><span class="k">def</span> <span class="nf">linear</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="n">weight</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="o">/</span><span class="p">,</span>
@@ -221,8 +221,7 @@
 <span class="c1"># Dropout #</span>
 
 
-<div class="viewcode-block" id="dropout"><a class="viewcode-back" href="../../../../functional/ivy/layers/dropout.html#ivy.functional.ivy.layers.dropout">[docs]</a><span class="nd">@handle_nestable</span>
-<span class="k">def</span> <span class="nf">dropout</span><span class="p">(</span>
+<div class="viewcode-block" id="dropout"><a class="viewcode-back" href="../../../../functional/ivy/layers/dropout/dropout_functional.html#ivy.functional.ivy.layers.dropout">[docs]</a><span class="k">def</span> <span class="nf">dropout</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
@@ -268,8 +267,7 @@
 <span class="c1"># Attention #</span>
 
 
-<div class="viewcode-block" id="scaled_dot_product_attention"><a class="viewcode-back" href="../../../../functional/ivy/layers/scaled_dot_product_attention.html#ivy.functional.ivy.layers.scaled_dot_product_attention">[docs]</a><span class="nd">@handle_nestable</span>
-<span class="k">def</span> <span class="nf">scaled_dot_product_attention</span><span class="p">(</span>
+<div class="viewcode-block" id="scaled_dot_product_attention"><a class="viewcode-back" href="../../../../functional/ivy/layers/scaled_dot_product_attention/scaled_dot_product_attention_functional.html#ivy.functional.ivy.layers.scaled_dot_product_attention">[docs]</a><span class="k">def</span> <span class="nf">scaled_dot_product_attention</span><span class="p">(</span>
     <span class="n">q</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="n">k</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="n">v</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
@@ -335,7 +333,7 @@
 <span class="sd">    &gt;&gt;&gt; mask = ivy.array([[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0],[0.0, 0.0, 0.0]]])</span>
 <span class="sd">    &gt;&gt;&gt; result = ivy.scaled_dot_product_attention(q, k, v, 1, mask=mask)</span>
 <span class="sd">    &gt;&gt;&gt; print(result)</span>
-<span class="sd">    ivy.array([[[nan,nan],[nan,nan],[nan,nan]]])</span>
+<span class="sd">    ivy.array([[[2.3, 3.23],[2.3, 3.23],[2.3, 3.23]]])</span>
 
 <span class="sd">    &gt;&gt;&gt; q = ivy.array([[[0.2, 1.], [2.2, 3.], [4.4, 5.6]]])</span>
 <span class="sd">    &gt;&gt;&gt; k = ivy.array([[[0.6, 1.5], [2.4, 3.3], [4.2, 5.1]]])</span>
@@ -360,7 +358,7 @@
 <span class="sd">    &gt;&gt;&gt; mask = ivy.native_array([[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0],[0.0, 0.0, 0.0]]])</span>
 <span class="sd">    &gt;&gt;&gt; result = ivy.scaled_dot_product_attention(q, k, v, 1, mask=mask)</span>
 <span class="sd">    &gt;&gt;&gt; print(result)</span>
-<span class="sd">    ivy.array([[[nan,nan],[nan,nan],[nan,nan]]])</span>
+<span class="sd">    ivy.array([[[2.3, 3.23],[2.3, 3.23],[2.3, 3.23]]])</span>
 
 <span class="sd">    &gt;&gt;&gt; q = ivy.native_array([[[0.2, 1.], [2.2, 3.], [4.4, 5.6]]])</span>
 <span class="sd">    &gt;&gt;&gt; k = ivy.native_array([[[0.6, 1.5], [2.4, 3.3], [4.2, 5.1]]])</span>
@@ -454,7 +452,7 @@
 <span class="sd">    &gt;&gt;&gt; mask = ivy.array([[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]])</span>
 <span class="sd">    &gt;&gt;&gt; result = ivy.scaled_dot_product_attention(q, k, v, 1, mask=mask)</span>
 <span class="sd">    &gt;&gt;&gt; print(result)</span>
-<span class="sd">    ivy.array([[[nan,nan],[nan,nan],[nan,nan]]])</span>
+<span class="sd">    ivy.array([[[2.3, 3.23],[2.3, 3.23],[2.3, 3.23]]])</span>
 
 <span class="sd">    &gt;&gt;&gt; q = ivy.array([[[0.2, 1.], [2.2, 3.], [4.4, 5.6]]])</span>
 <span class="sd">    &gt;&gt;&gt; k = ivy.array([[[0.6, 1.5], [2.4, 3.3], [4.2, 5.1]]])</span>
@@ -463,7 +461,7 @@
 <span class="sd">    &gt;&gt;&gt; out = ivy.zeros(shape=(1, 3, 2))</span>
 <span class="sd">    &gt;&gt;&gt; ivy.scaled_dot_product_attention(q, k, v, 1, mask=mask, out=out)</span>
 <span class="sd">    &gt;&gt;&gt; print(out)</span>
-<span class="sd">    ivy.array([[[nan, nan],[nan, nan],[nan, nan]]])</span>
+<span class="sd">    ivy.array([[[2.3, 3.23],[2.3, 3.23],[2.3, 3.23]]])</span>
 
 <span class="sd">    With :code:`ivy.Container` input:</span>
 
@@ -532,7 +530,7 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="multi_head_attention"><a class="viewcode-back" href="../../../../functional/ivy/layers/multi_head_attention.html#ivy.functional.ivy.layers.multi_head_attention">[docs]</a><span class="k">def</span> <span class="nf">multi_head_attention</span><span class="p">(</span>
+<div class="viewcode-block" id="multi_head_attention"><a class="viewcode-back" href="../../../../functional/ivy/layers/multi_head_attention/multi_head_attention_functional.html#ivy.functional.ivy.layers.multi_head_attention">[docs]</a><span class="k">def</span> <span class="nf">multi_head_attention</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="n">scale</span><span class="p">,</span>
     <span class="n">num_heads</span><span class="p">,</span>
@@ -600,13 +598,13 @@
     <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">to_kv_fn</span><span class="p">):</span>
         <span class="n">kv</span> <span class="o">=</span> <span class="n">to_kv_fn</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="n">to_kv_v</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">kv</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">kv</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">num_or_size_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># BS x K x (HxF),  BS x K x (HxF)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kv</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
         <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">kv</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">kv</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">kv</span><span class="p">,</span> <span class="n">num_or_size_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># BS x H x Q x F,  BS x H x K x F,  BS x H x K x F</span>
     <span class="n">q</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span>
@@ -718,7 +716,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="conv1d_transpose"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv1d_transpose.html#ivy.functional.ivy.layers.conv1d_transpose">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<div class="viewcode-block" id="conv1d_transpose"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv1d_transpose/conv1d_transpose_functional.html#ivy.functional.ivy.layers.conv1d_transpose">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
 <span class="nd">@handle_out_argument</span>
 <span class="nd">@handle_nestable</span>
 <span class="k">def</span> <span class="nf">conv1d_transpose</span><span class="p">(</span>
@@ -767,7 +765,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="conv2d"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv2d.html#ivy.functional.ivy.layers.conv2d">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<div class="viewcode-block" id="conv2d"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv2d/conv2d_functional.html#ivy.functional.ivy.layers.conv2d">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
 <span class="nd">@handle_out_argument</span>
 <span class="nd">@handle_nestable</span>
 <span class="k">def</span> <span class="nf">conv2d</span><span class="p">(</span>
@@ -864,7 +862,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="conv2d_transpose"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv2d_transpose.html#ivy.functional.ivy.layers.conv2d_transpose">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<div class="viewcode-block" id="conv2d_transpose"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv2d_transpose/conv2d_transpose_functional.html#ivy.functional.ivy.layers.conv2d_transpose">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
 <span class="nd">@handle_out_argument</span>
 <span class="nd">@handle_nestable</span>
 <span class="k">def</span> <span class="nf">conv2d_transpose</span><span class="p">(</span>
@@ -996,8 +994,10 @@
 <span class="sd">    With a mix of :code:`ivy.Array` and :code:`ivy.Container` inputs:</span>
 
 <span class="sd">    &gt;&gt;&gt; x = ivy.eye(6, 6).reshape((1, 6, 6, 1)) #NHWC</span>
-<span class="sd">    &gt;&gt;&gt; a = ivy.array([[1., 1., 1.], [1., -8., 1.], [1., 1., 1.]]).expand_dims(-1)</span>
-<span class="sd">    &gt;&gt;&gt; b = ivy.array([[1., 1., 1.], [1., 1., 1.], [1., 1., 1.]]).expand_dims(-1) / 9.0</span>
+<span class="sd">    &gt;&gt;&gt; a = ivy.array([[1., 1., 1.], [1., -8., 1.], [1., 1., 1.]]).expand_dims(axis=-1)</span>
+<span class="sd">    &gt;&gt;&gt; b = ivy.array([[1., 1., 1.],\</span>
+<span class="sd">                       [1., 1., 1.],\</span>
+<span class="sd">                       [1., 1., 1.]]).expand_dims(axis=-1) / 9.0</span>
 <span class="sd">    &gt;&gt;&gt; filters = ivy.Container(a = a, b = b)</span>
 <span class="sd">    &gt;&gt;&gt; y = ivy.depthwise_conv2d(x, filters, 1, &#39;VALID&#39;, dilations=2)</span>
 <span class="sd">    &gt;&gt;&gt; print(y)</span>
@@ -1018,7 +1018,9 @@
 <span class="sd">    &gt;&gt;&gt; x = ivy.eye(6, 6).reshape((1, 6, 6, 1)) #NHWC</span>
 <span class="sd">    &gt;&gt;&gt; y = ivy.native_array(ivy.eye(6, 6).reshape((1, 6, 6, 1)))</span>
 <span class="sd">    &gt;&gt;&gt; inp = ivy.Container(x = x, y = y)</span>
-<span class="sd">    &gt;&gt;&gt; filter = ivy.array([[1., 1., 1.], [1., -8., 1.], [1., 1., 1.]]).expand_dims(-1)</span>
+<span class="sd">    &gt;&gt;&gt; filter = ivy.array([[1., 1., 1.],\</span>
+<span class="sd">                            [1., -8., 1.], \</span>
+<span class="sd">                            [1., 1., 1.]]).expand_dims(axis=-1)</span>
 <span class="sd">    &gt;&gt;&gt; y = ivy.depthwise_conv2d(inp, filter, 1, &#39;VALID&#39;, dilations=2)</span>
 <span class="sd">    &gt;&gt;&gt; print(y)</span>
 <span class="sd">    {</span>
@@ -1035,7 +1037,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="conv3d"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv3d.html#ivy.functional.ivy.layers.conv3d">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<div class="viewcode-block" id="conv3d"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv3d/conv3d_functional.html#ivy.functional.ivy.layers.conv3d">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
 <span class="nd">@handle_out_argument</span>
 <span class="nd">@handle_nestable</span>
 <span class="k">def</span> <span class="nf">conv3d</span><span class="p">(</span>
@@ -1098,7 +1100,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="conv3d_transpose"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv3d_transpose.html#ivy.functional.ivy.layers.conv3d_transpose">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<div class="viewcode-block" id="conv3d_transpose"><a class="viewcode-back" href="../../../../functional/ivy/layers/conv3d_transpose/conv3d_transpose_functional.html#ivy.functional.ivy.layers.conv3d_transpose">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
 <span class="nd">@handle_out_argument</span>
 <span class="nd">@handle_nestable</span>
 <span class="k">def</span> <span class="nf">conv3d_transpose</span><span class="p">(</span>
@@ -1234,8 +1236,7 @@
 <span class="c1"># LSTM #</span>
 
 
-<div class="viewcode-block" id="lstm_update"><a class="viewcode-back" href="../../../../functional/ivy/layers/lstm_update.html#ivy.functional.ivy.layers.lstm_update">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
-<span class="nd">@handle_nestable</span>
+<div class="viewcode-block" id="lstm_update"><a class="viewcode-back" href="../../../../functional/ivy/layers/lstm_update/lstm_update_functional.html#ivy.functional.ivy.layers.lstm_update">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
 <span class="k">def</span> <span class="nf">lstm_update</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="n">init_h</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
@@ -1246,7 +1247,7 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">recurrent_bias</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Perform long-short term memory update by unrolling time dimension of input array.</span>
 
 <span class="sd">    Parameters</span>
@@ -1286,7 +1287,7 @@
         <span class="n">ivy</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x_flat</span><span class="p">,</span> <span class="n">Wi</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">bias</span> <span class="k">if</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span><span class="p">),</span>
         <span class="n">batch_shape</span> <span class="o">+</span> <span class="p">[</span><span class="n">timesteps</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
     <span class="p">)</span>
-    <span class="n">Wii_x</span><span class="p">,</span> <span class="n">Wif_x</span><span class="p">,</span> <span class="n">Wig_x</span><span class="p">,</span> <span class="n">Wio_x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Wi_x</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">Wii_x</span><span class="p">,</span> <span class="n">Wif_x</span><span class="p">,</span> <span class="n">Wig_x</span><span class="p">,</span> <span class="n">Wio_x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Wi_x</span><span class="p">,</span> <span class="n">num_or_size_splits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># recurrent kernel</span>
     <span class="n">Wh</span> <span class="o">=</span> <span class="n">recurrent_kernel</span>
@@ -1322,9 +1323,9 @@
         <span class="n">ct</span> <span class="o">=</span> <span class="n">ft</span> <span class="o">*</span> <span class="n">ctm1</span> <span class="o">+</span> <span class="n">it</span> <span class="o">*</span> <span class="n">gt</span>
         <span class="n">ht</span> <span class="o">=</span> <span class="n">ot</span> <span class="o">*</span> <span class="n">ivy</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
 
-        <span class="n">hts_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">hts_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">2</span><span class="p">))</span>
 
-    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">hts_list</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">ct</span></div>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">hts_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">2</span><span class="p">),</span> <span class="n">ct</span></div>
 
 
 <span class="n">lstm_update</span><span class="o">.</span><span class="n">unsupported_dtypes</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;torch&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;float16&quot;</span><span class="p">,)}</span>
