@@ -9557,7 +9557,7 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ivy.Container static method variant of ivy.all_equal. This method simply wraps</span>
-<span class="sd">    the function, and so the docstring for ivy.add also applies to this method</span>
+<span class="sd">    the function, and so the docstring for ivy.all_equal also applies to this method</span>
 <span class="sd">    with minimal changes.</span>
 
 <span class="sd">    Parameters</span>
@@ -9986,9 +9986,9 @@
 
 
 <div class="viewcode-block" id="static_gather"><a class="viewcode-back" href="../../../functional/ivy/general/gather/static_gather_container.html#ivy.container.container_methods.static_gather">[docs]</a><span class="k">def</span> <span class="nf">static_gather</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
-    <span class="n">indices</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
-    <span class="n">axis</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+    <span class="n">indices</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+    <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -9996,37 +9996,31 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ivy.Container static method variant of ivy.gather. This method simply wraps</span>
-<span class="sd">    the function, and so the docstring for ivy.gather also applies to this method</span>
-<span class="sd">    with minimal changes.</span>
+    <span class="sd">&quot;&quot;&quot;Perform einops rearrange operation on each sub array in the container.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    param</span>
-<span class="sd">        the array or container from which to gather values.</span>
-<span class="sd">    indices</span>
-<span class="sd">        index array or container</span>
-<span class="sd">    axis</span>
-<span class="sd">        optional int, the axis from which to gather from. Default is -1.</span>
+<span class="sd">    pattern</span>
+<span class="sd">        Rearrangement pattern.</span>
 <span class="sd">    key_chains</span>
 <span class="sd">        The key-chains to apply or not apply the method to. Default is None.</span>
 <span class="sd">    to_apply</span>
-<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains</span>
-<span class="sd">        will be skipped. Default is True.</span>
+<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains will</span>
+<span class="sd">        be skipped. Default is True.</span>
 <span class="sd">    prune_unapplied</span>
-<span class="sd">        Whether to prune key_chains for which the function was not applied.</span>
-<span class="sd">        Default is False.</span>
+<span class="sd">        Whether to prune key_chains for which the function was not applied. Default</span>
+<span class="sd">        is False.</span>
 <span class="sd">    map_sequences</span>
 <span class="sd">        Whether to also map method to sequences (lists, tuples). Default is False.</span>
-<span class="sd">    out</span>
-<span class="sd">        optional output container, for writing the result to.</span>
+<span class="sd">    axes_lengths</span>
+<span class="sd">        Any additional specifications for dimensions.</span>
+<span class="sd">    **axes_lengths</span>
+
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    ret</span>
-<span class="sd">        New container with the values gathered at the specified indices along</span>
-<span class="sd">        the specified axis.</span>
+<span class="sd">        ivy.Container with each array having einops.rearrange applied.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
@@ -10363,8 +10357,8 @@
 
 
 <div class="viewcode-block" id="static_gather_nd"><a class="viewcode-back" href="../../../functional/ivy/general/gather_nd/static_gather_nd_container.html#ivy.container.container_methods.static_gather_nd">[docs]</a><span class="k">def</span> <span class="nf">static_gather_nd</span><span class="p">(</span>
-    <span class="n">params</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
-    <span class="n">indices</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+    <span class="n">indices</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
     <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -10372,65 +10366,28 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ivy.Container static method variant of ivy.gather_nd. This method simply wraps</span>
-<span class="sd">    the function, and so the docstring for ivy.gather_nd also applies to this</span>
-<span class="sd">    method with minimal changes.</span>
+    <span class="sd">&quot;&quot;&quot;Gather slices from all container params into a arrays with shape specified by</span>
+<span class="sd">    indices.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    params</span>
-<span class="sd">        The container from which to gather values.</span>
 <span class="sd">    indices</span>
-<span class="sd">        Index array or container.</span>
+<span class="sd">        Index array.</span>
 <span class="sd">    key_chains</span>
 <span class="sd">        The key-chains to apply or not apply the method to. Default is None.</span>
 <span class="sd">    to_apply</span>
-<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains</span>
-<span class="sd">        will be skipped. Default is True.</span>
+<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains will</span>
+<span class="sd">        be skipped. Default is True.</span>
 <span class="sd">    prune_unapplied</span>
-<span class="sd">        Whether to prune key_chains for which the function was not applied.</span>
-<span class="sd">        Default is False.</span>
+<span class="sd">        Whether to prune key_chains for which the function was not applied. Default</span>
+<span class="sd">        is False.</span>
 <span class="sd">    map_sequences</span>
 <span class="sd">        Whether to also map method to sequences (lists, tuples). Default is False.</span>
-<span class="sd">    device</span>
-<span class="sd">        device on which to create the array &#39;cuda:0&#39;, &#39;cuda:1&#39;, &#39;cpu&#39; etc. Same as</span>
-<span class="sd">        ``x`` if None.</span>
-<span class="sd">    out</span>
-<span class="sd">        optional output container, for writing the result to. It must have a shape</span>
-<span class="sd">        that the inputs broadcast to.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    ret</span>
-<span class="sd">        New container of given shape, with the values gathered at the indices.</span>
+<span class="sd">        Container object with all sub-array dimensions gathered.</span>
 
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    With one :code:`ivy.Container` input:</span>
-
-<span class="sd">    &gt;&gt;&gt; x = ivy.Container(a=ivy.array([0., 1., 2.]), \</span>
-<span class="sd">                          b=ivy.array([4., 5., 6.]))</span>
-<span class="sd">    &gt;&gt;&gt; y = ivy.array([1])</span>
-<span class="sd">    &gt;&gt;&gt; print(ivy.static_gather_nd(x, y))</span>
-<span class="sd">    &gt;&gt;&gt; print(z)</span>
-<span class="sd">    {</span>
-<span class="sd">        a: ivy.array(1.),</span>
-<span class="sd">        b: ivy.array(5.)</span>
-<span class="sd">    }</span>
-
-<span class="sd">    With multiple :code:`ivy.Container` inputs:</span>
-
-<span class="sd">    &gt;&gt;&gt; x = ivy.Container(a=ivy.array([0., 1., 2.]), \</span>
-<span class="sd">                          b=ivy.array([3., 4., 5.]))</span>
-<span class="sd">    &gt;&gt;&gt; y = ivy.Container(a=ivy.array([0]), \</span>
-<span class="sd">                          b=ivy.array([1]))</span>
-<span class="sd">    &gt;&gt;&gt; y = ivy.Container.static_gather_nd(x, y)</span>
-<span class="sd">    &gt;&gt;&gt; print(y)</span>
-<span class="sd">    {</span>
-<span class="sd">            a: ivy.array(0.),</span>
-<span class="sd">            b: ivy.array(4.)</span>
-<span class="sd">    }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
@@ -10496,8 +10453,8 @@
 
 
 <div class="viewcode-block" id="static_einops_rearrange"><a class="viewcode-back" href="../../../functional/ivy/general/einops_rearrange/static_einops_rearrange_container.html#ivy.container.container_methods.static_einops_rearrange">[docs]</a><span class="k">def</span> <span class="nf">static_einops_rearrange</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
-    <span class="n">pattern</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -10506,138 +10463,92 @@
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">axes_lengths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ivy.Container static method variant of ivy.einops_rearrange.</span>
-<span class="sd">    This method simply wraps the function, and so the docstring</span>
-<span class="sd">    for ivy.einops_rearrange also applies to this method</span>
-<span class="sd">    with minimal changes.</span>
+    <span class="sd">&quot;&quot;&quot;Perform einops rearrange operation on each sub array in the container.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    x</span>
-<span class="sd">        Input array or container to be re-arranged.</span>
 <span class="sd">    pattern</span>
 <span class="sd">        Rearrangement pattern.</span>
-<span class="sd">    axes_lengths</span>
-<span class="sd">        Any additional specifications for dimensions.</span>
 <span class="sd">    key_chains</span>
 <span class="sd">        The key-chains to apply or not apply the method to. Default is None.</span>
 <span class="sd">    to_apply</span>
-<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains</span>
-<span class="sd">        will be skipped. Default is True.</span>
+<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains will</span>
+<span class="sd">        be skipped. Default is True.</span>
 <span class="sd">    prune_unapplied</span>
-<span class="sd">        Whether to prune key_chains for which the function was not applied.</span>
-<span class="sd">        Default is False.</span>
+<span class="sd">        Whether to prune key_chains for which the function was not applied. Default</span>
+<span class="sd">        is False.</span>
 <span class="sd">    map_sequences</span>
 <span class="sd">        Whether to also map method to sequences (lists, tuples). Default is False.</span>
-<span class="sd">    out</span>
-<span class="sd">        optional output container, for writing the result to. It must have a</span>
-<span class="sd">        shape that the inputs broadcast to.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    ret</span>
-<span class="sd">        New container with einops.rearrange having been applied.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-
-
-<div class="viewcode-block" id="einops_rearrange"><a class="viewcode-back" href="../../../functional/ivy/general/einops_rearrange/einops_rearrange_container.html#ivy.container.container_methods.einops_rearrange">[docs]</a><span class="k">def</span> <span class="nf">einops_rearrange</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
-    <span class="n">pattern</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
-    <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="o">*</span><span class="p">,</span>
-    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">axes_lengths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ivy.Container instance method variant of ivy.einops_rearrange.</span>
-<span class="sd">    This method simply wraps the function, and so the docstring</span>
-<span class="sd">    for ivy.einops_rearrange also applies to this method</span>
-<span class="sd">    with minimal changes.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x</span>
-<span class="sd">        Input container to be re-arranged.</span>
-<span class="sd">    pattern</span>
-<span class="sd">        Rearrangement pattern.</span>
 <span class="sd">    axes_lengths</span>
 <span class="sd">        Any additional specifications for dimensions.</span>
-<span class="sd">    key_chains</span>
-<span class="sd">        The key-chains to apply or not apply the method to. Default is None.</span>
-<span class="sd">    to_apply</span>
-<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains</span>
-<span class="sd">        will be skipped. Default is True.</span>
-<span class="sd">    prune_unapplied</span>
-<span class="sd">        Whether to prune key_chains for which the function was not applied.</span>
-<span class="sd">        Default is False.</span>
-<span class="sd">    map_sequences</span>
-<span class="sd">        Whether to also map method to sequences (lists, tuples). Default is False.</span>
-<span class="sd">    out</span>
-<span class="sd">        optional output container, for writing the result to. It must have a</span>
-<span class="sd">        shape that the inputs broadcast to.</span>
+<span class="sd">    **axes_lengths</span>
+
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    ret</span>
-<span class="sd">        New container with einops.rearrange having been applied.</span>
+<span class="sd">        ivy.Container with each array having einops.rearrange applied.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="static_einops_reduce"><a class="viewcode-back" href="../../../functional/ivy/general/einops_reduce/static_einops_reduce_container.html#ivy.container.container_methods.static_einops_reduce">[docs]</a><span class="k">def</span> <span class="nf">static_einops_reduce</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
     <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">reduction</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">],</span>
+    <span class="n">reduction</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">axes_lengths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">axes_lengths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ivy.Container static method variant of ivy.einops_reduce. This method simply</span>
-<span class="sd">    wraps the function, and so the docstring for ivy.einops_reduce also applies</span>
-<span class="sd">    to this method with minimal changes.</span>
+    <span class="sd">&quot;&quot;&quot;Perform einops reduce operation on each sub array in the container.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    x</span>
-<span class="sd">        Input array or container to be reduced.</span>
 <span class="sd">    pattern</span>
 <span class="sd">        Reduction pattern.</span>
 <span class="sd">    reduction</span>
 <span class="sd">        One of available reductions (&#39;min&#39;, &#39;max&#39;, &#39;sum&#39;, &#39;mean&#39;, &#39;prod&#39;), or</span>
 <span class="sd">        callable.</span>
-<span class="sd">    axes_lengths</span>
-<span class="sd">        Any additional specifications for dimensions.</span>
 <span class="sd">    key_chains</span>
 <span class="sd">        The key-chains to apply or not apply the method to. Default is None.</span>
 <span class="sd">    to_apply</span>
-<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains</span>
-<span class="sd">        will be skipped. Default is True.</span>
+<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains will</span>
+<span class="sd">        be skipped. Default is True.</span>
 <span class="sd">    prune_unapplied</span>
-<span class="sd">        Whether to prune key_chains for which the function was not applied.</span>
-<span class="sd">        Default is False.</span>
+<span class="sd">        Whether to prune key_chains for which the function was not applied. Default</span>
+<span class="sd">        is False.</span>
 <span class="sd">    map_sequences</span>
 <span class="sd">        Whether to also map method to sequences (lists, tuples). Default is False.</span>
-<span class="sd">    out</span>
-<span class="sd">        optional output container, for writing the result to. It must have a</span>
-<span class="sd">        shape that the inputs broadcast to.</span>
+<span class="sd">    axes_lengths</span>
+<span class="sd">        Any additional specifications for dimensions.</span>
+<span class="sd">    **axes_lengths</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    ret</span>
-<span class="sd">        New container with einops.reduce having been applied.</span>
+<span class="sd">        ivy.Container with each array having einops.reduce applied.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt; x = ivy.Container(a=ivy.array([[[8.64, 4.83, -7.4],  </span>
+<span class="sd">                                       [0.735, -6.7, 13.27]],</span>
+<span class="sd">                                      [[-24.037, 8.5, 26.7],  </span>
+<span class="sd">                                       [0.451, 12.4, 1.7]],</span>
+<span class="sd">                                      [[-5.6, -18.19, -20.35],  </span>
+<span class="sd">                                       [2.58, -1.006, -9.973]]]),</span>
+<span class="sd">                        b=ivy.array([[[-4.47, 0.93, -3.34],  </span>
+<span class="sd">                                      [3.66, 24.29, 3.64]], </span>
+<span class="sd">                                     [[4.96, 1.52, -10.67],  </span>
+<span class="sd">                                      [4.36, 13.96, 0.3]]]))</span>
+<span class="sd">    &gt;&gt; reduced = ivy.Container.static_einops_reduce(x, &#39;a b c -&gt; () () c&#39;, &#39;mean&#39;)</span>
+<span class="sd">    &gt;&gt; print(reduced)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([[[-2.87, -0.0277, 0.658]]]),</span>
+<span class="sd">        b: ivy.array([[[2.13, 10.2, -2.52]]])</span>
+<span class="sd">    }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
@@ -10689,12 +10600,33 @@
 <span class="sd">    ret</span>
 <span class="sd">        New container with einops.reduce having been applied.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt; x = ivy.Container(a=ivy.array([[[5, 4, 3],</span>
+<span class="sd">                                       [11, 2, 9]], </span>
+<span class="sd">                                      [[3, 5, 7], </span>
+<span class="sd">                                       [9, 7, 1]]]),</span>
+<span class="sd">                        b=ivy.array([[[9,7,6],</span>
+<span class="sd">                                      [5,2,1]],</span>
+<span class="sd">                                    [[4,1,2],</span>
+<span class="sd">                                     [2,3,6]],</span>
+<span class="sd">                                    [[1, 9, 6],</span>
+<span class="sd">                                     [0, 2, 1]]]))</span>
+<span class="sd">    &gt;&gt; reduced = x.einops_reduce(&#39;a b c -&gt; a b&#39;, &#39;sum&#39;)</span>
+<span class="sd">    &gt;&gt; print(reduced)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([[12, 22],</span>
+<span class="sd">                    [15, 17]]),</span>
+<span class="sd">        b: ivy.array([[22, 8],</span>
+<span class="sd">                    [7, 11],</span>
+<span class="sd">                    [16, 3]])</span>
+<span class="sd">    }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="static_einops_repeat"><a class="viewcode-back" href="../../../functional/ivy/general/einops_repeat/static_einops_repeat_container.html#ivy.container.container_methods.static_einops_repeat">[docs]</a><span class="k">def</span> <span class="nf">static_einops_repeat</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
     <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -10704,37 +10636,46 @@
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">axes_lengths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ivy.Container static method variant of ivy.einops_repeat. This method simply</span>
-<span class="sd">    wraps the function, and so the docstring for ivy.einops_repeat also applies</span>
-<span class="sd">    to this method with minimal changes.</span>
+    <span class="sd">&quot;&quot;&quot;Perform einops repeat operation on each sub array in the container.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    x</span>
-<span class="sd">        Input array or container to be repeated.</span>
 <span class="sd">    pattern</span>
 <span class="sd">        Rearrangement pattern.</span>
-<span class="sd">    axes_lengths</span>
-<span class="sd">        Any additional specifications for dimensions.</span>
 <span class="sd">    key_chains</span>
 <span class="sd">        The key-chains to apply or not apply the method to. Default is None.</span>
 <span class="sd">    to_apply</span>
-<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains</span>
-<span class="sd">        will be skipped. Default is True.</span>
+<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains will</span>
+<span class="sd">        be skipped. Default is True.</span>
 <span class="sd">    prune_unapplied</span>
-<span class="sd">        Whether to prune key_chains for which the function was not applied.</span>
-<span class="sd">        Default is False.</span>
+<span class="sd">        Whether to prune key_chains for which the function was not applied. Default</span>
+<span class="sd">        is False.</span>
 <span class="sd">    map_sequences</span>
 <span class="sd">        Whether to also map method to sequences (lists, tuples). Default is False.</span>
-<span class="sd">    out</span>
-<span class="sd">        optional output container, for writing the result to. It must have a</span>
-<span class="sd">        shape that the inputs broadcast to.</span>
+<span class="sd">    axes_lengths</span>
+<span class="sd">        Any additional specifications for dimensions.</span>
+<span class="sd">    **axes_lengths</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    ret</span>
-<span class="sd">        New container with einops.repeat having been applied.</span>
+<span class="sd">        ivy.Container with each array having einops.repeat applied.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt; x = ivy.Container(a=ivy.array([[30, 40], [50, 75]]),</span>
+<span class="sd">                        b=ivy.array([[1, 2], [4, 5]]))</span>
+<span class="sd">    &gt;&gt; repeated = ivy.Container.static_einops_repeat(x, &#39;h w -&gt; (tile h) w&#39;, tile=2)</span>
+<span class="sd">    &gt;&gt; print(repeated)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([[30, 40],  </span>
+<span class="sd">                    [50, 75],  </span>
+<span class="sd">                    [30, 40],  </span>
+<span class="sd">                    [50, 75]]),</span>
+<span class="sd">        b: ivy.array([[1, 2],    </span>
+<span class="sd">                    [4, 5],    </span>
+<span class="sd">                    [1, 2],    </span>
+<span class="sd">                    [4, 5]])   </span>
+<span class="sd">    }</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
@@ -10782,6 +10723,19 @@
 <span class="sd">    -------</span>
 <span class="sd">    ret</span>
 <span class="sd">        New container with einops.repeat having been applied.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt; x = ivy.Container(a=ivy.array([[30, 40], [50, 75]]),</span>
+<span class="sd">                         b=ivy.array([[1, 2], [4, 5]]))</span>
+<span class="sd">    &gt;&gt; repeated = x.einops_repeat(&#39;h w -&gt;  h  (w tile)&#39;, tile=2)</span>
+<span class="sd">    &gt;&gt; print(repeated)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([[30, 30, 40, 40],  </span>
+<span class="sd">                      [50, 50, 75, 75]]),</span>
+<span class="sd">        b: ivy.array([[1, 1, 2, 2],      </span>
+<span class="sd">                      [4, 4, 5, 5]])     </span>
+<span class="sd">    }</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
@@ -11150,6 +11104,46 @@
 <span class="sd">        a: ivy.array([0.5, 0.667]),</span>
 <span class="sd">        b: ivy.array([0.75, 0.8])</span>
 <span class="sd">    }</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="einops_rearrange"><a class="viewcode-back" href="../../../functional/ivy/general/einops_rearrange/einops_rearrange_container.html#ivy.container.container_methods.einops_rearrange">[docs]</a><span class="k">def</span> <span class="nf">einops_rearrange</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">axes_lengths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Perform einops rearrange operation on each sub array in the container.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pattern</span>
+<span class="sd">        Rearrangement pattern.</span>
+<span class="sd">    key_chains</span>
+<span class="sd">        The key-chains to apply or not apply the method to. Default is None.</span>
+<span class="sd">    to_apply</span>
+<span class="sd">        If True, the method will be applied to key_chains, otherwise key_chains will</span>
+<span class="sd">        be skipped. Default is True.</span>
+<span class="sd">    prune_unapplied</span>
+<span class="sd">        Whether to prune key_chains for which the function was not applied. Default</span>
+<span class="sd">        is False.</span>
+<span class="sd">    map_sequences</span>
+<span class="sd">        Whether to also map method to sequences (lists, tuples). Default is False.</span>
+<span class="sd">    axes_lengths</span>
+<span class="sd">        Any additional specifications for dimensions.</span>
+<span class="sd">    **axes_lengths</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        ivy.Container with each array having einops.rearrange applied.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
