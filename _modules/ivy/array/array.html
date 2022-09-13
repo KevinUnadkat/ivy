@@ -231,7 +231,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_post_repr</span> <span class="o">=</span> <span class="s2">&quot;, dev=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dev_str</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_post_repr</span> <span class="o">=</span> <span class="s2">&quot;)&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">framework_str</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend_str</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend_str</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_variable</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">is_variable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
 
     <span class="c1"># Properties #</span>
@@ -393,7 +393,7 @@
         <span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
 
         <span class="c1"># also store the local ivy framework that created this array</span>
-        <span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;framework_str&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">framework_str</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;backend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backend</span>
         <span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;device_str&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">as_ivy_dev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">data_dict</span>
@@ -404,7 +404,7 @@
         <span class="c1"># just by re-creating the ivy.Array using the native array</span>
 
         <span class="c1"># get the required backend</span>
-        <span class="n">ivy</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;framework_str&quot;</span><span class="p">])</span>
+        <span class="n">ivy</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;backend&quot;</span><span class="p">])</span>
         <span class="n">ivy_array</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
         <span class="n">ivy</span><span class="o">.</span><span class="n">unset_backend</span><span class="p">()</span>
 
