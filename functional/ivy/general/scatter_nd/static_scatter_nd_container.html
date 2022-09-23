@@ -115,6 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../inplace_variables_supported.html">inplace_variables_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../supports_inplace_updates.html">supports_inplace_updates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assert_supports_inplace.html">assert_supports_inplace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../get_item.html">get_item</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inplace_update.html">inplace_update</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inplace_decrement.html">inplace_decrement</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inplace_increment.html">inplace_increment</a></li>
@@ -157,19 +158,19 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data Classes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../data_classes/container.html">Container</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../data_classes/array.html">Array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data_classes/container.html">Container</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Framework Classes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/initializers.html">Initializers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/converters.html">Converters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/optimizers.html">Optimizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/module.html">Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/layers.html">Layers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../stateful/norms.html">Norms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/activations.html">Activations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/module.html">Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/converters.html">Converters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/initializers.html">Initializers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../stateful/sequential.html">Sequential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/activations.html">Activations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stateful/optimizers.html">Optimizers</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Docs</span></p>
 <ul>
@@ -246,40 +247,23 @@ that the inputs broadcast to.</p></li>
 </dl>
 <p class="rubric">Examples</p>
 <p>scatter into an empty array
-&gt;&gt; indices = ivy.Container(a=ivy.array([[5],[6],[7]]),</p>
-<blockquote>
-<div><p>b=ivy.array([[2],[3],[4]]))</p>
-</div></blockquote>
-<dl class="simple">
-<dt>&gt;&gt; updates = ivy.Container(a=ivy.array([50, 60, 70]),</dt><dd><p>b=ivy.array([20, 30, 40]))</p>
-</dd>
-<dt>&gt;&gt; arr = ivy.Container(a=ivy.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),</dt><dd><p>b = ivy.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))</p>
-</dd>
-<dt>&gt;&gt; shape = ivy.Container(a=ivy.array([10]),</dt><dd><p>b = ivy.array([10]))</p>
-</dd>
-</dl>
-<p>z = ivy.Container.static_scatter_nd(indices, updates, shape=shape)
-&gt;&gt; print(z)
+&gt;&gt;&gt; indices = ivy.Container(a=ivy.array([[5],[6],[7]]),                                b=ivy.array([[2],[3],[4]]))
+&gt;&gt;&gt; updates = ivy.Container(a=ivy.array([50, 60, 70]),                                b=ivy.array([20, 30, 40]))
+&gt;&gt;&gt; shape = ivy.Container(a=ivy.array([10]),                            b = ivy.array([10]))
+&gt;&gt;&gt; z = ivy.Container.static_scatter_nd(indices, updates, shape=shape)
+&gt;&gt;&gt; print(z)
 {</p>
 <blockquote>
 <div><p>a: ivy.array([0, 0, 0, 0, 0, 50, 60, 70, 0, 0]),
 b: ivy.array([0, 0, 20, 30, 40, 0, 0, 0, 0, 0])</p>
 </div></blockquote>
 <p>}</p>
-<p>scatter into an array
-&gt;&gt; indices = ivy.Container(a=ivy.array([[5],[6],[7]]),</p>
-<blockquote>
-<div><p>b=ivy.array([[2],[3],[4]]))</p>
-</div></blockquote>
-<dl class="simple">
-<dt>&gt;&gt; updates = ivy.Container(a=ivy.array([50, 60, 70]),</dt><dd><p>b=ivy.array([20, 30, 40]))</p>
-</dd>
-<dt>&gt;&gt; arr = ivy.Container(a=ivy.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),</dt><dd><p>b = ivy.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))</p>
-</dd>
-<dt>z = ivy.Container.static_scatter_nd(indices, updates,</dt><dd><p>tensor=arr, reduction=’replace’)</p>
-</dd>
-</dl>
-<p>&gt;&gt; print(z)
+<p>scatter into a container
+&gt;&gt;&gt; indices = ivy.Container(a=ivy.array([[5],[6],[7]]),              b=ivy.array([[2],[3],[4]]))
+&gt;&gt;&gt; updates = ivy.Container(a=ivy.array([50, 60, 70]),                    b=ivy.array([20, 30, 40]))
+&gt;&gt;&gt; z = ivy.Container(a=ivy.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),                            b = ivy.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+&gt;&gt;&gt; ivy.Container.static_scatter_nd(indices, updates,                                        reduction=’replace’, out = z)
+&gt;&gt;&gt; print(z)
 {</p>
 <blockquote>
 <div><p>a: ivy.array([1, 2, 3, 4, 5, 50, 60, 70, 9, 10]),

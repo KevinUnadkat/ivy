@@ -76,19 +76,19 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data Classes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="data_classes/container.html">Container</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_classes/array.html">Array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_classes/container.html">Container</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Framework Classes</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="stateful/initializers.html">Initializers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stateful/converters.html">Converters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stateful/optimizers.html">Optimizers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stateful/module.html">Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stateful/layers.html">Layers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stateful/norms.html">Norms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stateful/activations.html">Activations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateful/module.html">Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateful/converters.html">Converters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateful/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateful/initializers.html">Initializers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stateful/sequential.html">Sequential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateful/activations.html">Activations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stateful/optimizers.html">Optimizers</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Docs</span></p>
 <ul>
@@ -166,6 +166,8 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.__add__">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.__add__">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.__add__">[2]</a>
 </li>
       </ul></li>
+      <li><a href="stateful/module.html#ivy.stateful.module.Module.__call__">__call__() (ivy.stateful.module.Module method)</a>, <a href="stateful/module/Module.html#ivy.stateful.module.Module.__call__">[1]</a>
+</li>
       <li><a href="functional/ivy/device.html#ivy.functional.ivy.device.DefaultDevice.__enter__">__enter__() (ivy.functional.ivy.device.DefaultDevice method)</a>
 </li>
       <li><a href="functional/ivy/device.html#ivy.functional.ivy.device.DefaultDevice.__exit__">__exit__() (ivy.functional.ivy.device.DefaultDevice method)</a>
@@ -280,8 +282,20 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.__rshift__">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.__rshift__">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.__rshift__">[2]</a>
 </li>
       </ul></li>
+      <li><a href="data_classes/array.html#ivy.array.array.Array.__rsub__">__rsub__() (ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.__rsub__">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.__rsub__">[2]</a>
+
+      <ul>
+        <li><a href="data_classes/container.html#ivy.container.container.Container.__rsub__">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.__rsub__">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.__rsub__">[2]</a>
+</li>
+      </ul></li>
       <li><a href="data_classes/container/base.html#ivy.container.base.ContainerBase.__setitem__">__setitem__() (ivy.container.base.ContainerBase method)</a>, <a href="data_classes/container/base/ContainerBase.html#ivy.container.base.ContainerBase.__setitem__">[1]</a>
 </li>
+      <li><a href="data_classes/array.html#ivy.array.array.Array.__sub__">__sub__() (ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.__sub__">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.__sub__">[2]</a>
+
+      <ul>
+        <li><a href="data_classes/container.html#ivy.container.container.Container.__sub__">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.__sub__">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.__sub__">[2]</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -486,6 +500,18 @@
         <li><a href="data_classes/container/sorting.html#ivy.container.sorting.ContainerWithSorting.argsort">(ivy.container.sorting.ContainerWithSorting method)</a>, <a href="data_classes/container/sorting/ContainerWithSorting.html#ivy.container.sorting.ContainerWithSorting.argsort">[1]</a>
 </li>
       </ul></li>
+      <li><a href="functional/ivy/searching/argwhere.html#ivy.array.array_methods.argwhere">argwhere() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/searching/argwhere/argwhere_array.html#ivy.array.array_methods.argwhere">[1]</a>
+
+      <ul>
+        <li><a href="functional/ivy/searching/argwhere.html#ivy.container.container_methods.argwhere">(in module ivy.container.container_methods)</a>, <a href="functional/ivy/searching/argwhere/argwhere_container.html#ivy.container.container_methods.argwhere">[1]</a>
+</li>
+        <li><a href="functional/ivy/searching.html#ivy.functional.ivy.searching.argwhere">(in module ivy.functional.ivy.searching)</a>, <a href="functional/ivy/searching/argwhere.html#ivy.functional.ivy.searching.argwhere">[1]</a>, <a href="functional/ivy/searching/argwhere/argwhere_functional.html#ivy.functional.ivy.searching.argwhere">[2]</a>
+</li>
+        <li><a href="data_classes/array/searching.html#ivy.array.searching.ArrayWithSearching.argwhere">(ivy.array.searching.ArrayWithSearching method)</a>, <a href="data_classes/array/searching/ArrayWithSearching.html#ivy.array.searching.ArrayWithSearching.argwhere">[1]</a>
+</li>
+        <li><a href="data_classes/container/searching.html#ivy.container.searching.ContainerWithSearching.argwhere">(ivy.container.searching.ContainerWithSearching method)</a>, <a href="data_classes/container/searching/ContainerWithSearching.html#ivy.container.searching.ContainerWithSearching.argwhere">[1]</a>
+</li>
+      </ul></li>
       <li><a href="data_classes/array.html#ivy.array.array.Array">Array (class in ivy.array.array)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array">[2]</a>
 </li>
       <li><a href="functional/ivy/creation.html#ivy.functional.ivy.creation.array">array() (in module ivy.functional.ivy.creation)</a>
@@ -496,8 +522,6 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.array">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.array">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.array">[2]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="functional/ivy/general/array_equal.html#ivy.array.array_methods.array_equal">array_equal() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/general/array_equal/array_equal_array.html#ivy.array.array_methods.array_equal">[1]</a>
 
       <ul>
@@ -508,6 +532,8 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.array_equal">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.array_equal">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.array_equal">[2]</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="functional/ivy/general/arrays_equal.html#ivy.array.array_methods.arrays_equal">arrays_equal() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/general/arrays_equal/arrays_equal_array.html#ivy.array.array_methods.arrays_equal">[1]</a>
 
       <ul>
@@ -598,6 +624,30 @@
         <li><a href="data_classes/array/creation.html#ivy.array.creation.ArrayWithCreation.asarray">(ivy.array.creation.ArrayWithCreation method)</a>, <a href="data_classes/array/creation/ArrayWithCreation.html#ivy.array.creation.ArrayWithCreation.asarray">[1]</a>
 </li>
         <li><a href="data_classes/container.html#ivy.container.container.Container.asarray">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.asarray">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.asarray">[2]</a>
+</li>
+      </ul></li>
+      <li><a href="functional/ivy/creation.html#ivy.functional.ivy.creation.asarray_handle_nestable">asarray_handle_nestable() (in module ivy.functional.ivy.creation)</a>, <a href="functional/ivy/creation/asarray_handle_nestable.html#ivy.functional.ivy.creation.asarray_handle_nestable">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/array.html#ivy.array.array.Array.asarray_handle_nestable">(ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.asarray_handle_nestable">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.asarray_handle_nestable">[2]</a>
+</li>
+        <li><a href="data_classes/container.html#ivy.container.container.Container.asarray_handle_nestable">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.asarray_handle_nestable">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.asarray_handle_nestable">[2]</a>
+</li>
+      </ul></li>
+      <li><a href="functional/ivy/creation.html#ivy.functional.ivy.creation.asarray_infer_device">asarray_infer_device() (in module ivy.functional.ivy.creation)</a>, <a href="functional/ivy/creation/asarray_infer_device.html#ivy.functional.ivy.creation.asarray_infer_device">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/array.html#ivy.array.array.Array.asarray_infer_device">(ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.asarray_infer_device">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.asarray_infer_device">[2]</a>
+</li>
+        <li><a href="data_classes/container.html#ivy.container.container.Container.asarray_infer_device">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.asarray_infer_device">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.asarray_infer_device">[2]</a>
+</li>
+      </ul></li>
+      <li><a href="functional/ivy/creation.html#ivy.functional.ivy.creation.asarray_to_native_arrays_and_back">asarray_to_native_arrays_and_back() (in module ivy.functional.ivy.creation)</a>, <a href="functional/ivy/creation/asarray_to_native_arrays_and_back.html#ivy.functional.ivy.creation.asarray_to_native_arrays_and_back">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/array.html#ivy.array.array.Array.asarray_to_native_arrays_and_back">(ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.asarray_to_native_arrays_and_back">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.asarray_to_native_arrays_and_back">[2]</a>
+</li>
+        <li><a href="data_classes/container.html#ivy.container.container.Container.asarray_to_native_arrays_and_back">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.asarray_to_native_arrays_and_back">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.asarray_to_native_arrays_and_back">[2]</a>
 </li>
       </ul></li>
       <li><a href="functional/ivy/elementwise/asin.html#ivy.array.array_methods.asin">asin() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/elementwise/asin/asin_array.html#ivy.array.array_methods.asin">[1]</a>
@@ -872,6 +922,8 @@
 </li>
       <li><a href="assertions.html#ivy.assertions.check_equal">check_equal() (in module ivy.assertions)</a>, <a href="assertions/check_equal.html#ivy.assertions.check_equal">[1]</a>
 </li>
+      <li><a href="assertions.html#ivy.assertions.check_exists">check_exists() (in module ivy.assertions)</a>, <a href="assertions/check_exists.html#ivy.assertions.check_exists">[1]</a>
+</li>
       <li><a href="assertions.html#ivy.assertions.check_false">check_false() (in module ivy.assertions)</a>, <a href="assertions/check_false.html#ivy.assertions.check_false">[1]</a>
 </li>
       <li><a href="assertions.html#ivy.assertions.check_fill_value_and_dtype_are_compatible">check_fill_value_and_dtype_are_compatible() (in module ivy.assertions)</a>, <a href="assertions/check_fill_value_and_dtype_are_compatible.html#ivy.assertions.check_fill_value_and_dtype_are_compatible">[1]</a>
@@ -1044,10 +1096,10 @@
 </li>
       <li><a href="data_classes/container/searching.html#ivy.container.searching.ContainerWithSearching">ContainerWithSearching (class in ivy.container.searching)</a>, <a href="data_classes/container/searching/ContainerWithSearching.html#ivy.container.searching.ContainerWithSearching">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data_classes/container/set.html#ivy.container.set.ContainerWithSet">ContainerWithSet (class in ivy.container.set)</a>, <a href="data_classes/container/set/ContainerWithSet.html#ivy.container.set.ContainerWithSet">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data_classes/container/sorting.html#ivy.container.sorting.ContainerWithSorting">ContainerWithSorting (class in ivy.container.sorting)</a>, <a href="data_classes/container/sorting/ContainerWithSorting.html#ivy.container.sorting.ContainerWithSorting">[1]</a>
 </li>
       <li><a href="data_classes/container/statistical.html#ivy.container.statistical.ContainerWithStatistical">ContainerWithStatistical (class in ivy.container.statistical)</a>, <a href="data_classes/container/statistical/ContainerWithStatistical.html#ivy.container.statistical.ContainerWithStatistical">[1]</a>
@@ -1140,6 +1192,14 @@
       </ul></li>
       <li><a href="stateful/layers.html#ivy.stateful.layers.Conv3DTranspose">Conv3DTranspose (class in ivy.stateful.layers)</a>, <a href="stateful/layers/Conv3DTranspose.html#ivy.stateful.layers.Conv3DTranspose">[1]</a>
 </li>
+      <li><a href="functional/ivy/layers.html#ivy.functional.ivy.layers.conv_general_dilated">conv_general_dilated() (in module ivy.functional.ivy.layers)</a>, <a href="functional/ivy/layers/conv_general_dilated.html#ivy.functional.ivy.layers.conv_general_dilated">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/array.html#ivy.array.array.Array.conv_general_dilated">(ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.conv_general_dilated">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.conv_general_dilated">[2]</a>
+</li>
+        <li><a href="data_classes/container.html#ivy.container.container.Container.conv_general_dilated">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.conv_general_dilated">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.conv_general_dilated">[2]</a>
+</li>
+      </ul></li>
       <li><a href="glossary.html#term-Convenience-Functions"><strong>Convenience Functions</strong></a>
 </li>
       <li><a href="functional/ivy/extensions.html#ivy.functional.ivy.extensions.SparseArray.coo_indices">coo_indices (ivy.functional.ivy.extensions.SparseArray property)</a>
@@ -1350,6 +1410,18 @@
 </li>
       <li><a href="functional/ivy/data_type.html#ivy.functional.ivy.data_type.DefaultUintDtype">DefaultUintDtype (class in ivy.functional.ivy.data_type)</a>
 </li>
+      <li><a href="functional/ivy/elementwise/deg2rad.html#ivy.array.array_methods.deg2rad">deg2rad() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/elementwise/deg2rad/deg2rad_array.html#ivy.array.array_methods.deg2rad">[1]</a>
+
+      <ul>
+        <li><a href="functional/ivy/elementwise/deg2rad.html#ivy.container.container_methods.deg2rad">(in module ivy.container.container_methods)</a>, <a href="functional/ivy/elementwise/deg2rad/deg2rad_container.html#ivy.container.container_methods.deg2rad">[1]</a>
+</li>
+        <li><a href="functional/ivy/elementwise.html#ivy.functional.ivy.elementwise.deg2rad">(in module ivy.functional.ivy.elementwise)</a>, <a href="functional/ivy/elementwise/deg2rad.html#ivy.functional.ivy.elementwise.deg2rad">[1]</a>, <a href="functional/ivy/elementwise/deg2rad/deg2rad_functional.html#ivy.functional.ivy.elementwise.deg2rad">[2]</a>
+</li>
+        <li><a href="data_classes/array/elementwise.html#ivy.array.elementwise.ArrayWithElementwise.deg2rad">(ivy.array.elementwise.ArrayWithElementwise method)</a>, <a href="data_classes/array/elementwise/ArrayWithElementwise.html#ivy.array.elementwise.ArrayWithElementwise.deg2rad">[1]</a>
+</li>
+        <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.deg2rad">(ivy.container.elementwise.ContainerWithElementwise method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.deg2rad">[1]</a>
+</li>
+      </ul></li>
       <li><a href="functional/ivy/extensions.html#ivy.functional.ivy.extensions.SparseArray.dense_shape">dense_shape (ivy.functional.ivy.extensions.SparseArray property)</a>
 </li>
       <li><a href="functional/ivy/layers/depthwise_conv2d.html#ivy.array.array_methods.depthwise_conv2d">depthwise_conv2d() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/layers/depthwise_conv2d/depthwise_conv2d_array.html#ivy.array.array_methods.depthwise_conv2d">[1]</a>
@@ -1366,6 +1438,8 @@
       </ul></li>
       <li><a href="stateful/layers.html#ivy.stateful.layers.DepthwiseConv2D">DepthwiseConv2D (class in ivy.stateful.layers)</a>, <a href="stateful/layers/DepthwiseConv2D.html#ivy.stateful.layers.DepthwiseConv2D">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="functional/ivy/linear_algebra/det.html#ivy.array.array_methods.det">det() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/linear_algebra/det/det_array.html#ivy.array.array_methods.det">[1]</a>
 
       <ul>
@@ -1378,8 +1452,6 @@
         <li><a href="data_classes/container/linear_algebra.html#ivy.container.linear_algebra.ContainerWithLinearAlgebra.det">(ivy.container.linear_algebra.ContainerWithLinearAlgebra method)</a>, <a href="data_classes/container/linear_algebra/ContainerWithLinearAlgebra.html#ivy.container.linear_algebra.ContainerWithLinearAlgebra.det">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data_classes/container/base.html#ivy.container.base.ContainerBase.dev">dev (ivy.container.base.ContainerBase property)</a>, <a href="data_classes/container/base/ContainerBase.html#ivy.container.base.ContainerBase.dev">[1]</a>
 </li>
       <li><a href="functional/ivy/device/dev.html#ivy.array.array_methods.dev">dev() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/device/dev/dev_array.html#ivy.array.array_methods.dev">[1]</a>
@@ -1910,6 +1982,14 @@
 </li>
       <li><a href="stateful/layers.html#ivy.stateful.layers.LSTM.get_initial_state">get_initial_state() (ivy.stateful.layers.LSTM method)</a>, <a href="stateful/layers/LSTM.html#ivy.stateful.layers.LSTM.get_initial_state">[1]</a>
 </li>
+      <li><a href="functional/ivy/general.html#ivy.functional.ivy.general.get_item">get_item() (in module ivy.functional.ivy.general)</a>, <a href="functional/ivy/general/get_item.html#ivy.functional.ivy.general.get_item">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/array.html#ivy.array.array.Array.get_item">(ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.get_item">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.get_item">[2]</a>
+</li>
+        <li><a href="data_classes/container.html#ivy.container.container.Container.get_item">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.get_item">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.get_item">[2]</a>
+</li>
+      </ul></li>
       <li><a href="functional/ivy/general.html#ivy.functional.ivy.general.get_min_base">get_min_base() (in module ivy.functional.ivy.general)</a>, <a href="functional/ivy/general/get_min_base.html#ivy.functional.ivy.general.get_min_base">[1]</a>
 
       <ul>
@@ -1970,6 +2050,14 @@
         <li><a href="data_classes/array.html#ivy.array.array.Array.get_tmp_dir">(ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.get_tmp_dir">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.get_tmp_dir">[2]</a>
 </li>
         <li><a href="data_classes/container.html#ivy.container.container.Container.get_tmp_dir">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.get_tmp_dir">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.get_tmp_dir">[2]</a>
+</li>
+      </ul></li>
+      <li><a href="functional/ivy/layers.html#ivy.functional.ivy.layers.get_x_data_format">get_x_data_format() (in module ivy.functional.ivy.layers)</a>, <a href="functional/ivy/layers/get_x_data_format.html#ivy.functional.ivy.layers.get_x_data_format">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/array.html#ivy.array.array.Array.get_x_data_format">(ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.get_x_data_format">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.get_x_data_format">[2]</a>
+</li>
+        <li><a href="data_classes/container.html#ivy.container.container.Container.get_x_data_format">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.get_x_data_format">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.get_x_data_format">[2]</a>
 </li>
       </ul></li>
       <li><a href="stateful/initializers.html#ivy.stateful.initializers.GlorotUniform">GlorotUniform (class in ivy.stateful.initializers)</a>, <a href="stateful/initializers/GlorotUniform.html#ivy.stateful.initializers.GlorotUniform">[1]</a>
@@ -2120,18 +2208,6 @@
       </ul></li>
       <li><a href="functional/ivy/nest.html#ivy.functional.ivy.nest.index_nest">index_nest() (in module ivy.functional.ivy.nest)</a>, <a href="functional/ivy/nest/index_nest.html#ivy.functional.ivy.nest.index_nest">[1]</a>
 </li>
-      <li><a href="functional/ivy/searching/indices_where.html#ivy.array.array_methods.indices_where">indices_where() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/searching/indices_where/indices_where_array.html#ivy.array.array_methods.indices_where">[1]</a>
-
-      <ul>
-        <li><a href="functional/ivy/searching/indices_where.html#ivy.container.container_methods.indices_where">(in module ivy.container.container_methods)</a>, <a href="functional/ivy/searching/indices_where/indices_where_container.html#ivy.container.container_methods.indices_where">[1]</a>
-</li>
-        <li><a href="functional/ivy/searching.html#ivy.functional.ivy.searching.indices_where">(in module ivy.functional.ivy.searching)</a>, <a href="functional/ivy/searching/indices_where.html#ivy.functional.ivy.searching.indices_where">[1]</a>, <a href="functional/ivy/searching/indices_where/indices_where_functional.html#ivy.functional.ivy.searching.indices_where">[2]</a>
-</li>
-        <li><a href="data_classes/array/searching.html#ivy.array.searching.ArrayWithSearching.indices_where">(ivy.array.searching.ArrayWithSearching method)</a>, <a href="data_classes/array/searching/ArrayWithSearching.html#ivy.array.searching.ArrayWithSearching.indices_where">[1]</a>
-</li>
-        <li><a href="data_classes/container/searching.html#ivy.container.searching.ContainerWithSearching.indices_where">(ivy.container.searching.ContainerWithSearching method)</a>, <a href="data_classes/container/searching/ContainerWithSearching.html#ivy.container.searching.ContainerWithSearching.indices_where">[1]</a>
-</li>
-      </ul></li>
       <li><a href="functional/ivy/constants.html#ivy.functional.ivy.constants.inf">inf (in module ivy.functional.ivy.constants)</a>
 </li>
       <li><a href="functional/ivy/data_type.html#ivy.functional.ivy.data_type.infer_default_dtype">infer_default_dtype() (in module ivy.functional.ivy.data_type)</a>, <a href="functional/ivy/data_type/infer_default_dtype.html#ivy.functional.ivy.data_type.infer_default_dtype">[1]</a>
@@ -2477,8 +2553,6 @@
         <li><a href="data_classes/array/data_type.html#module-ivy.array.data_type">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     ivy.array.device
 
@@ -2486,6 +2560,8 @@
         <li><a href="data_classes/array/device.html#module-ivy.array.device">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     ivy.array.elementwise
 
@@ -3723,7 +3799,7 @@
 </li>
       <li><a href="functional/ivy/nest.html#ivy.functional.ivy.nest.nested_any">nested_any() (in module ivy.functional.ivy.nest)</a>, <a href="functional/ivy/nest/nested_any.html#ivy.functional.ivy.nest.nested_any">[1]</a>
 </li>
-      <li><a href="functional/ivy/nest.html#ivy.functional.ivy.nest.nested_indices_where">nested_indices_where() (in module ivy.functional.ivy.nest)</a>, <a href="functional/ivy/nest/nested_indices_where.html#ivy.functional.ivy.nest.nested_indices_where">[1]</a>
+      <li><a href="functional/ivy/nest.html#ivy.functional.ivy.nest.nested_argwhere">nested_argwhere() (in module ivy.functional.ivy.nest)</a>, <a href="functional/ivy/nest/nested_argwhere.html#ivy.functional.ivy.nest.nested_argwhere">[1]</a>
 </li>
       <li><a href="functional/ivy/nest.html#ivy.functional.ivy.nest.nested_map">nested_map() (in module ivy.functional.ivy.nest)</a>, <a href="functional/ivy/nest/nested_map.html#ivy.functional.ivy.nest.nested_map">[1]</a>
 </li>
@@ -4031,6 +4107,18 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="functional/ivy/elementwise/rad2deg.html#ivy.array.array_methods.rad2deg">rad2deg() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/elementwise/rad2deg/rad2deg_array.html#ivy.array.array_methods.rad2deg">[1]</a>
+
+      <ul>
+        <li><a href="functional/ivy/elementwise/rad2deg.html#ivy.container.container_methods.rad2deg">(in module ivy.container.container_methods)</a>, <a href="functional/ivy/elementwise/rad2deg/rad2deg_container.html#ivy.container.container_methods.rad2deg">[1]</a>
+</li>
+        <li><a href="functional/ivy/elementwise.html#ivy.functional.ivy.elementwise.rad2deg">(in module ivy.functional.ivy.elementwise)</a>, <a href="functional/ivy/elementwise/rad2deg.html#ivy.functional.ivy.elementwise.rad2deg">[1]</a>, <a href="functional/ivy/elementwise/rad2deg/rad2deg_functional.html#ivy.functional.ivy.elementwise.rad2deg">[2]</a>
+</li>
+        <li><a href="data_classes/array/elementwise.html#ivy.array.elementwise.ArrayWithElementwise.rad2deg">(ivy.array.elementwise.ArrayWithElementwise method)</a>, <a href="data_classes/array/elementwise/ArrayWithElementwise.html#ivy.array.elementwise.ArrayWithElementwise.rad2deg">[1]</a>
+</li>
+        <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.rad2deg">(ivy.container.elementwise.ContainerWithElementwise method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.rad2deg">[1]</a>
+</li>
+      </ul></li>
       <li><a href="functional/ivy/random/randint.html#ivy.array.array_methods.randint">randint() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/random/randint/randint_array.html#ivy.array.array_methods.randint">[1]</a>
 
       <ul>
@@ -4101,10 +4189,10 @@
         <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.remainder">(ivy.container.elementwise.ContainerWithElementwise method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.remainder">[1]</a>
 </li>
       </ul></li>
-      <li><a href="data_classes/container/base.html#ivy.container.base.ContainerBase.remove_key_length_limit">remove_key_length_limit() (ivy.container.base.ContainerBase method)</a>, <a href="data_classes/container/base/ContainerBase.html#ivy.container.base.ContainerBase.remove_key_length_limit">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="data_classes/container/base.html#ivy.container.base.ContainerBase.remove_key_length_limit">remove_key_length_limit() (ivy.container.base.ContainerBase method)</a>, <a href="data_classes/container/base/ContainerBase.html#ivy.container.base.ContainerBase.remove_key_length_limit">[1]</a>
+</li>
       <li><a href="data_classes/container/base.html#ivy.container.base.ContainerBase.remove_print_limit">remove_print_limit() (ivy.container.base.ContainerBase method)</a>, <a href="data_classes/container/base/ContainerBase.html#ivy.container.base.ContainerBase.remove_print_limit">[1]</a>
 </li>
       <li><a href="functional/ivy/manipulation/repeat.html#ivy.array.array_methods.repeat">repeat() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/manipulation/repeat/repeat_array.html#ivy.array.array_methods.repeat">[1]</a>
@@ -4749,6 +4837,12 @@
         <li><a href="data_classes/container/sorting.html#ivy.container.sorting.ContainerWithSorting.static_argsort">(ivy.container.sorting.ContainerWithSorting static method)</a>, <a href="data_classes/container/sorting/ContainerWithSorting.html#ivy.container.sorting.ContainerWithSorting.static_argsort">[1]</a>
 </li>
       </ul></li>
+      <li><a href="functional/ivy/searching/argwhere.html#ivy.container.container_methods.static_argwhere">static_argwhere() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/searching/argwhere/static_argwhere_container.html#ivy.container.container_methods.static_argwhere">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/container/searching.html#ivy.container.searching.ContainerWithSearching.static_argwhere">(ivy.container.searching.ContainerWithSearching static method)</a>, <a href="data_classes/container/searching/ContainerWithSearching.html#ivy.container.searching.ContainerWithSearching.static_argwhere">[1]</a>
+</li>
+      </ul></li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_array">static_array() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_array">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_array">[2]</a>
 </li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_array_equal">static_array_equal() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_array_equal">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_array_equal">[2]</a>
@@ -4769,6 +4863,12 @@
         <li><a href="data_classes/container/creation.html#ivy.container.creation.ContainerWithCreation.static_asarray">(ivy.container.creation.ContainerWithCreation static method)</a>, <a href="data_classes/container/creation/ContainerWithCreation.html#ivy.container.creation.ContainerWithCreation.static_asarray">[1]</a>
 </li>
       </ul></li>
+      <li><a href="data_classes/container.html#ivy.container.container.Container.static_asarray_handle_nestable">static_asarray_handle_nestable() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_asarray_handle_nestable">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_asarray_handle_nestable">[2]</a>
+</li>
+      <li><a href="data_classes/container.html#ivy.container.container.Container.static_asarray_infer_device">static_asarray_infer_device() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_asarray_infer_device">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_asarray_infer_device">[2]</a>
+</li>
+      <li><a href="data_classes/container.html#ivy.container.container.Container.static_asarray_to_native_arrays_and_back">static_asarray_to_native_arrays_and_back() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_asarray_to_native_arrays_and_back">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_asarray_to_native_arrays_and_back">[2]</a>
+</li>
       <li><a href="functional/ivy/elementwise/asin.html#ivy.container.container_methods.static_asin">static_asin() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/elementwise/asin/static_asin_container.html#ivy.container.container_methods.static_asin">[1]</a>
 
       <ul>
@@ -4959,6 +5059,8 @@
         <li><a href="data_classes/container/layers.html#ivy.container.layers.ContainerWithLayers.static_conv3d_transpose">(ivy.container.layers.ContainerWithLayers static method)</a>, <a href="data_classes/container/layers/ContainerWithLayers.html#ivy.container.layers.ContainerWithLayers.static_conv3d_transpose">[1]</a>
 </li>
       </ul></li>
+      <li><a href="data_classes/container.html#ivy.container.container.Container.static_conv_general_dilated">static_conv_general_dilated() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_conv_general_dilated">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_conv_general_dilated">[2]</a>
+</li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_copy_array">static_copy_array() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_copy_array">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_copy_array">[2]</a>
 </li>
       <li><a href="functional/ivy/elementwise/cos.html#ivy.container.container_methods.static_cos">static_cos() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/elementwise/cos/static_cos_container.html#ivy.container.container_methods.static_cos">[1]</a>
@@ -5019,6 +5121,12 @@
 </li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_default_uint_dtype">static_default_uint_dtype() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_default_uint_dtype">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_default_uint_dtype">[2]</a>
 </li>
+      <li><a href="functional/ivy/elementwise/deg2rad.html#ivy.container.container_methods.static_deg2rad">static_deg2rad() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/elementwise/deg2rad/static_deg2rad_container.html#ivy.container.container_methods.static_deg2rad">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.static_deg2rad">(ivy.container.elementwise.ContainerWithElementwise static method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.static_deg2rad">[1]</a>
+</li>
+      </ul></li>
       <li><a href="functional/ivy/layers/depthwise_conv2d.html#ivy.container.container_methods.static_depthwise_conv2d">static_depthwise_conv2d() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/layers/depthwise_conv2d/static_depthwise_conv2d_container.html#ivy.container.container_methods.static_depthwise_conv2d">[1]</a>
 
       <ul>
@@ -5213,19 +5321,21 @@
         <li><a href="data_classes/container/general.html#ivy.container.general.ContainerWithGeneral.static_gather_nd">(ivy.container.general.ContainerWithGeneral static method)</a>, <a href="data_classes/container/general/ContainerWithGeneral.html#ivy.container.general.ContainerWithGeneral.static_gather_nd">[1]</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="functional/ivy/activations/gelu.html#ivy.container.container_methods.static_gelu">static_gelu() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/activations/gelu/static_gelu_container.html#ivy.container.container_methods.static_gelu">[1]</a>
 
       <ul>
         <li><a href="data_classes/container/activations.html#ivy.container.activations.ContainerWithActivations.static_gelu">(ivy.container.activations.ContainerWithActivations static method)</a>, <a href="data_classes/container/activations/ContainerWithActivations.html#ivy.container.activations.ContainerWithActivations.static_gelu">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_get_all_arrays_in_memory">static_get_all_arrays_in_memory() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_get_all_arrays_in_memory">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_get_all_arrays_in_memory">[2]</a>
 </li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_get_all_ivy_arrays_on_dev">static_get_all_ivy_arrays_on_dev() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_get_all_ivy_arrays_on_dev">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_get_all_ivy_arrays_on_dev">[2]</a>
 </li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_get_array_mode">static_get_array_mode() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_get_array_mode">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_get_array_mode">[2]</a>
+</li>
+      <li><a href="data_classes/container.html#ivy.container.container.Container.static_get_item">static_get_item() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_get_item">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_get_item">[2]</a>
 </li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_get_min_base">static_get_min_base() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_get_min_base">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_get_min_base">[2]</a>
 </li>
@@ -5240,6 +5350,8 @@
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_get_referrers_recursive">static_get_referrers_recursive() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_get_referrers_recursive">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_get_referrers_recursive">[2]</a>
 </li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_get_tmp_dir">static_get_tmp_dir() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_get_tmp_dir">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_get_tmp_dir">[2]</a>
+</li>
+      <li><a href="data_classes/container.html#ivy.container.container.Container.static_get_x_data_format">static_get_x_data_format() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_get_x_data_format">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_get_x_data_format">[2]</a>
 </li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_gpu_is_available">static_gpu_is_available() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_gpu_is_available">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_gpu_is_available">[2]</a>
 </li>
@@ -5277,12 +5389,6 @@
 
       <ul>
         <li><a href="data_classes/container/data_type.html#ivy.container.data_type.ContainerWithDataTypes.static_iinfo">(ivy.container.data_type.ContainerWithDataTypes static method)</a>, <a href="data_classes/container/data_type/ContainerWithDataTypes.html#ivy.container.data_type.ContainerWithDataTypes.static_iinfo">[1]</a>
-</li>
-      </ul></li>
-      <li><a href="functional/ivy/searching/indices_where.html#ivy.container.container_methods.static_indices_where">static_indices_where() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/searching/indices_where/static_indices_where_container.html#ivy.container.container_methods.static_indices_where">[1]</a>
-
-      <ul>
-        <li><a href="data_classes/container/searching.html#ivy.container.searching.ContainerWithSearching.static_indices_where">(ivy.container.searching.ContainerWithSearching static method)</a>, <a href="data_classes/container/searching/ContainerWithSearching.html#ivy.container.searching.ContainerWithSearching.static_indices_where">[1]</a>
 </li>
       </ul></li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_infer_default_dtype">static_infer_default_dtype() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_infer_default_dtype">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_infer_default_dtype">[2]</a>
@@ -5681,6 +5787,12 @@
         <li><a href="data_classes/container/linear_algebra.html#ivy.container.linear_algebra.ContainerWithLinearAlgebra.static_qr">(ivy.container.linear_algebra.ContainerWithLinearAlgebra static method)</a>, <a href="data_classes/container/linear_algebra/ContainerWithLinearAlgebra.html#ivy.container.linear_algebra.ContainerWithLinearAlgebra.static_qr">[1]</a>
 </li>
       </ul></li>
+      <li><a href="functional/ivy/elementwise/rad2deg.html#ivy.container.container_methods.static_rad2deg">static_rad2deg() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/elementwise/rad2deg/static_rad2deg_container.html#ivy.container.container_methods.static_rad2deg">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.static_rad2deg">(ivy.container.elementwise.ContainerWithElementwise static method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.static_rad2deg">[1]</a>
+</li>
+      </ul></li>
       <li><a href="functional/ivy/random/randint.html#ivy.container.container_methods.static_randint">static_randint() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/random/randint/static_randint_container.html#ivy.container.container_methods.static_randint">[1]</a>
 
       <ul>
@@ -6043,6 +6155,12 @@
 
       <ul>
         <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.static_trunc">(ivy.container.elementwise.ContainerWithElementwise static method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.static_trunc">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="functional/ivy/elementwise/trunc_divide.html#ivy.container.container_methods.static_trunc_divide">static_trunc_divide() (in module ivy.container.container_methods)</a>, <a href="functional/ivy/elementwise/trunc_divide/static_trunc_divide_container.html#ivy.container.container_methods.static_trunc_divide">[1]</a>
+
+      <ul>
+        <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.static_trunc_divide">(ivy.container.elementwise.ContainerWithElementwise static method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.static_trunc_divide">[1]</a>
 </li>
       </ul></li>
       <li><a href="data_classes/container.html#ivy.container.container.Container.static_try_else_none">static_try_else_none() (ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.static_try_else_none">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.static_try_else_none">[2]</a>
@@ -6419,8 +6537,6 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.to_native_arrays_and_back">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.to_native_arrays_and_back">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.to_native_arrays_and_back">[2]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="functional/ivy/general.html#ivy.functional.ivy.general.to_native_shape">to_native_shape() (in module ivy.functional.ivy.general)</a>, <a href="functional/ivy/general/to_native_shape.html#ivy.functional.ivy.general.to_native_shape">[1]</a>
 
       <ul>
@@ -6429,6 +6545,8 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.to_native_shape">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.to_native_shape">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.to_native_shape">[2]</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data_classes/container/base.html#ivy.container.base.ContainerBase.to_nested_list">to_nested_list() (ivy.container.base.ContainerBase method)</a>, <a href="data_classes/container/base/ContainerBase.html#ivy.container.base.ContainerBase.to_nested_list">[1]</a>
 </li>
       <li><a href="functional/ivy/general/to_numpy.html#ivy.array.array_methods.to_numpy">to_numpy() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/general/to_numpy/to_numpy_array.html#ivy.array.array_methods.to_numpy">[1]</a>
@@ -6525,6 +6643,18 @@
         <li><a href="data_classes/array/elementwise.html#ivy.array.elementwise.ArrayWithElementwise.trunc">(ivy.array.elementwise.ArrayWithElementwise method)</a>, <a href="data_classes/array/elementwise/ArrayWithElementwise.html#ivy.array.elementwise.ArrayWithElementwise.trunc">[1]</a>
 </li>
         <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.trunc">(ivy.container.elementwise.ContainerWithElementwise method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.trunc">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="functional/ivy/elementwise/trunc_divide.html#ivy.array.array_methods.trunc_divide">trunc_divide() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/elementwise/trunc_divide/trunc_divide_array.html#ivy.array.array_methods.trunc_divide">[1]</a>
+
+      <ul>
+        <li><a href="functional/ivy/elementwise/trunc_divide.html#ivy.container.container_methods.trunc_divide">(in module ivy.container.container_methods)</a>, <a href="functional/ivy/elementwise/trunc_divide/trunc_divide_container.html#ivy.container.container_methods.trunc_divide">[1]</a>
+</li>
+        <li><a href="functional/ivy/elementwise.html#ivy.functional.ivy.elementwise.trunc_divide">(in module ivy.functional.ivy.elementwise)</a>, <a href="functional/ivy/elementwise/trunc_divide.html#ivy.functional.ivy.elementwise.trunc_divide">[1]</a>, <a href="functional/ivy/elementwise/trunc_divide/trunc_divide_functional.html#ivy.functional.ivy.elementwise.trunc_divide">[2]</a>
+</li>
+        <li><a href="data_classes/array/elementwise.html#ivy.array.elementwise.ArrayWithElementwise.trunc_divide">(ivy.array.elementwise.ArrayWithElementwise method)</a>, <a href="data_classes/array/elementwise/ArrayWithElementwise.html#ivy.array.elementwise.ArrayWithElementwise.trunc_divide">[1]</a>
+</li>
+        <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.trunc_divide">(ivy.container.elementwise.ContainerWithElementwise method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.trunc_divide">[1]</a>
 </li>
       </ul></li>
       <li><a href="functional/ivy/general.html#ivy.functional.ivy.general.try_else_none">try_else_none() (in module ivy.functional.ivy.general)</a>, <a href="functional/ivy/general/try_else_none.html#ivy.functional.ivy.general.try_else_none">[1]</a>
