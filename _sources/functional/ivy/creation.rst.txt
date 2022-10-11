@@ -36,6 +36,7 @@ Creation
    creation/native_array.rst
    creation/one_hot.rst
    creation/logspace.rst
+   creation/NestedSequence.rst
 
 .. _`discord`: https://discord.gg/ZVQdvbzNQJ 
 .. _`creation forum`: https://discord.com/channels/799879767196958751/2186
