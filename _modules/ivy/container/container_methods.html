@@ -963,7 +963,7 @@
 <span class="kn">import</span> <span class="nn">ivy</span>
 
 
-<span class="n">ansi_escape</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\x1B(?:[-Z</span><span class="se">\\</span><span class="s2">-_]|\[[0-?]*[ -/]*[-~])&quot;</span><span class="p">)</span>
+<span class="n">ansi_escape</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\x1B(?:[@-Z</span><span class="se">\\</span><span class="s2">-_]|\[[0-?]*[ -/]*[@-~])&quot;</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_is_jsonable</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -15221,7 +15221,7 @@
         <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
     <span class="p">)</span></div>
 
-<span class="nd">staticmethod</span>
+<span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">static_multi_head_attention</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
     <span class="n">scale</span><span class="p">,</span>
@@ -15301,7 +15301,7 @@
         <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
     <span class="p">)</span></div>
 
-<span class="nd">staticmethod</span>
+<span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">static_conv1d</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
     <span class="n">filters</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
@@ -15609,7 +15609,7 @@
         <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
     <span class="p">)</span></div>
 
-<span class="nd">staticmethod</span>
+<span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">static_conv2d_transpose</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
     <span class="n">filters</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
@@ -15673,7 +15673,7 @@
         <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
     <span class="p">)</span></div>
 
-<span class="nd">staticmethod</span>
+<span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">static_depthwise_conv2d</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
     <span class="n">filters</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
@@ -18522,7 +18522,7 @@
         <span class="n">map_sequences</span><span class="o">=</span><span class="n">map_sequences</span><span class="p">,</span>
     <span class="p">)</span></div>
 
-<span class="nd">staticmethod</span>
+<span class="nd">@staticmethod</span>
 <span class="k">def</span> <span class="nf">static_permute_dims</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
