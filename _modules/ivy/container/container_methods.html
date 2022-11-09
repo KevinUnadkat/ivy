@@ -50,7 +50,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Functions</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../functional/extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../functional/experimental.html">Experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../functional/ivy/activations.html">Activations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../functional/ivy/compilation.html">Compilation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../functional/ivy/constants.html">Constants</a></li>
@@ -1010,27 +1010,27 @@
 <span class="kn">from</span> <span class="nn">.sorting</span> <span class="kn">import</span> <span class="n">ContainerWithSorting</span>
 <span class="kn">from</span> <span class="nn">.statistical</span> <span class="kn">import</span> <span class="n">ContainerWithStatistical</span>
 <span class="kn">from</span> <span class="nn">.utility</span> <span class="kn">import</span> <span class="n">ContainerWithUtility</span>
-<span class="kn">from</span> <span class="nn">ivy.container.extensions</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ContainerWithActivationExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithConversionExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithCreationExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithData_typeExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithDeviceExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithElementWiseExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithGeneralExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithGradientsExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithImageExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithLayersExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithLinalgExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithLossesExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithManipulationExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithNormsExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithRandomExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithSearchingExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithSetExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithSortingExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithStatisticalExtensions</span><span class="p">,</span>
-    <span class="n">ContainerWithUtilityExtensions</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">ivy.container.experimental</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ContainerWithActivationExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithConversionExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithCreationExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithData_typeExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithDeviceExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithElementWiseExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithGeneralExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithGradientsExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithImageExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithLayersExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithLinalgExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithLossesExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithManipulationExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithNormsExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithRandomExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithSearchingExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithSetExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithSortingExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithStatisticalExperimental</span><span class="p">,</span>
+    <span class="n">ContainerWithUtilityExperimental</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -9872,6 +9872,18 @@
 <span class="sd">        a container containing the rounded result for each element in ``x``.</span>
 <span class="sd">        The returned container must have the same data type as ``x``.</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    With :class:`ivy.Container` input:</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.Container(a=ivy.array([-0.25, 4, 1.3]),</span>
+<span class="sd">    ...                   b=ivy.array([12, -3.5, 1.234]))</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.Container.static_trunc(x)</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([-0., 4., 1.]),</span>
+<span class="sd">        b: ivy.array([12., -3., 1.])</span>
+<span class="sd">    }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
@@ -9914,6 +9926,17 @@
 <span class="sd">    ret</span>
 <span class="sd">        a container containing the rounded result for each element in ``self``.</span>
 <span class="sd">        The returned container must have the same data type as ``self``.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; x = ivy.Container(a=ivy.array([-0.25, 4, 1.3]),</span>
+<span class="sd">    ...                   b=ivy.array([12, -3.5, 1.234]))</span>
+<span class="sd">    &gt;&gt;&gt; y = x.trunc()</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([-0., 4., 1.]),</span>
+<span class="sd">        b: ivy.array([12., -3., 1.])</span>
+<span class="sd">    }</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
@@ -10013,7 +10036,7 @@
     <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">use_where</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">use_where</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -10041,7 +10064,7 @@
 <span class="sd">    use_where</span>
 <span class="sd">        Whether to use :func:`where` to calculate the minimum. If ``False``, the</span>
 <span class="sd">        minimum is calculated using the ``(x + y - |x - y|)/2`` formula. Default is</span>
-<span class="sd">        ``False``.</span>
+<span class="sd">        ``True``.</span>
 <span class="sd">    out</span>
 <span class="sd">        optional output array, for writing the result to. It must have a shape that</span>
 <span class="sd">        the inputs broadcast to.</span>
@@ -10063,7 +10086,7 @@
     <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">use_where</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">use_where</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -10092,7 +10115,7 @@
 <span class="sd">    use_where</span>
 <span class="sd">        Whether to use :func:`where` to calculate the minimum. If ``False``, the</span>
 <span class="sd">        minimum is calculated using the ``(x + y - |x - y|)/2`` formula. Default is</span>
-<span class="sd">        ``False``.</span>
+<span class="sd">        ``True``.</span>
 <span class="sd">    out</span>
 <span class="sd">        optional output array, for writing the result to. It must have a shape that</span>
 <span class="sd">        the inputs broadcast to.</span>
@@ -10114,7 +10137,7 @@
     <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">use_where</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">use_where</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -10142,7 +10165,7 @@
 <span class="sd">    use_where</span>
 <span class="sd">        Whether to use :func:`where` to calculate the maximum. If ``False``, the</span>
 <span class="sd">        maximum is calculated using the ``(x + y + |x - y|)/2`` formula. Default is</span>
-<span class="sd">        ``False``.</span>
+<span class="sd">        ``True``.</span>
 <span class="sd">    out</span>
 <span class="sd">        optional output array, for writing the result to.</span>
 <span class="sd">        It must have a shape that the inputs broadcast to.</span>
@@ -10167,7 +10190,7 @@
     <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">use_where</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">use_where</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -10195,7 +10218,7 @@
 <span class="sd">    use_where</span>
 <span class="sd">        Whether to use :func:`where` to calculate the maximum. If ``False``, the</span>
 <span class="sd">        maximum is calculated using the ``(x + y + |x - y|)/2`` formula. Default is</span>
-<span class="sd">        ``False``.</span>
+<span class="sd">        ``True``.</span>
 <span class="sd">    out</span>
 <span class="sd">        optional output array, for writing the result to.</span>
 <span class="sd">        It must have a shape that the inputs broadcast to.</span>
@@ -15254,6 +15277,38 @@
     <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="static_dropout1d"><a class="viewcode-back" href="../../../functional/ivy/layers/dropout1d/static_dropout1d_container.html#ivy.container.container_methods.static_dropout1d">[docs]</a><span class="k">def</span> <span class="nf">static_dropout1d</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+        <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">training</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">data_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;NWC&quot;</span><span class="p">,</span>
+        <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="dropout1d"><a class="viewcode-back" href="../../../functional/ivy/layers/dropout1d/dropout1d_container.html#ivy.container.container_methods.dropout1d">[docs]</a><span class="k">def</span> <span class="nf">dropout1d</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+        <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">training</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">data_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;NWC&quot;</span><span class="p">,</span>
+        <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
     <span class="k">pass</span></div>
 
@@ -20987,7 +21042,7 @@
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="static_beta"><a class="viewcode-back" href="../../../functional/ivy/random/beta/static_beta_container.html#ivy.container.container_methods.static_beta">[docs]</a><span class="k">def</span> <span class="nf">static_beta</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">static_beta</span><span class="p">(</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="n">beta</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="o">/</span><span class="p">,</span>
@@ -21042,10 +21097,10 @@
 <span class="sd">    ret</span>
 <span class="sd">        A container object, with values drawn from the beta distribution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+    <span class="k">pass</span>
 
 
-<div class="viewcode-block" id="beta"><a class="viewcode-back" href="../../../functional/ivy/random/beta/beta_container.html#ivy.container.container_methods.beta">[docs]</a><span class="k">def</span> <span class="nf">beta</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">beta</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
@@ -21101,7 +21156,7 @@
 <span class="sd">    ret</span>
 <span class="sd">        A container object, with values drawn from the beta distribution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+    <span class="k">pass</span>
 
 
 <span class="c1">#ivy.container.searching</span>
@@ -22121,6 +22176,22 @@
     <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    With: code:`ivy.Container`</span>
+<span class="sd">    input:</span>
+
+<span class="sd">    &gt;&gt; &gt; x = ivy.Container(a=ivy.array([1, 2, 3]), \</span>
+<span class="sd">                           b=ivy.array([2, 3, 4]))</span>
+<span class="sd">    &gt;&gt; &gt; z = x.min()</span>
+<span class="sd">    &gt;&gt; &gt; print(z)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array(3),</span>
+<span class="sd">        b: ivy.array(4)</span>
+<span class="sd">    }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
 
