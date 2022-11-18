@@ -184,7 +184,10 @@
     <span class="k">def</span> <span class="nf">new_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
         <span class="n">num_args</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-        <span class="n">type_hints</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">get_type_hints</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">type_hints</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">get_type_hints</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">parameters</span> <span class="o">=</span> <span class="n">type_hints</span>
         <span class="n">annotations</span> <span class="o">=</span> <span class="n">type_hints</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 
@@ -719,6 +722,22 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_wrapper_outer</span><span class="p">(</span><span class="n">version_dict</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
+
+        <span class="n">typesets</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">valid_dtypes</span><span class="p">,</span>
+            <span class="s2">&quot;numeric&quot;</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">valid_numeric_dtypes</span><span class="p">,</span>
+            <span class="s2">&quot;float&quot;</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">valid_float_dtypes</span><span class="p">,</span>
+            <span class="s2">&quot;integer&quot;</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">valid_int_dtypes</span><span class="p">,</span>
+            <span class="s2">&quot;unsigned&quot;</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">valid_uint_dtypes</span><span class="p">,</span>
+            <span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">valid_complex_dtypes</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">version_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">typesets</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">version_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">version_dict</span><span class="p">[</span><span class="n">key</span><span class="p">][:</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">typesets</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">+</span> <span class="n">version_dict</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span>
+                    <span class="p">)</span>
+
         <span class="k">def</span> <span class="nf">_wrapped</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
             <span class="n">val</span> <span class="o">=</span> <span class="n">_versioned_attribute_factory</span><span class="p">(</span>
                 <span class="k">lambda</span><span class="p">:</span> <span class="n">_dtype_from_version</span><span class="p">(</span><span class="n">version_dict</span><span class="p">,</span> <span class="n">version</span><span class="p">),</span> <span class="n">t</span>
@@ -787,10 +806,11 @@
             <span class="c1"># handle nans based on the selected policy</span>
             <span class="k">if</span> <span class="n">nan_policy</span> <span class="o">==</span> <span class="s2">&quot;raise_exception&quot;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">IvyException</span><span class="p">(</span>
-                    <span class="s2">&quot;Nans are not allowed in `raise_exception` policy.&quot;</span><span class="p">)</span>
+                    <span class="s2">&quot;Nans are not allowed in `raise_exception` policy.&quot;</span>
+                <span class="p">)</span>
             <span class="k">elif</span> <span class="n">nan_policy</span> <span class="o">==</span> <span class="s2">&quot;warns&quot;</span><span class="p">:</span>
                 <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Nans are present in the input.&quot;</span><span class="p">)</span>
-        
+
         <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">new_fn</span><span class="o">.</span><span class="n">handle_nans</span> <span class="o">=</span> <span class="kc">True</span>
