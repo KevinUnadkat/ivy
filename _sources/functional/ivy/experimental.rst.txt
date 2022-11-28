@@ -49,6 +49,7 @@ Experimental
    experimental/nan_to_num.rst
    experimental/logaddexp2.rst
    experimental/signbit.rst
+   experimental/diff.rst
    experimental/allclose.rst
    experimental/fix.rst
    experimental/nextafter.rst
@@ -72,7 +73,9 @@ Experimental
    experimental/atleast_1d.rst
    experimental/dstack.rst
    experimental/atleast_2d.rst
+   experimental/atleast_3d.rst
    experimental/take_along_axis.rst
+   experimental/hsplit.rst
    experimental/diagflat.rst
    experimental/kron.rst
    experimental/dirichlet.rst
