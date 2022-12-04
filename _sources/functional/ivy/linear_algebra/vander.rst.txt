@@ -2,6 +2,12 @@ vander
 ======
 
 .. autofunction:: ivy.functional.ivy.linear_algebra.vander
+
+.. autofunction:: ivy.array.array_methods.vander
+
+.. autofunction:: ivy.container.container_methods.vander
+
+.. autofunction:: ivy.container.container_methods.static_vander
 |
 | **Supported Frameworks:**
 
@@ -21,3 +27,15 @@ vander
 
 .. |numpy_logo| image:: ../../../logos/supported/numpy_logo.png
    :target: https://numpy.org
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: -1
+   :caption: vander
+
+   vander/vander_functional.rst
+   vander/static_vander_container.rst
+   vander/vander_array.rst
+   vander/vander_container.rst
+
