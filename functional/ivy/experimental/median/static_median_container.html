@@ -68,6 +68,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../avg_pool2d.html">avg_pool2d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../avg_pool3d.html">avg_pool3d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dct.html">dct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fft.html">fft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dropout1d.html">dropout1d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isin.html">isin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../msort.html">msort</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../triu_indices.html">triu_indices</a></li>
@@ -83,6 +85,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../dirichlet.html">dirichlet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../beta.html">beta</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gamma.html">gamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../binary_cross_entropy_with_logits.html">binary_cross_entropy_with_logits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../flatten.html">flatten</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../moveaxis.html">moveaxis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ndenumerate.html">ndenumerate</a></li>
@@ -101,7 +104,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../atleast_1d.html">atleast_1d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dstack.html">dstack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../atleast_2d.html">atleast_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../atleast_3d.html">atleast_3d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../take_along_axis.html">take_along_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hsplit.html">hsplit</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../median.html">median</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="median_functional.html">ivy.median</a></li>
 <li class="toctree-l3"><a class="reference internal" href="median_array.html">ivy.Array.median</a></li>
@@ -111,6 +116,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../nanmean.html">nanmean</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../unravel_index.html">unravel_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quantile.html">quantile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../diagflat.html">diagflat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../kron.html">kron</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sinc.html">sinc</a></li>
@@ -120,6 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../trapz.html">trapz</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../float_power.html">float_power</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../exp2.html">exp2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../copysign.html">copysign</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../count_nonzero.html">count_nonzero</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nansum.html">nansum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gcd.html">gcd</a></li>
@@ -129,10 +136,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../nan_to_num.html">nan_to_num</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logaddexp2.html">logaddexp2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../signbit.html">signbit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../diff.html">diff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../allclose.html">allclose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../fix.html">fix</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nextafter.html">nextafter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../zeta.html">zeta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gradient.html">gradient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../SparseArray.html">SparseArray</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../NativeSparseArray.html">NativeSparseArray</a></li>
 </ul>
@@ -220,7 +229,7 @@ with minimal changes.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> (<a class="reference internal" href="../../../../data_classes/container/container/Container.html#ivy.container.container.Container" title="ivy.container.container.Container"><code class="xref py py-class docutils literal notranslate"><span class="pre">Container</span></code></a>) – Input container including arrays.</p></li>
-<li><p><strong>axis</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – Axis or axes along which the medians are computed. The default is to compute (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)
+<li><p><strong>axis</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]]) – Axis or axes along which the medians are computed. The default is to compute (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)
 the median along a flattened version of the array.</p></li>
 <li><p><strong>keepdims</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – If this is set to True, the axes which are reduced are left in the result (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)
 as dimensions with size one.</p></li>

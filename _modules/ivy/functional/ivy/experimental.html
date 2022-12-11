@@ -133,6 +133,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Literal</span>
 <span class="kn">import</span> <span class="nn">ivy</span>
 <span class="kn">from</span> <span class="nn">ivy.func_wrapper</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">handle_array_like</span><span class="p">,</span>
     <span class="n">handle_out_argument</span><span class="p">,</span>
     <span class="n">to_native_arrays_and_back</span><span class="p">,</span>
     <span class="n">handle_nestable</span><span class="p">,</span>
@@ -590,7 +591,7 @@
 <span class="sd">    ivy.array([102., -51.5, 0., -5.39, 0., -1.61, 0., -0.406])</span>
 
 <span class="sd">    &gt;&gt;&gt; x = ivy.array([[[8, 16, 24, 32], [40, 48, 56, 64]],</span>
-<span class="sd">               [[1,  2,  3,  4], [ 5,  6,  7,  8]]])</span>
+<span class="sd">    ...                [[1,  2,  3,  4], [ 5,  6,  7,  8]]])</span>
 <span class="sd">    &gt;&gt;&gt; ivy.dct(x, type=1, n=None, axis=0, norm=None)</span>
 <span class="sd">    ivy.array([[[ 9., 18., 27., 36.],</span>
 <span class="sd">                [45., 54., 63., 72.]],</span>
@@ -635,6 +636,115 @@
 <span class="sd">    }</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">dct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fft"><a class="viewcode-back" href="../../../../functional/ivy/experimental/fft.html#ivy.functional.ivy.experimental.fft">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<span class="nd">@handle_out_argument</span>
+<span class="nd">@handle_exceptions</span>
+<span class="nd">@handle_array_like</span>
+<span class="k">def</span> <span class="nf">fft</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">norm</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;backward&quot;</span><span class="p">,</span>
+    <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the one dimensional discrete Fourier transform given input at least</span>
+<span class="sd">    1-D input x.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x</span>
+<span class="sd">        Input volume *[...,d_in,...]*,</span>
+<span class="sd">        where d_in indicates the dimension that needs FFT.</span>
+<span class="sd">    dim</span>
+<span class="sd">        The dimension along which to take the one dimensional FFT.</span>
+<span class="sd">    norm</span>
+<span class="sd">        Optional argument, &quot;backward&quot;, &quot;ortho&quot; or &quot;forward&quot;. Defaults to be &quot;backward&quot;.</span>
+<span class="sd">        &quot;backward&quot; indicates no normalization.</span>
+<span class="sd">        &quot;ortho&quot; indicates normalization by $\frac{1}{\sqrt{n}}$.</span>
+<span class="sd">        &quot;forward&quot; indicates normalization by $\frac{1}{n}$.</span>
+<span class="sd">    n</span>
+<span class="sd">        Optional argument indicating the sequence length, if given, the input would be</span>
+<span class="sd">        padded with zero or truncated to length n before performing FFT.</span>
+<span class="sd">        Should be a integer greater than 1.</span>
+<span class="sd">    out</span>
+<span class="sd">        Optional output array, for writing the result to. It must have a shape that the</span>
+<span class="sd">        inputs broadcast to.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        The result of the FFT operation.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; ivy.fft(np.exp(2j * np.pi * np.arange(8) / 8), 0)</span>
+<span class="sd">    ivy.array([-3.44509285e-16+1.14423775e-17j,  8.00000000e+00-8.11483250e-16j,</span>
+<span class="sd">            2.33486982e-16+1.22464680e-16j,  0.00000000e+00+1.22464680e-16j,</span>
+<span class="sd">            9.95799250e-17+2.33486982e-16j,  0.00000000e+00+7.66951701e-17j,</span>
+<span class="sd">            1.14423775e-17+1.22464680e-16j,  0.00000000e+00+1.22464680e-16j])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.fft(np.exp(2j * np.pi * np.arange(8) / 8), 0, n=16)</span>
+<span class="sd">    ivy.array([-3.44509285e-16+1.14423775e-17j,  1.00000000e+00+5.02733949e+00j,</span>
+<span class="sd">        8.00000000e+00-8.11483250e-16j,  1.00000000e+00-5.02733949e+00j,</span>
+<span class="sd">        2.33486982e-16+1.22464680e-16j,  1.00000000e+00-1.49660576e+00j,</span>
+<span class="sd">        0.00000000e+00+1.22464680e-16j,  1.00000000e+00-6.68178638e-01j,</span>
+<span class="sd">        9.95799250e-17+2.33486982e-16j,  1.00000000e+00-1.98912367e-01j,</span>
+<span class="sd">        0.00000000e+00+7.66951701e-17j,  1.00000000e+00+1.98912367e-01j,</span>
+<span class="sd">        1.14423775e-17+1.22464680e-16j,  1.00000000e+00+6.68178638e-01j,</span>
+<span class="sd">        0.00000000e+00+1.22464680e-16j,  1.00000000e+00+1.49660576e+00j])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.fft(np.exp(2j * np.pi * np.arange(8) / 8), 0, norm=&quot;ortho&quot;)</span>
+<span class="sd">    ivy.array([-1.21802426e-16+4.04549134e-18j,  2.82842712e+00-2.86902654e-16j,</span>
+<span class="sd">        8.25501143e-17+4.32978028e-17j,  0.00000000e+00+4.32978028e-17j,</span>
+<span class="sd">        3.52068201e-17+8.25501143e-17j,  0.00000000e+00+2.71158374e-17j,</span>
+<span class="sd">        4.04549134e-18+4.32978028e-17j,  0.00000000e+00+4.32978028e-17j])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dropout1d"><a class="viewcode-back" href="../../../../functional/ivy/experimental/dropout1d.html#ivy.functional.ivy.experimental.dropout1d">[docs]</a><span class="nd">@handle_exceptions</span>
+<span class="nd">@to_native_arrays_and_back</span>
+<span class="nd">@handle_array_like</span>
+<span class="k">def</span> <span class="nf">dropout1d</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">training</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">data_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;NWC&quot;</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Randomly zero out entire channels with probability prob using samples from</span>
+<span class="sd">     a Bernoulli distribution and the remaining channels are scaled by (1/1-prob).</span>
+<span class="sd">     In this case, dropout1d performs a channel-wise dropout but assumes</span>
+<span class="sd">     a channel is a 1D feature map.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x</span>
+<span class="sd">        a 2D or 3D input array. Should have a floating-point data type.</span>
+<span class="sd">    prob</span>
+<span class="sd">        probability of a channel to be zero-ed.</span>
+<span class="sd">    training</span>
+<span class="sd">        controls whether dropout1d is performed during training or ignored</span>
+<span class="sd">        during testing.</span>
+<span class="sd">    data_format</span>
+<span class="sd">        &quot;NWC&quot; or &quot;NCW&quot;. Defaults to &quot;NWC&quot;.</span>
+<span class="sd">    out</span>
+<span class="sd">        optional output array, for writing the result to.</span>
+<span class="sd">        It must have a shape that the inputs broadcast to.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        an array with some channels zero-ed and the rest of channels are</span>
+<span class="sd">         scaled by (1/1-prob).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">dropout1d</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">training</span><span class="p">,</span> <span class="n">data_format</span><span class="o">=</span><span class="n">data_format</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span>
+    <span class="p">)</span></div>
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">import</span> <span class="nn">ivy</span>
@@ -1215,11 +1325,59 @@
     <span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">_verify_csc_components</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span> <span class="n">ccol_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">row_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dense_shape</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_all_or_any_fn</span><span class="p">(</span>
+        <span class="n">ccol_indices</span><span class="p">,</span>
+        <span class="n">row_indices</span><span class="p">,</span>
+        <span class="n">values</span><span class="p">,</span>
+        <span class="n">dense_shape</span><span class="p">,</span>
+        <span class="n">fn</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;ccol_indices, row_indices, values and dense_shape must all </span><span class="se">\</span>
+<span class="s2">        be specified&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_equal</span><span class="p">(</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">ccol_indices</span><span class="p">)),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;ccol_indices must be 1D&quot;</span>
+    <span class="p">)</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_equal</span><span class="p">(</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">row_indices</span><span class="p">)),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;row_indices must be 1D&quot;</span>
+    <span class="p">)</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_equal</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">values</span><span class="p">)),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;values must be 1D&quot;</span><span class="p">)</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_equal</span><span class="p">(</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">dense_shape</span><span class="p">),</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;only 2D arrays can be converted to CSC sparse arrays&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># number of intervals must be equal to y in shape (x, y)</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_equal</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">ccol_indices</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dense_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># index in row_indices must not exceed x in shape (x, y)</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_less</span><span class="p">(</span>
+        <span class="n">row_indices</span><span class="p">,</span> <span class="n">dense_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;index in row_indices does not match shape&quot;</span>
+    <span class="p">)</span>
+    <span class="c1"># number of values must match number of coordinates</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_equal</span><span class="p">(</span>
+        <span class="n">ivy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">row_indices</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">ivy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">values</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;values and row_indices do not match&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># index in ccol_indices must not exceed length of row_indices</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_less</span><span class="p">(</span>
+        <span class="n">ccol_indices</span><span class="p">,</span>
+        <span class="n">ivy</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">row_indices</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">allow_equal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;index in ccol_indices does not match the number of row_indices&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">_is_data_not_indices_values_and_shape</span><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">coo_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">csr_crow_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">csr_col_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_ccol_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_row_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">dense_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
@@ -1228,23 +1386,28 @@
             <span class="n">coo_indices</span><span class="p">,</span>
             <span class="n">csr_crow_indices</span><span class="p">,</span>
             <span class="n">csr_col_indices</span><span class="p">,</span>
+            <span class="n">csc_ccol_indices</span><span class="p">,</span>
+            <span class="n">csc_row_indices</span><span class="p">,</span>
             <span class="n">values</span><span class="p">,</span>
             <span class="n">dense_shape</span><span class="p">,</span>
             <span class="n">fn</span><span class="o">=</span><span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">,</span>
             <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">,</span>
             <span class="n">limit</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;only specify either data, all coo components (coo_indices, values </span><span class="se">\</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;only specify data, all coo components (coo_indices, values </span><span class="se">\</span>
 <span class="s2">            and dense_shape), or all csr components (csr_crow_indices, </span><span class="se">\</span>
-<span class="s2">            csr_col_indices, values and dense_shape)&quot;</span><span class="p">,</span>
+<span class="s2">            csr_col_indices, values and dense_shape), or all csc components </span><span class="se">\</span>
+<span class="s2">                (csc_ccol_indices, csc_row_indices, values and dense_shape).&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="kc">False</span>
 
 
-<span class="k">def</span> <span class="nf">_is_coo_not_csr</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_is_coo</span><span class="p">(</span>
     <span class="n">coo_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">csr_crow_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">csr_col_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_ccol_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_row_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">dense_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
@@ -1254,22 +1417,57 @@
         <span class="ow">and</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dense_shape</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">csr_crow_indices</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="ow">and</span> <span class="n">csr_col_indices</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">csc_ccol_indices</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">csc_row_indices</span> <span class="ow">is</span> <span class="kc">None</span>
     <span class="p">):</span>
         <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">elif</span> <span class="p">(</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">_is_csr</span><span class="p">(</span>
+    <span class="n">coo_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csr_crow_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csr_col_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_ccol_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_row_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">dense_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span>
         <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">csr_crow_indices</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">csr_col_indices</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dense_shape</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">coo_indices</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">csc_ccol_indices</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">csc_row_indices</span> <span class="ow">is</span> <span class="kc">None</span>
     <span class="p">):</span>
-        <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">IvyException</span><span class="p">(</span>
-            <span class="s2">&quot;specify either all coo components (coo_indices, values </span><span class="se">\</span>
-<span class="s2">            and dense_shape), or all csr components (csr_crow_indices, </span><span class="se">\</span>
-<span class="s2">            csr_col_indices, values and dense_shape)&quot;</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">_is_csc</span><span class="p">(</span>
+    <span class="n">coo_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csr_crow_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csr_col_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_ccol_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_row_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">dense_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">csc_ccol_indices</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">csc_row_indices</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dense_shape</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">coo_indices</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">csr_crow_indices</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">csr_col_indices</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span>
 
 
 <div class="viewcode-block" id="SparseArray"><a class="viewcode-back" href="../../../../functional/ivy/experimental/SparseArray.html#ivy.functional.ivy.experimental.SparseArray">[docs]</a><span class="k">class</span> <span class="nc">SparseArray</span><span class="p">:</span>
@@ -1280,20 +1478,62 @@
         <span class="n">coo_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">csr_crow_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">csr_col_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">csc_ccol_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">csc_row_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">dense_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">_is_data_not_indices_values_and_shape</span><span class="p">(</span>
-            <span class="n">data</span><span class="p">,</span> <span class="n">coo_indices</span><span class="p">,</span> <span class="n">csr_crow_indices</span><span class="p">,</span> <span class="n">csr_col_indices</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">dense_shape</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">coo_indices</span><span class="p">,</span>
+            <span class="n">csr_crow_indices</span><span class="p">,</span>
+            <span class="n">csr_col_indices</span><span class="p">,</span>
+            <span class="n">csc_ccol_indices</span><span class="p">,</span>
+            <span class="n">csc_row_indices</span><span class="p">,</span>
+            <span class="n">values</span><span class="p">,</span>
+            <span class="n">dense_shape</span><span class="p">,</span>
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_init_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">_is_coo_not_csr</span><span class="p">(</span>
-            <span class="n">coo_indices</span><span class="p">,</span> <span class="n">csr_crow_indices</span><span class="p">,</span> <span class="n">csr_col_indices</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">dense_shape</span>
+        <span class="k">elif</span> <span class="n">_is_coo</span><span class="p">(</span>
+            <span class="n">coo_indices</span><span class="p">,</span>
+            <span class="n">csr_crow_indices</span><span class="p">,</span>
+            <span class="n">csr_col_indices</span><span class="p">,</span>
+            <span class="n">csc_ccol_indices</span><span class="p">,</span>
+            <span class="n">csc_row_indices</span><span class="p">,</span>
+            <span class="n">values</span><span class="p">,</span>
+            <span class="n">dense_shape</span><span class="p">,</span>
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_init_coo_components</span><span class="p">(</span><span class="n">coo_indices</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">dense_shape</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">_is_csr</span><span class="p">(</span>
+            <span class="n">coo_indices</span><span class="p">,</span>
+            <span class="n">csr_crow_indices</span><span class="p">,</span>
+            <span class="n">csr_col_indices</span><span class="p">,</span>
+            <span class="n">csc_ccol_indices</span><span class="p">,</span>
+            <span class="n">csc_row_indices</span><span class="p">,</span>
+            <span class="n">values</span><span class="p">,</span>
+            <span class="n">dense_shape</span><span class="p">,</span>
+        <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_init_csr_components</span><span class="p">(</span>
                 <span class="n">csr_crow_indices</span><span class="p">,</span> <span class="n">csr_col_indices</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">dense_shape</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_is_csc</span><span class="p">(</span>
+            <span class="n">coo_indices</span><span class="p">,</span>
+            <span class="n">csr_crow_indices</span><span class="p">,</span>
+            <span class="n">csr_col_indices</span><span class="p">,</span>
+            <span class="n">csc_ccol_indices</span><span class="p">,</span>
+            <span class="n">csc_row_indices</span><span class="p">,</span>
+            <span class="n">values</span><span class="p">,</span>
+            <span class="n">dense_shape</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init_csc_components</span><span class="p">(</span>
+                <span class="n">csc_ccol_indices</span><span class="p">,</span> <span class="n">csc_row_indices</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">dense_shape</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">IvyException</span><span class="p">(</span>
+                <span class="s2">&quot;specify all coo components (coo_indices, values </span><span class="se">\</span>
+<span class="s2">            and dense_shape), or all csr components (csr_crow_indices, </span><span class="se">\</span>
+<span class="s2">            csr_col_indices, values and dense_shape), or all csc components </span><span class="se">\</span>
+<span class="s2">                (csc_ccol_indices, csc_row_indices, values and dense_shape).&quot;</span>
             <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_init_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
@@ -1302,6 +1542,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">coo_indices</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_csr_crow_indices</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">csr_crow_indices</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">csr_col_indices</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">csc_ccol_indices</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">csc_row_indices</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_values</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dense_shape</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1315,14 +1557,26 @@
         <span class="n">indices</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">native_sparse_array_to_indices_values_and_shape</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_csr_crow_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;indices&quot;</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="s2">&quot;indices&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_csr_crow_indices</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="s2">&quot;crow_indices&quot;</span> <span class="ow">in</span> <span class="n">indices</span> <span class="ow">and</span> <span class="s2">&quot;col_indices&quot;</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csr_crow_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="s2">&quot;crow_indices&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="s2">&quot;col_indices&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="s2">&quot;ccol_indices&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">[</span><span class="s2">&quot;row_indices&quot;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csr_crow_indices</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span> <span class="o">=</span> <span class="kc">None</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_values</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Shape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
 
@@ -1338,6 +1592,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span> <span class="o">=</span> <span class="n">shape</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_csr_crow_indices</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_init_csr_components</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csr_crow_indices</span><span class="p">,</span> <span class="n">csr_col_indices</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
         <span class="n">csr_crow_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">csr_crow_indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
@@ -1355,6 +1611,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_values</span> <span class="o">=</span> <span class="n">values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span> <span class="o">=</span> <span class="n">shape</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_init_csc_components</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csc_ccol_indices</span><span class="p">,</span> <span class="n">csc_row_indices</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+        <span class="n">csc_ccol_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">csc_ccol_indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+        <span class="n">csc_row_indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">csc_row_indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Shape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">native_sparse_array</span><span class="p">(</span>
+            <span class="n">csc_ccol_indices</span><span class="o">=</span><span class="n">csc_ccol_indices</span><span class="p">,</span>
+            <span class="n">csc_row_indices</span><span class="o">=</span><span class="n">csc_row_indices</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span>
+            <span class="n">dense_shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span> <span class="o">=</span> <span class="n">csc_ccol_indices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span> <span class="o">=</span> <span class="n">csc_row_indices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_values</span> <span class="o">=</span> <span class="n">values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csr_crow_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># Properties #</span>
     <span class="c1"># -----------#</span>
@@ -1374,6 +1651,14 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">csr_col_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">csc_ccol_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">csc_row_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1420,6 +1705,28 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span> <span class="o">=</span> <span class="n">indices</span>
 
+    <span class="nd">@csc_ccol_indices</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">csc_ccol_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+        <span class="n">_verify_csc_components</span><span class="p">(</span>
+            <span class="n">ccol_indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
+            <span class="n">row_indices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="p">,</span>
+            <span class="n">dense_shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span> <span class="o">=</span> <span class="n">indices</span>
+
+    <span class="nd">@csc_row_indices</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">csc_row_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+        <span class="n">_verify_csc_components</span><span class="p">(</span>
+            <span class="n">ccol_indices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span><span class="p">,</span>
+            <span class="n">row_indices</span><span class="o">=</span><span class="n">indices</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="p">,</span>
+            <span class="n">dense_shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span> <span class="o">=</span> <span class="n">indices</span>
+
     <span class="nd">@values</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="n">values</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
@@ -1441,23 +1748,32 @@
 
 <div class="viewcode-block" id="SparseArray.to_dense_array"><a class="viewcode-back" href="../../../../functional/ivy/experimental/SparseArray.html#ivy.functional.ivy.experimental.SparseArray.to_dense_array">[docs]</a>    <span class="k">def</span> <span class="nf">to_dense_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">native</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">all_coordinates</span> <span class="o">=</span> <span class="p">[]</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># COO sparse array</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
                 <span class="n">coordinate</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">i</span><span class="p">]]))</span>
                 <span class="n">coordinate</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">coordinate</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_coo_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],))</span>
                 <span class="n">all_coordinates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coordinate</span><span class="o">.</span><span class="n">to_list</span><span class="p">())</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csr_crow_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># CSR sparse array</span>
-            <span class="n">row</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">total_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">all_cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csr_col_indices</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
             <span class="n">all_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csr_crow_indices</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
-            <span class="k">while</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">total_rows</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_rows</span><span class="p">):</span>
                 <span class="n">cols</span> <span class="o">=</span> <span class="n">all_cols</span><span class="p">[</span><span class="n">all_rows</span><span class="p">[</span><span class="n">row</span><span class="p">]</span> <span class="p">:</span> <span class="n">all_rows</span><span class="p">[</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span>
                 <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
                     <span class="n">all_coordinates</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span>
-                <span class="n">row</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># CSC sparse array</span>
+            <span class="n">total_cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">all_rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csc_row_indices</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+            <span class="n">all_cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_csc_ccol_indices</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_cols</span><span class="p">):</span>
+                <span class="n">rows</span> <span class="o">=</span> <span class="n">all_rows</span><span class="p">[</span><span class="n">all_cols</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="p">:</span> <span class="n">all_cols</span><span class="p">[</span><span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+                    <span class="n">all_coordinates</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span>
+
         <span class="c1"># make dense array</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">scatter_nd</span><span class="p">(</span>
             <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_coordinates</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_values</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dense_shape</span><span class="p">)</span>
@@ -1487,6 +1803,8 @@
     <span class="n">coo_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">csr_crow_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">csr_col_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_ccol_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">csc_row_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">dense_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
@@ -1495,6 +1813,8 @@
         <span class="n">coo_indices</span><span class="o">=</span><span class="n">coo_indices</span><span class="p">,</span>
         <span class="n">csr_crow_indices</span><span class="o">=</span><span class="n">csr_crow_indices</span><span class="p">,</span>
         <span class="n">csr_col_indices</span><span class="o">=</span><span class="n">csr_col_indices</span><span class="p">,</span>
+        <span class="n">csc_ccol_indices</span><span class="o">=</span><span class="n">csc_ccol_indices</span><span class="p">,</span>
+        <span class="n">csc_row_indices</span><span class="o">=</span><span class="n">csc_row_indices</span><span class="p">,</span>
         <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span>
         <span class="n">dense_shape</span><span class="o">=</span><span class="n">dense_shape</span><span class="p">,</span>
     <span class="p">)</span></div>
@@ -1679,6 +1999,140 @@
     <span class="p">)</span></div>
 
 
+<span class="c1"># local</span>
+<span class="kn">import</span> <span class="nn">ivy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">ivy.func_wrapper</span> <span class="kn">import</span> <span class="n">handle_nestable</span><span class="p">,</span> <span class="n">handle_array_like</span>
+<span class="kn">from</span> <span class="nn">ivy.exceptions</span> <span class="kn">import</span> <span class="n">handle_exceptions</span>
+<span class="kn">from</span> <span class="nn">ivy.functional.ivy.losses</span> <span class="kn">import</span> <span class="n">_reduce_loss</span>
+
+
+<div class="viewcode-block" id="binary_cross_entropy_with_logits"><a class="viewcode-back" href="../../../../functional/ivy/experimental/binary_cross_entropy_with_logits.html#ivy.functional.ivy.experimental.binary_cross_entropy_with_logits">[docs]</a><span class="nd">@handle_nestable</span>
+<span class="nd">@handle_exceptions</span>
+<span class="nd">@handle_array_like</span>
+<span class="k">def</span> <span class="nf">binary_cross_entropy_with_logits</span><span class="p">(</span>
+    <span class="n">true</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="n">pred</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span>
+    <span class="n">pos_weight</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">reduction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Computes the binary cross entropy with logits loss.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    true</span>
+<span class="sd">        input array containing true labels.</span>
+<span class="sd">    pred</span>
+<span class="sd">        input array containing predicted labels as logits.</span>
+<span class="sd">    epsilon</span>
+<span class="sd">        a float in [0.0, 1.0] specifying the amount of smoothing when calculating the</span>
+<span class="sd">        loss. If epsilon is ``0``, no smoothing will be applied. Default: ``1e-7``.</span>
+<span class="sd">    pos_weight</span>
+<span class="sd">        a weight for positive examples. Must be an array with length equal to the number</span>
+<span class="sd">        of classes.</span>
+<span class="sd">    out</span>
+<span class="sd">        optional output array, for writing the result to. It must have a shape</span>
+<span class="sd">        that the inputs broadcast to.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        The binary cross entropy with logits loss between the given distributions.</span>
+
+
+<span class="sd">    Functional Examples</span>
+<span class="sd">    -------------------</span>
+
+<span class="sd">    With :class:`ivy.Array` input:</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([0, 1, 0, 1])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.array([1.2, 3.8, 5.3, 2.8])</span>
+<span class="sd">    &gt;&gt;&gt; z = ivy.binary_cross_entropy_with_logits(x, y)</span>
+<span class="sd">    &gt;&gt;&gt; print(z)</span>
+<span class="sd">    ivy.array([1.463, 0.022, 5.305, 0.059])</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([[0, 1, 0, 0]])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.array([[6.6, 4.2, 1.7, 7.3]])</span>
+<span class="sd">    &gt;&gt;&gt; z = ivy.binary_cross_entropy_with_logits(x, y, epsilon=1e-3)</span>
+<span class="sd">    &gt;&gt;&gt; print(z)</span>
+<span class="sd">    ivy.array([[6.601, 0.015, 1.868, 6.908]])</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([[0, 1, 1, 0]])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.array([[2.6, 6.2, 3.7, 5.3]])</span>
+<span class="sd">    &gt;&gt;&gt; pos_weight = ivy.array([1.2])</span>
+<span class="sd">    &gt;&gt;&gt; z = ivy.binary_cross_entropy_with_logits(x, y, pos_weight=pos_weight)</span>
+<span class="sd">    &gt;&gt;&gt; print(z)</span>
+<span class="sd">    ivy.array([[2.672, 0.002, 0.029, 5.305]])</span>
+
+<span class="sd">    With :class:`ivy.NativeArray` input:</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.native_array([0, 1, 0, 1])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.native_array([1.3, 1.7, 2.2, 0.6])</span>
+<span class="sd">    &gt;&gt;&gt; z = ivy.binary_cross_entropy_with_logits(x, y)</span>
+<span class="sd">    &gt;&gt;&gt; print(z)</span>
+<span class="sd">    ivy.array([1.541, 0.168, 2.305, 0.437])</span>
+
+<span class="sd">    With a mix of :class:`ivy.Array` and :class:`ivy.NativeArray` inputs:</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([0, 0, 0, 1])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.native_array([3.1, 3.2, 1.8, 4.6])</span>
+<span class="sd">    &gt;&gt;&gt; z = ivy.binary_cross_entropy_with_logits(x, y)</span>
+<span class="sd">    &gt;&gt;&gt; print(z)</span>
+<span class="sd">    ivy.array([3.144, 3.24, 1.953, 0.01])</span>
+
+<span class="sd">    With :class:`ivy.Container` input:</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.Container(a=ivy.array([1, 1, 0]),b=ivy.array([0, 0, 1]))</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.Container(a=ivy.array([3.6, 1.2, 5.3]),b=ivy.array([1.8, 2.2, 1.2]))</span>
+<span class="sd">    &gt;&gt;&gt; z = ivy.binary_cross_entropy_with_logits(x, y)</span>
+<span class="sd">    &gt;&gt;&gt; print(z)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([0.027, 0.263, 5.305]),</span>
+<span class="sd">        b: ivy.array([1.953, 2.305, 0.263])</span>
+<span class="sd">    }</span>
+
+<span class="sd">    With a mix of :class:`ivy.Array` and :class:`ivy.Container` inputs:</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([1, 0, 1])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.Container(a=ivy.array([3.7, 3.8, 1.2]))</span>
+<span class="sd">    &gt;&gt;&gt; z = ivy.binary_cross_entropy_with_logits(x, y)</span>
+<span class="sd">    &gt;&gt;&gt; print(z)</span>
+<span class="sd">    {</span>
+<span class="sd">        a: ivy.array([0.024, 3.822, 0.263])</span>
+<span class="sd">    }</span>
+
+<span class="sd">    Instance Method Examples</span>
+<span class="sd">    ------------------------</span>
+
+<span class="sd">    Using :class:`ivy.Array` instance method:</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([1, 1, 0, 0])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.array([1.8, 5.2, 12.2, 7.2])</span>
+<span class="sd">    &gt;&gt;&gt; z = ivy.binary_cross_entropy_with_logits(x, y)</span>
+<span class="sd">    &gt;&gt;&gt; print(z)</span>
+<span class="sd">    ivy.array([0.153, 0.006, 12.205, 7.201])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ivy</span><span class="o">.</span><span class="n">assertions</span><span class="o">.</span><span class="n">check_elem_in_list</span><span class="p">(</span><span class="n">reduction</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">])</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pos_weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">true</span> <span class="o">*</span> <span class="o">-</span><span class="n">ivy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span> <span class="o">*</span> <span class="n">pos_weight</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">true</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="n">ivy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pred</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">_reduce_loss</span><span class="p">(</span><span class="n">reduction</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">binary_cross_entropy</span><span class="p">(</span>
+            <span class="n">true</span><span class="p">,</span>
+            <span class="n">pred</span><span class="p">,</span>
+            <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span>
+            <span class="n">reduction</span><span class="o">=</span><span class="n">reduction</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
 
 
 
@@ -1706,8 +2160,7 @@
 <span class="kn">from</span> <span class="nn">ivy.exceptions</span> <span class="kn">import</span> <span class="n">handle_exceptions</span>
 
 
-<div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../../../functional/ivy/experimental/flatten/flatten_functional.html#ivy.functional.ivy.experimental.flatten">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
-<span class="nd">@handle_out_argument</span>
+<div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../../../functional/ivy/experimental/flatten/flatten_functional.html#ivy.functional.ivy.experimental.flatten">[docs]</a><span class="nd">@handle_out_argument</span>
 <span class="nd">@handle_nestable</span>
 <span class="nd">@handle_exceptions</span>
 <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span>
@@ -1822,7 +2275,8 @@
 <span class="sd">          [ 4, 19, 16, 17],</span>
 <span class="sd">          [ 2, 12,  8, 14]]]))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># if it&#39;s 0-d convert to 1-d</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
     <span class="k">if</span> <span class="n">start_dim</span> <span class="o">==</span> <span class="n">end_dim</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span>
     <span class="k">if</span> <span class="n">start_dim</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)):</span>
@@ -1849,6 +2303,9 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">end_dim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)):</span>
         <span class="n">lst</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">lst</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span></div>
+
+
+<span class="n">flatten</span><span class="o">.</span><span class="n">mixed_function</span> <span class="o">=</span> <span class="kc">True</span>
 
 
 <div class="viewcode-block" id="moveaxis"><a class="viewcode-back" href="../../../../functional/ivy/experimental/moveaxis/moveaxis_functional.html#ivy.functional.ivy.experimental.moveaxis">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
@@ -2415,13 +2872,15 @@
     <span class="k">if</span> <span class="n">right_length</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">max_length</span> <span class="o">&lt;</span> <span class="n">right_length</span><span class="p">:</span>
         <span class="n">right_length</span> <span class="o">=</span> <span class="n">max_length</span>
     <span class="n">left_slice</span> <span class="o">=</span> <span class="n">_slice_at_axis</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="n">left_index</span><span class="p">,</span> <span class="n">left_index</span> <span class="o">+</span> <span class="n">left_length</span><span class="p">),</span> <span class="n">axis</span><span class="p">)</span>
-    <span class="n">left_chunk</span> <span class="o">=</span> <span class="n">padded</span><span class="p">[</span><span class="n">left_slice</span><span class="p">]</span>
-    <span class="n">left_stat</span> <span class="o">=</span> <span class="n">stat_func</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">left_chunk</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">left_chunk</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">padded</span><span class="p">[</span><span class="n">left_slice</span><span class="p">])</span>
+    <span class="n">left_stat</span> <span class="o">=</span> <span class="n">stat_func</span><span class="p">(</span><span class="n">left_chunk</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">left_chunk</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">left_length</span> <span class="o">==</span> <span class="n">right_length</span> <span class="o">==</span> <span class="n">max_length</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">left_stat</span><span class="p">,</span> <span class="n">left_stat</span>
     <span class="n">right_slice</span> <span class="o">=</span> <span class="n">_slice_at_axis</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="n">right_index</span> <span class="o">-</span> <span class="n">right_length</span><span class="p">,</span> <span class="n">right_index</span><span class="p">),</span> <span class="n">axis</span><span class="p">)</span>
-    <span class="n">right_chunk</span> <span class="o">=</span> <span class="n">padded</span><span class="p">[</span><span class="n">right_slice</span><span class="p">]</span>
-    <span class="n">right_stat</span> <span class="o">=</span> <span class="n">stat_func</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">right_chunk</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">right_chunk</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">padded</span><span class="p">[</span><span class="n">right_slice</span><span class="p">])</span>
+    <span class="n">right_stat</span> <span class="o">=</span> <span class="n">stat_func</span><span class="p">(</span><span class="n">right_chunk</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+        <span class="n">right_chunk</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">left_stat</span><span class="p">,</span> <span class="n">right_stat</span>
 
 
@@ -3071,6 +3530,52 @@
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">()</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="o">*</span><span class="n">arys</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="atleast_3d"><a class="viewcode-back" href="../../../../functional/ivy/experimental/atleast_3d/atleast_3d_functional.html#ivy.functional.ivy.experimental.atleast_3d">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<span class="nd">@handle_out_argument</span>
+<span class="nd">@handle_nestable</span>
+<span class="k">def</span> <span class="nf">atleast_3d</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">arys</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">Number</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Convert inputs to arrays with at least three dimension.</span>
+<span class="sd">    Scalar inputs are converted to 3-dimensional arrays, whilst</span>
+<span class="sd">    higher-dimensional inputs are preserved.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arys</span>
+<span class="sd">        One or more array-like sequences. Non-array inputs are</span>
+<span class="sd">        converted to arrays. Arrays that already have three or more</span>
+<span class="sd">        dimensions are preserved.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        An array, or list of arrays, each with a.ndim &gt;= 3. Copies</span>
+<span class="sd">        are avoided where possible, and views with three or more</span>
+<span class="sd">        dimensions are returned. For example, a 1-D array of shape</span>
+<span class="sd">        (N,) becomes a view of shape (1, N, 1), and a 2-D array of</span>
+<span class="sd">        shape (M, N) becomes a view of shape (M, N, 1).</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; ary1 = ivy.array([5,6])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.atleast_3d(ary1)</span>
+<span class="sd">    ivy.array([[[5],</span>
+<span class="sd">            [6]]])</span>
+<span class="sd">    &gt;&gt;&gt; ary2 = ivy.array([[[3,4]]])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.atleast_3d(ary2)</span>
+<span class="sd">    ivy.array([[[3, 4]]])</span>
+<span class="sd">    &gt;&gt;&gt; ary3 = ivy.array([[3,4],[9,10]])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.atleast_3d(6,7,ary3)</span>
+<span class="sd">    [ivy.array([[[6]]]), ivy.array([[[7]]]), ivy.array([[[ 3],</span>
+<span class="sd">            [ 4]],</span>
+
+<span class="sd">           [[ 9],</span>
+<span class="sd">            [10]]])]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">()</span><span class="o">.</span><span class="n">atleast_3d</span><span class="p">(</span><span class="o">*</span><span class="n">arys</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="take_along_axis"><a class="viewcode-back" href="../../../../functional/ivy/experimental/take_along_axis/take_along_axis_functional.html#ivy.functional.ivy.experimental.take_along_axis">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
 <span class="nd">@handle_out_argument</span>
 <span class="nd">@handle_nestable</span>
@@ -3112,13 +3617,64 @@
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">take_along_axis</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="hsplit"><a class="viewcode-back" href="../../../../functional/ivy/experimental/hsplit/hsplit_functional.html#ivy.functional.ivy.experimental.hsplit">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<span class="nd">@handle_out_argument</span>
+<span class="nd">@handle_nestable</span>
+<span class="k">def</span> <span class="nf">hsplit</span><span class="p">(</span>
+    <span class="n">ary</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="n">indices_or_sections</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Split an array into multiple sub-arrays horizontally.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ary</span>
+<span class="sd">        Array input.</span>
+<span class="sd">    indices_or_sections</span>
+<span class="sd">        If indices_or_sections is an integer n, the array is split into n sections.</span>
+<span class="sd">        If the array is divisible by n along the 3rd axis, each section will be of</span>
+<span class="sd">        equal size. If input is not divisible by n, the sizes of the first</span>
+<span class="sd">        int(ary.size(0) % n) sections will have size int(ary.size(0) / n) + 1,</span>
+<span class="sd">        and the rest will have size int(ary.size(0) / n).</span>
+<span class="sd">        If indices_or_sections is a tuple of ints, then input is split at each of</span>
+<span class="sd">        the indices in the tuple.</span>
+<span class="sd">    out</span>
+<span class="sd">        optional output array, for writing the result to.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        input array split horizontally.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; ary = ivy.array(</span>
+<span class="sd">            [[0.,  1., 2., 3.],</span>
+<span class="sd">             [4.,  5., 6,  7.],</span>
+<span class="sd">             [8.,  9., 10., 11.],</span>
+<span class="sd">             [12., 13., 14., 15.]]</span>
+<span class="sd">            )</span>
+<span class="sd">    &gt;&gt;&gt; ivy.vsplit(ary, 2)</span>
+<span class="sd">    [ivy.array([[ 0.,  1.],</span>
+<span class="sd">                    [ 4.,  5.],</span>
+<span class="sd">                    [ 8.,  9.],</span>
+<span class="sd">                    [12., 13.]]),</span>
+<span class="sd">         ivy.array([[ 2.,  3.],</span>
+<span class="sd">                    [ 6.,  7.],</span>
+<span class="sd">                    [10., 11.],</span>
+<span class="sd">                    [14., 15.]]))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">ary</span><span class="p">)</span><span class="o">.</span><span class="n">hsplit</span><span class="p">(</span>
+        <span class="n">ary</span><span class="p">,</span> <span class="n">indices_or_sections</span><span class="o">=</span><span class="n">indices_or_sections</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span>
+    <span class="p">)</span></div>
 
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">Optional</span><span class="p">,</span>
-    <span class="n">Union</span><span class="p">,</span>
-    <span class="n">Tuple</span><span class="p">,</span>
-<span class="p">)</span>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">import</span> <span class="nn">ivy</span>
 <span class="kn">from</span> <span class="nn">ivy.func_wrapper</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">handle_out_argument</span><span class="p">,</span>
@@ -3259,6 +3815,88 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="quantile"><a class="viewcode-back" href="../../../../functional/ivy/experimental/quantile/quantile_functional.html#ivy.functional.ivy.experimental.quantile">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<span class="nd">@handle_out_argument</span>
+<span class="nd">@handle_nestable</span>
+<span class="nd">@handle_exceptions</span>
+<span class="k">def</span> <span class="nf">quantile</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">q</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">keepdims</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">interpolation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute the q-th quantile of the data along the specified axis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a</span>
+<span class="sd">        Input array.</span>
+<span class="sd">    q</span>
+<span class="sd">        Quantile or sequence of quantiles to compute, which must be</span>
+<span class="sd">        between 0 and 1 inclusive.</span>
+<span class="sd">    axis</span>
+<span class="sd">        Axis or axes along which the quantiles are computed. The default</span>
+<span class="sd">        is to compute the quantile(s) along a flattened version of the array.</span>
+<span class="sd">    keepdims</span>
+<span class="sd">        If this is set to True, the axes which are reduced are left in the result</span>
+<span class="sd">        as dimensions with size one. With this option, the result will broadcast</span>
+<span class="sd">        correctly against the original array a.</span>
+<span class="sd">    interpolation</span>
+<span class="sd">        {&#39;nearest&#39;, &#39;linear&#39;, &#39;lower&#39;, &#39;higher&#39;, &#39;midpoint&#39;}. Default value: &#39;linear&#39;.</span>
+<span class="sd">        This specifies the interpolation method to use when the desired quantile lies</span>
+<span class="sd">        between two data points i &lt; j:</span>
+<span class="sd">        - linear: i + (j - i) * fraction, where fraction is the fractional part of the</span>
+<span class="sd">        index surrounded by i and j.</span>
+<span class="sd">        - lower: i.</span>
+<span class="sd">        - higher: j.</span>
+<span class="sd">        - nearest: i or j, whichever is nearest.</span>
+<span class="sd">        - midpoint: (i + j) / 2. linear and midpoint interpolation do not work with</span>
+<span class="sd">        integer dtypes.</span>
+<span class="sd">    out</span>
+<span class="sd">        optional output array, for writing the result to.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        A (rank(q) + N - len(axis)) dimensional array of same dtype as a, or, if axis</span>
+<span class="sd">        is None, a rank(q) array. The first rank(q) dimensions index quantiles for</span>
+<span class="sd">        different values of q.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; a = ivy.array([[10., 7., 4.], [3., 2., 1.]])</span>
+<span class="sd">    &gt;&gt;&gt; q = ivy.array(0.5)</span>
+<span class="sd">    &gt;&gt;&gt; ivy.quantile(a, q)</span>
+<span class="sd">    ivy.array(3.5)</span>
+
+<span class="sd">    &gt;&gt;&gt; a = ivy.array([[10., 7., 4.], [3., 2., 1.]])</span>
+<span class="sd">    &gt;&gt;&gt; q = 0.5</span>
+<span class="sd">    &gt;&gt;&gt; ivy.quantile(a, q)</span>
+<span class="sd">    ivy.array(3.5)</span>
+
+<span class="sd">    &gt;&gt;&gt; ivy.quantile(a, q, axis=0)</span>
+<span class="sd">    ivy.array([6.5, 4.5, 2.5])</span>
+
+<span class="sd">    &gt;&gt;&gt; ivy.quantile(a, q, axis=1)</span>
+<span class="sd">    ivy.array([7.,  2.])</span>
+
+<span class="sd">    &gt;&gt;&gt; ivy.quantile(a, q, axis=1, keepdims=True)</span>
+<span class="sd">    ivy.array([[7.],[2.]])</span>
+
+<span class="sd">    &gt;&gt;&gt; a = ivy.array([1., 2., 3., 4.])</span>
+<span class="sd">    &gt;&gt;&gt; q = ivy.array([0.3, 0.7])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.quantile(a, q, interpolation=&#39;lower&#39;)</span>
+<span class="sd">    ivy.array([1., 3.])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="n">keepdims</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">interpolation</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span>
+    <span class="p">)</span></div>
+
 <span class="c1"># global</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
 
@@ -3387,7 +4025,8 @@
 
 
 <span class="c1"># local</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
 <span class="kn">import</span> <span class="nn">ivy</span>
 <span class="kn">from</span> <span class="nn">ivy.func_wrapper</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">handle_out_argument</span><span class="p">,</span>
@@ -3729,6 +4368,50 @@
 <span class="sd">    ivy.array([32.,   64.,  128.])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">()</span><span class="o">.</span><span class="n">exp2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="copysign"><a class="viewcode-back" href="../../../../functional/ivy/experimental/copysign/copysign_functional.html#ivy.functional.ivy.experimental.copysign">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<span class="nd">@handle_out_argument</span>
+<span class="nd">@handle_nestable</span>
+<span class="nd">@handle_exceptions</span>
+<span class="k">def</span> <span class="nf">copysign</span><span class="p">(</span>
+    <span class="n">x1</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">Number</span><span class="p">],</span>
+    <span class="n">x2</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">Number</span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Change the signs of x1 to match x2</span>
+<span class="sd">    x1 and x2 must be broadcastable to a common shape</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x1</span>
+<span class="sd">        Array or scalar to change the sign of</span>
+<span class="sd">    x2</span>
+<span class="sd">        Array or scalar from which the new signs are applied</span>
+<span class="sd">        Unsigned zeroes are considered positive.</span>
+<span class="sd">    out</span>
+<span class="sd">        optional output array, for writing the result to.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        x1 with the signs of x2.</span>
+<span class="sd">        This is a scalar if both x1 and x2 are scalars.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; x1 = ivy.array([-1, 0, 23, 2])</span>
+<span class="sd">    &gt;&gt;&gt; x2 = ivy.array([1, -1, -10, 44])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.copysign(x1, x2)</span>
+<span class="sd">    ivy.array([  1.,  -0., -23.,   2.])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.copysign(x1, -1)</span>
+<span class="sd">    ivy.array([ -1.,  -0., -23.,  -2.])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.copysign(-10, 1)</span>
+<span class="sd">    ivy.array(10.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">()</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="count_nonzero"><a class="viewcode-back" href="../../../../functional/ivy/experimental/count_nonzero/count_nonzero_functional.html#ivy.functional.ivy.experimental.count_nonzero">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
@@ -4148,10 +4831,39 @@
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">signbit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="allclose"><a class="viewcode-back" href="../../../../functional/ivy/experimental/allclose/allclose_functional.html#ivy.functional.ivy.experimental.allclose">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<div class="viewcode-block" id="diff"><a class="viewcode-back" href="../../../../functional/ivy/experimental/diff/diff_functional.html#ivy.functional.ivy.experimental.diff">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
 <span class="nd">@handle_out_argument</span>
 <span class="nd">@handle_nestable</span>
-<span class="nd">@handle_exceptions</span>
+<span class="k">def</span> <span class="nf">diff</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns the n-th discrete difference along the given axis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x</span>
+<span class="sd">        array-like input.</span>
+<span class="sd">    out</span>
+<span class="sd">        optional output array, for writing the result to.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        Rreturns the n-th discrete difference along the given axis.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([1, 2, 4, 7, 0])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.diff(x)</span>
+<span class="sd">    ivy.array([ 1,  2,  3, -7])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="allclose"><a class="viewcode-back" href="../../../../functional/ivy/experimental/allclose/allclose_functional.html#ivy.functional.ivy.experimental.allclose">[docs]</a><span class="nd">@handle_exceptions</span>
 <span class="k">def</span> <span class="nf">allclose</span><span class="p">(</span>
     <span class="n">a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
     <span class="n">b</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
@@ -4332,6 +5044,83 @@
 <span class="sd">    ivy.array([0.0369, 0.2021])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span><span class="o">.</span><span class="n">zeta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gradient"><a class="viewcode-back" href="../../../../functional/ivy/experimental/gradient/gradient_functional.html#ivy.functional.ivy.experimental.gradient">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<span class="nd">@handle_nestable</span>
+<span class="nd">@handle_exceptions</span>
+<span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">edge_order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;Calculates gradient of x with respect to (w.r.t.) spacing</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x</span>
+<span class="sd">        input array representing outcomes of the function</span>
+<span class="sd">    spacing</span>
+<span class="sd">        if not given, indices of x will be used</span>
+<span class="sd">        if scalar indices of x will be scaled with this value</span>
+<span class="sd">        if array gradient of x w.r.t. spacing</span>
+<span class="sd">    edge_order</span>
+<span class="sd">        1 or 2, for &#39;frist order&#39; and &#39;second order&#39; estimation</span>
+<span class="sd">        of boundary values of gradient respectively.</span>
+<span class="sd">        Note: jax supports edge_order=1 case only</span>
+<span class="sd">    axis</span>
+<span class="sd">        dimension(s) to approximate the gradient over</span>
+<span class="sd">        by default partial gradient is computed in every dimention</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        Array with values computed from gradient function from</span>
+<span class="sd">        inputs</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; spacing = (ivy.array([-2., -1., 1., 4.]),)</span>
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([4., 1., 1., 16.], )</span>
+<span class="sd">    &gt;&gt;&gt; ivy.gradient(x, spacing=spacing)</span>
+<span class="sd">    ivy.array([-3., -2.,  2.,  5.])</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([[1, 2, 4, 8], [10, 20, 40, 80]])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.gradient(x)</span>
+<span class="sd">    [ivy.array([[ 9., 18., 36., 72.],</span>
+<span class="sd">       [ 9., 18., 36., 72.]]), ivy.array([[ 1. ,  1.5,  3. ,  4. ],</span>
+<span class="sd">       [10. , 15. , 30. , 40. ]])]</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([[1, 2, 4, 8], [10, 20, 40, 80]])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.gradient(x, spacing=2.0)</span>
+<span class="sd">    [ivy.array([[ 4.5,  9. , 18. , 36. ],</span>
+<span class="sd">       [ 4.5,  9. , 18. , 36. ]]), ivy.array([[ 0.5 ,  0.75,  1.5 ,  2.  ],</span>
+<span class="sd">       [ 5.  ,  7.5 , 15.  , 20.  ]])]</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([[1, 2, 4, 8], [10, 20, 40, 80]])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.gradient(x, axis=1)</span>
+<span class="sd">    ivy.array([[ 1. ,  1.5,  3. ,  4. ],</span>
+<span class="sd">       [10. , 15. , 30. , 40. ]])</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([[1, 2, 4, 8], [10, 20, 40, 80]])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.gradient(x, spacing=[3., 2.])</span>
+<span class="sd">    [ivy.array([[ 3.,  6., 12., 24.],</span>
+<span class="sd">       [ 3.,  6., 12., 24.]]), ivy.array([[ 0.5 ,  0.75,  1.5 ,  2.  ],</span>
+<span class="sd">       [ 5.  ,  7.5 , 15.  , 20.  ]])]</span>
+
+<span class="sd">    &gt;&gt;&gt; spacing = (ivy.array([0, 2]), ivy.array([0, 3, 6, 9]))</span>
+<span class="sd">    &gt;&gt;&gt; ivy.gradient(x, spacing=spacing)</span>
+<span class="sd">    [ivy.array([[ 4.5,  9. , 18. , 36. ],</span>
+<span class="sd">       [ 4.5,  9. , 18. , 36. ]]), ivy.array([[ 0.33333333, 0.5,  1., 1.33333333],</span>
+<span class="sd">       [ 3.33333333,  5.        , 10.        , 13.33333333]])]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">current_backend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">,</span> <span class="n">edge_order</span><span class="o">=</span><span class="n">edge_order</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span>
+    <span class="p">)</span></div>
 
 
 

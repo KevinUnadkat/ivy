@@ -321,8 +321,7 @@
 
 <div class="viewcode-block" id="is_array"><a class="viewcode-back" href="../../../../functional/ivy/general/is_array/is_array_functional.html#ivy.functional.ivy.general.is_array">[docs]</a><span class="nd">@handle_exceptions</span>
 <span class="k">def</span> <span class="nf">is_array</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">exclusive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Determines whether the input x is either an Ivy Array, a Native Array</span>
-<span class="sd">    or a frontend array.</span>
+    <span class="sd">&quot;&quot;&quot;Determines whether the input x is either an Ivy Array or a Native Array.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1193,7 +1192,7 @@
     <span class="k">return</span> <span class="n">sin_x</span><span class="p">,</span> <span class="n">cos_x</span></div>
 
 
-<div class="viewcode-block" id="value_is_nan"><a class="viewcode-back" href="../../../../functional/ivy/general/value_is_nan/value_is_nan_functional.html#ivy.functional.ivy.general.value_is_nan">[docs]</a><span class="nd">@inputs_to_native_arrays</span>
+<div class="viewcode-block" id="value_is_nan"><a class="viewcode-back" href="../../../../functional/ivy/general/value_is_nan/value_is_nan_functional.html#ivy.functional.ivy.general.value_is_nan">[docs]</a><span class="nd">@inputs_to_ivy_arrays</span>
 <span class="nd">@handle_nestable</span>
 <span class="nd">@handle_exceptions</span>
 <span class="nd">@handle_array_like</span>
@@ -2448,10 +2447,11 @@
 
 
 <div class="viewcode-block" id="get_item"><a class="viewcode-back" href="../../../../functional/ivy/general/get_item.html#ivy.functional.ivy.general.get_item">[docs]</a><span class="nd">@to_native_arrays_and_back</span>
+<span class="nd">@handle_nestable</span>
 <span class="nd">@handle_array_like</span>
 <span class="k">def</span> <span class="nf">get_item</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
-    <span class="n">query</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">],</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">     Gather slices from x according to query array, identical to x[query].</span>

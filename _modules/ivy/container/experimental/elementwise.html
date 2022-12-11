@@ -130,6 +130,7 @@
   <h1>Source code for ivy.container.experimental.elementwise</h1><div class="highlight"><pre>
 <span></span><span class="c1"># global</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
 
 <span class="c1"># local</span>
 <span class="kn">import</span> <span class="nn">ivy</span>
@@ -734,6 +735,109 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">static_exp2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="ContainerWithElementWiseExperimental.static_copysign"><a class="viewcode-back" href="../../../../data_classes/container/experimental.html#ivy.container.experimental.ContainerWithElementWiseExperimental.static_copysign">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">static_copysign</span><span class="p">(</span>
+        <span class="n">x1</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="n">Number</span><span class="p">],</span>
+        <span class="n">x2</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="n">Number</span><span class="p">],</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ivy.Container static method variant of ivy.copysign. This method simply wraps</span>
+<span class="sd">        the function, and so the docstring for ivy.copysign also applies to this</span>
+<span class="sd">        method with minimal changes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x1</span>
+<span class="sd">            Container, Array, or scalar to change the sign of</span>
+<span class="sd">        x2</span>
+<span class="sd">            Container, Array, or scalar from which the new signs are applied</span>
+<span class="sd">            Unsigned zeroes are considered positive.</span>
+<span class="sd">        out</span>
+<span class="sd">            optional output Container, for writing the result to.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ret</span>
+<span class="sd">            x1 with the signs of x2.</span>
+<span class="sd">            This is a scalar if both x1 and x2 are scalars.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; x1 = ivy.Container(a=ivy.array([0,1,2]), b=ivy.array(-1))</span>
+<span class="sd">        &gt;&gt;&gt; x2 = ivy.Container(a=-1, b=ivy.array(10))</span>
+<span class="sd">        &gt;&gt;&gt; ivy.Container.static_copysign(x1, x2)</span>
+<span class="sd">        {</span>
+<span class="sd">            a: ivy.array([-0., -1., -2.]),</span>
+<span class="sd">            b: ivy.array(1.)</span>
+<span class="sd">        }</span>
+<span class="sd">        &gt;&gt;&gt; ivy.Container.static_copysign(23, x1)</span>
+<span class="sd">        {</span>
+<span class="sd">            a: ivy.array([23., 23., 23.]),</span>
+<span class="sd">            b: ivy.array(-23.)</span>
+<span class="sd">        }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ContainerBase</span><span class="o">.</span><span class="n">multi_map_in_static_method</span><span class="p">(</span>
+            <span class="s2">&quot;copysign&quot;</span><span class="p">,</span>
+            <span class="n">x1</span><span class="p">,</span>
+            <span class="n">x2</span><span class="p">,</span>
+            <span class="n">key_chains</span><span class="o">=</span><span class="n">key_chains</span><span class="p">,</span>
+            <span class="n">to_apply</span><span class="o">=</span><span class="n">to_apply</span><span class="p">,</span>
+            <span class="n">prune_unapplied</span><span class="o">=</span><span class="n">prune_unapplied</span><span class="p">,</span>
+            <span class="n">map_sequences</span><span class="o">=</span><span class="n">map_sequences</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContainerWithElementWiseExperimental.copysign"><a class="viewcode-back" href="../../../../data_classes/container/experimental.html#ivy.container.experimental.ContainerWithElementWiseExperimental.copysign">[docs]</a>    <span class="k">def</span> <span class="nf">copysign</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+        <span class="n">x2</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;ivy.Container instance method variant of ivy.copysign. This method simply</span>
+<span class="sd">        wraps the function, and so the docstring for ivy.copysign also applies to</span>
+<span class="sd">        this method with minimal changes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        self</span>
+<span class="sd">            Container to change the sign of</span>
+<span class="sd">        x2</span>
+<span class="sd">            Container from which the new signs are applied</span>
+<span class="sd">            Unsigned zeroes are considered positive.</span>
+<span class="sd">        out</span>
+<span class="sd">            optional output Container, for writing the result to.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ret</span>
+<span class="sd">            x1 with the signs of x2.</span>
+<span class="sd">            This is a scalar if both x1 and x2 are scalars.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; x1 = ivy.Container(a=ivy.array([0,1,2]), b=ivy.array(-1))</span>
+<span class="sd">        &gt;&gt;&gt; x2 = ivy.Container(a=-1, b=ivy.array(10))</span>
+<span class="sd">        &gt;&gt;&gt; x1.copysign(x2)</span>
+<span class="sd">        {</span>
+<span class="sd">            a: ivy.array([-0., -1., -2.]),</span>
+<span class="sd">            b: ivy.array(1.)</span>
+<span class="sd">        }</span>
+<span class="sd">        &gt;&gt;&gt; x1.copysign(-1)</span>
+<span class="sd">        {</span>
+<span class="sd">            a: ivy.array([-0., -1., -2.]),</span>
+<span class="sd">            b: ivy.array(-1.)</span>
+<span class="sd">        }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">static_copysign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ContainerWithElementWiseExperimental.static_count_nonzero"><a class="viewcode-back" href="../../../../data_classes/container/experimental.html#ivy.container.experimental.ContainerWithElementWiseExperimental.static_count_nonzero">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">static_count_nonzero</span><span class="p">(</span>
         <span class="n">a</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
@@ -933,7 +1037,7 @@
 <span class="sd">        ivy.Container static method variant of ivy.nansum. This method simply wraps</span>
 <span class="sd">        the function, and so the docstring for ivy.nansum also applies to this method</span>
 <span class="sd">        with minimal changes.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        x</span>
@@ -950,13 +1054,13 @@
 <span class="sd">        out</span>
 <span class="sd">            Alternate output array in which to place the result.</span>
 <span class="sd">            The default is None.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        ret</span>
 <span class="sd">            A new array holding the result is returned unless out is specified,</span>
 <span class="sd">            in which it is returned.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
 <span class="sd">        With one :class:`ivy.Container` input:</span>
@@ -1004,7 +1108,7 @@
 <span class="sd">        ivy.Container instance method variant of ivy.nansum. This method simply</span>
 <span class="sd">        wraps the function, and so the docstring for ivy.nansum also applies to this</span>
 <span class="sd">        method with minimal changes.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        self</span>
@@ -1021,13 +1125,13 @@
 <span class="sd">        out</span>
 <span class="sd">            Alternate output array in which to place the result.</span>
 <span class="sd">            The default is None.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        ret</span>
 <span class="sd">            A new array holding the result is returned unless out is specified,</span>
 <span class="sd">            in which it is returned.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
 <span class="sd">        With one :class:`ivy.Container` input:</span>
@@ -1963,10 +2067,8 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; x1 = ivy.Container(a=ivy.array([1., 2., 3.]),\</span>
-<span class="sd">        ...                         b=ivy.array([1., 2., 3.]))</span>
-<span class="sd">        &gt;&gt;&gt; x2 = ivy.Container(a=ivy.array([1., 2., 3.]),\</span>
-<span class="sd">        ...                         b=ivy.array([1., 2., 3.]))</span>
+<span class="sd">        &gt;&gt;&gt; x1 = ivy.Container(a=ivy.array([1., 2., 3.]), b=ivy.array([1., 2., 3.]))</span>
+<span class="sd">        &gt;&gt;&gt; x2 = ivy.Container(a=ivy.array([1., 2., 3.]), b=ivy.array([1., 2., 3.]))</span>
 <span class="sd">        &gt;&gt;&gt; y = x1.allclose(x2)</span>
 <span class="sd">        &gt;&gt;&gt; print(y)</span>
 <span class="sd">        {</span>
@@ -1997,6 +2099,92 @@
             <span class="n">map_sequences</span><span class="o">=</span><span class="n">map_sequences</span><span class="p">,</span>
             <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
         <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContainerWithElementWiseExperimental.static_diff"><a class="viewcode-back" href="../../../../data_classes/container/experimental.html#ivy.container.experimental.ContainerWithElementWiseExperimental.static_diff">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">static_diff</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">],</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ivy.Container static method variant of ivy.diff. This method simply wraps</span>
+<span class="sd">        the function, and so the docstring for ivy.diff also applies to this</span>
+<span class="sd">        method with minimal changes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x</span>
+<span class="sd">            input container with array-like items.</span>
+<span class="sd">        </span>
+<span class="sd">        out</span>
+<span class="sd">            optional output container, for writing the result to.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ret</span>
+<span class="sd">            Container including arrays with the n-th discrete difference along</span>
+<span class="sd">            the given axis.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; x = ivy.Container(a=ivy.array([1, 2, 4, 7, 0]),\</span>
+<span class="sd">                               b=ivy.array([1, 2, 4, 7, 0]))</span>
+<span class="sd">        &gt;&gt;&gt; ivy.Container.static_diff(x)</span>
+<span class="sd">        {</span>
+<span class="sd">            a: ivy.array([ 1,  2,  3, -7])</span>
+<span class="sd">            b: ivy.array([ 1,  2,  3, -7])</span>
+<span class="sd">        }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ContainerBase</span><span class="o">.</span><span class="n">multi_map_in_static_method</span><span class="p">(</span>
+            <span class="s2">&quot;diff&quot;</span><span class="p">,</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="n">key_chains</span><span class="o">=</span><span class="n">key_chains</span><span class="p">,</span>
+            <span class="n">to_apply</span><span class="o">=</span><span class="n">to_apply</span><span class="p">,</span>
+            <span class="n">prune_unapplied</span><span class="o">=</span><span class="n">prune_unapplied</span><span class="p">,</span>
+            <span class="n">map_sequences</span><span class="o">=</span><span class="n">map_sequences</span><span class="p">,</span>
+            <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContainerWithElementWiseExperimental.diff"><a class="viewcode-back" href="../../../../data_classes/container/experimental.html#ivy.container.experimental.ContainerWithElementWiseExperimental.diff">[docs]</a>    <span class="k">def</span> <span class="nf">diff</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;ivy.Container instance method variant of ivy.diff. This method simply</span>
+<span class="sd">        wraps the function, and so the docstring for ivy.diff also applies to</span>
+<span class="sd">        this method with minimal changes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        self</span>
+<span class="sd">            input container with array-like items.</span>
+<span class="sd">        </span>
+<span class="sd">        out</span>
+<span class="sd">            optional output container, for writing the result to.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ret</span>
+<span class="sd">            Container including arrays with the n-th discrete difference along the</span>
+<span class="sd">            given axis.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; x = ivy.Container(a=ivy.array([1, 2, 4, 7, 0]),\</span>
+<span class="sd">                               b=ivy.array([1, 2, 4, 7, 0]))</span>
+<span class="sd">        &gt;&gt;&gt; ivy.Container.static_diff(x)</span>
+<span class="sd">        {</span>
+<span class="sd">            a: ivy.array([ 1,  2,  3, -7])</span>
+<span class="sd">            b: ivy.array([ 1,  2,  3, -7])</span>
+<span class="sd">        }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">static_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ContainerWithElementWiseExperimental.static_fix"><a class="viewcode-back" href="../../../../data_classes/container/experimental.html#ivy.container.experimental.ContainerWithElementWiseExperimental.static_fix">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">static_fix</span><span class="p">(</span>
@@ -2342,6 +2530,167 @@
             <span class="n">prune_unapplied</span><span class="o">=</span><span class="n">prune_unapplied</span><span class="p">,</span>
             <span class="n">map_sequences</span><span class="o">=</span><span class="n">map_sequences</span><span class="p">,</span>
             <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContainerWithElementWiseExperimental.static_gradient"><a class="viewcode-back" href="../../../../data_classes/container/experimental.html#ivy.container.experimental.ContainerWithElementWiseExperimental.static_gradient">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">static_gradient</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">],</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">key_chains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">to_apply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">prune_unapplied</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">map_sequences</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">spacing</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">edge_order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ContainerBase</span><span class="o">.</span><span class="n">multi_map_in_static_method</span><span class="p">(</span>
+            <span class="s2">&quot;gradient&quot;</span><span class="p">,</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="n">key_chains</span><span class="o">=</span><span class="n">key_chains</span><span class="p">,</span>
+            <span class="n">to_apply</span><span class="o">=</span><span class="n">to_apply</span><span class="p">,</span>
+            <span class="n">prune_unapplied</span><span class="o">=</span><span class="n">prune_unapplied</span><span class="p">,</span>
+            <span class="n">map_sequences</span><span class="o">=</span><span class="n">map_sequences</span><span class="p">,</span>
+            <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">,</span>
+            <span class="n">edge_order</span><span class="o">=</span><span class="n">edge_order</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContainerWithElementWiseExperimental.gradient"><a class="viewcode-back" href="../../../../data_classes/container/experimental.html#ivy.container.experimental.ContainerWithElementWiseExperimental.gradient">[docs]</a>    <span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">,</span>
+        <span class="o">/</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">spacing</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">edge_order</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculates gradient of x with respect to (w.r.t.) spacing</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            x</span>
+<span class="sd">                input array representing outcomes of the function</span>
+<span class="sd">                spacing</span>
+<span class="sd">                if not given, indices of x will be used</span>
+<span class="sd">                if scalar indices of x will be scaled with this value</span>
+<span class="sd">                if array gradient of x w.r.t. spacing</span>
+<span class="sd">            edge_order</span>
+<span class="sd">                1 or 2, for &#39;frist order&#39; and &#39;second order&#39; estimation</span>
+<span class="sd">                of boundary values of gradient respectively.</span>
+<span class="sd">            axis</span>
+<span class="sd">                dimension(s) to approximate the gradient over.</span>
+<span class="sd">                By default, partial gradient is computed in every dimension</span>
+
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ret</span>
+<span class="sd">            Array with values computed from gradient function from</span>
+<span class="sd">            inputs</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; coordinates = ivy.Container(</span>
+<span class="sd">        &gt;&gt;&gt;     a=(ivy.array([-2., -1., 1., 4.]),),</span>
+<span class="sd">        &gt;&gt;&gt;     b=(ivy.array([2., 1., -1., -4.]),)</span>
+<span class="sd">        &gt;&gt;&gt; )</span>
+<span class="sd">        &gt;&gt;&gt; values = ivy.Container(</span>
+<span class="sd">        &gt;&gt;&gt;     a=ivy.array([4., 1., 1., 16.]),</span>
+<span class="sd">        &gt;&gt;&gt;     b=ivy.array([4., 1., 1., 16.])</span>
+<span class="sd">        &gt;&gt;&gt; )</span>
+<span class="sd">        &gt;&gt;&gt; ivy.gradient(values, spacing=coordinates)</span>
+<span class="sd">        {</span>
+<span class="sd">            a: ivy.array([-3., -2., 2., 5.]),</span>
+<span class="sd">            b: ivy.array([3., 2., -2., -5.])</span>
+<span class="sd">        }</span>
+
+<span class="sd">        &gt;&gt;&gt; values = ivy.Container(</span>
+<span class="sd">        &gt;&gt;&gt;     a=ivy.array([[1, 2, 4, 8], [10, 20, 40, 80]]),</span>
+<span class="sd">        &gt;&gt;&gt;     b=ivy.array([[-1, -2, -4, -8], [-10, -20, -40, -80]])</span>
+<span class="sd">        &gt;&gt;&gt; )</span>
+<span class="sd">        &gt;&gt;&gt; ivy.gradient(values)</span>
+<span class="sd">        [{</span>
+<span class="sd">            a: ivy.array([[9., 18., 36., 72.],</span>
+<span class="sd">                          [9., 18., 36., 72.]]),</span>
+<span class="sd">            b: ivy.array([[-9., -18., -36., -72.],</span>
+<span class="sd">                          [-9., -18., -36., -72.]])</span>
+<span class="sd">        }, {</span>
+<span class="sd">            a: ivy.array([[1., 1.5, 3., 4.],</span>
+<span class="sd">                          [10., 15., 30., 40.]]),</span>
+<span class="sd">            b: ivy.array([[-1., -1.5, -3., -4.],</span>
+<span class="sd">                          [-10., -15., -30., -40.]])</span>
+<span class="sd">        }]</span>
+
+<span class="sd">        &gt;&gt;&gt; values = ivy.Container(</span>
+<span class="sd">        &gt;&gt;&gt;     a=ivy.array([[1, 2, 4, 8], [10, 20, 40, 80]]),</span>
+<span class="sd">        &gt;&gt;&gt;     b=ivy.array([[-1, -2, -4, -8], [-10, -20, -40, -80]])</span>
+<span class="sd">        &gt;&gt;&gt; )</span>
+<span class="sd">        &gt;&gt;&gt; ivy.gradient(values, spacing=2.0)</span>
+<span class="sd">        [{</span>
+<span class="sd">            a: ivy.array([[4.5, 9., 18., 36.],</span>
+<span class="sd">                          [4.5, 9., 18., 36.]]),</span>
+<span class="sd">            b: ivy.array([[-4.5, -9., -18., -36.],</span>
+<span class="sd">                          [-4.5, -9., -18., -36.]])</span>
+<span class="sd">        }, {</span>
+<span class="sd">            a: ivy.array([[0.5, 0.75, 1.5, 2.],</span>
+<span class="sd">                          [5., 7.5, 15., 20.]]),</span>
+<span class="sd">            b: ivy.array([[-0.5, -0.75, -1.5, -2.],</span>
+<span class="sd">                          [-5., -7.5, -15., -20.]])</span>
+<span class="sd">        }]</span>
+
+<span class="sd">        &gt;&gt;&gt; values = ivy.Container(</span>
+<span class="sd">        &gt;&gt;&gt;     a=ivy.array([[1, 2, 4, 8], [10, 20, 40, 80]]),</span>
+<span class="sd">        &gt;&gt;&gt;     b=ivy.array([[-1, -2, -4, -8], [-10, -20, -40, -80]])</span>
+<span class="sd">        &gt;&gt;&gt; )</span>
+<span class="sd">        &gt;&gt;&gt; ivy.gradient(values, axis=1)</span>
+<span class="sd">        {</span>
+<span class="sd">            a: ivy.array([[1., 1.5, 3., 4.],</span>
+<span class="sd">                          [10., 15., 30., 40.]]),</span>
+<span class="sd">            b: ivy.array([[-1., -1.5, -3., -4.],</span>
+<span class="sd">                          [-10., -15., -30., -40.]])</span>
+<span class="sd">        }</span>
+
+<span class="sd">        &gt;&gt;&gt; values = ivy.Container(</span>
+<span class="sd">        &gt;&gt;&gt;     a=ivy.array([[1, 2, 4, 8], [10, 20, 40, 80]]),</span>
+<span class="sd">        &gt;&gt;&gt;     b=ivy.array([[-1, -2, -4, -8], [-10, -20, -40, -80]])</span>
+<span class="sd">        &gt;&gt;&gt; )</span>
+<span class="sd">        &gt;&gt;&gt; ivy.gradient(values, spacing = [3., 2.])</span>
+<span class="sd">        [{</span>
+<span class="sd">            a: ivy.array([[3., 6., 12., 24.],</span>
+<span class="sd">                          [3., 6., 12., 24.]]),</span>
+<span class="sd">            b: ivy.array([[-3., -6., -12., -24.],</span>
+<span class="sd">                          [-3., -6., -12., -24.]])</span>
+<span class="sd">        }, {</span>
+<span class="sd">            a: ivy.array([[0.5, 0.75, 1.5, 2.],</span>
+<span class="sd">                          [5., 7.5, 15., 20.]]),</span>
+<span class="sd">            b: ivy.array([[-0.5, -0.75, -1.5, -2.],</span>
+<span class="sd">                          [-5., -7.5, -15., -20.]])</span>
+<span class="sd">        }]</span>
+
+<span class="sd">        &gt;&gt;&gt; coords = ivy.Container(</span>
+<span class="sd">        &gt;&gt;&gt;    a=(ivy.array([0, 2]), ivy.array([0, 3, 6, 9])),</span>
+<span class="sd">        &gt;&gt;&gt;    b=(ivy.array([0, -2]), ivy.array([0, -3, -6, -9]))</span>
+<span class="sd">        &gt;&gt;&gt;)</span>
+<span class="sd">        &gt;&gt;&gt; values = ivy.Container(</span>
+<span class="sd">        &gt;&gt;&gt;     a=ivy.array([[1, 2, 4, 8], [10, 20, 40, 80]]),</span>
+<span class="sd">        &gt;&gt;&gt;     b=ivy.array([[-1, -2, -4, -8], [-10, -20, -40, -80]])</span>
+<span class="sd">        &gt;&gt;&gt;)</span>
+<span class="sd">        &gt;&gt;&gt; ivy.gradient(values, spacing = coords)</span>
+<span class="sd">        [{</span>
+<span class="sd">            a: ivy.array([[4.5, 9., 18., 36.],</span>
+<span class="sd">                          [4.5, 9., 18., 36.]]),</span>
+<span class="sd">            b: ivy.array([[4.5, 9., 18., 36.],</span>
+<span class="sd">                          [4.5, 9., 18., 36.]])</span>
+<span class="sd">        }, {</span>
+<span class="sd">            a: ivy.array([[0.33333333, 0.5, 1., 1.33333333],</span>
+<span class="sd">                          [3.33333333, 5., 10., 13.33333333]]),</span>
+<span class="sd">            b: ivy.array([[0.33333333, 0.5, 1., 1.33333333],</span>
+<span class="sd">                          [3.33333333, 5., 10., 13.33333333]])</span>
+<span class="sd">        }]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">static_gradient</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">,</span> <span class="n">edge_order</span><span class="o">=</span><span class="n">edge_order</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span>
         <span class="p">)</span></div></div>
 </pre></div>
 

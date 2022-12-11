@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="NativeSparseArray" href="NativeSparseArray.html" />
-    <link rel="prev" title="ivy.Container.zeta" href="zeta/zeta_container.html" /> 
+    <link rel="prev" title="ivy.Container.static_gradient" href="gradient/static_gradient_container.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -68,6 +68,8 @@
 <li class="toctree-l2"><a class="reference internal" href="avg_pool2d.html">avg_pool2d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="avg_pool3d.html">avg_pool3d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dct.html">dct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fft.html">fft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dropout1d.html">dropout1d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isin.html">isin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="msort.html">msort</a></li>
 <li class="toctree-l2"><a class="reference internal" href="triu_indices.html">triu_indices</a></li>
@@ -83,6 +85,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dirichlet.html">dirichlet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="beta.html">beta</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gamma.html">gamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="binary_cross_entropy_with_logits.html">binary_cross_entropy_with_logits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flatten.html">flatten</a></li>
 <li class="toctree-l2"><a class="reference internal" href="moveaxis.html">moveaxis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ndenumerate.html">ndenumerate</a></li>
@@ -101,10 +104,13 @@
 <li class="toctree-l2"><a class="reference internal" href="atleast_1d.html">atleast_1d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dstack.html">dstack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="atleast_2d.html">atleast_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="atleast_3d.html">atleast_3d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="take_along_axis.html">take_along_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hsplit.html">hsplit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="median.html">median</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nanmean.html">nanmean</a></li>
 <li class="toctree-l2"><a class="reference internal" href="unravel_index.html">unravel_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quantile.html">quantile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="diagflat.html">diagflat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kron.html">kron</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sinc.html">sinc</a></li>
@@ -114,6 +120,7 @@
 <li class="toctree-l2"><a class="reference internal" href="trapz.html">trapz</a></li>
 <li class="toctree-l2"><a class="reference internal" href="float_power.html">float_power</a></li>
 <li class="toctree-l2"><a class="reference internal" href="exp2.html">exp2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="copysign.html">copysign</a></li>
 <li class="toctree-l2"><a class="reference internal" href="count_nonzero.html">count_nonzero</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nansum.html">nansum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gcd.html">gcd</a></li>
@@ -123,10 +130,12 @@
 <li class="toctree-l2"><a class="reference internal" href="nan_to_num.html">nan_to_num</a></li>
 <li class="toctree-l2"><a class="reference internal" href="logaddexp2.html">logaddexp2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="signbit.html">signbit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diff.html">diff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="allclose.html">allclose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fix.html">fix</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nextafter.html">nextafter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zeta.html">zeta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gradient.html">gradient</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SparseArray</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NativeSparseArray.html">NativeSparseArray</a></li>
 </ul>
@@ -205,16 +214,26 @@
 <h1>SparseArray<a class="headerlink" href="#sparsearray" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="ivy.functional.ivy.experimental.SparseArray">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname">ivy.</span></span><span class="sig-name descname"><span class="pre">SparseArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coo_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csr_crow_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csr_col_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dense_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/ivy/functional/ivy/experimental.html#SparseArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.functional.ivy.experimental.SparseArray" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname">ivy.</span></span><span class="sig-name descname"><span class="pre">SparseArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coo_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csr_crow_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csr_col_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csc_ccol_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csc_row_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dense_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/ivy/functional/ivy/experimental.html#SparseArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.functional.ivy.experimental.SparseArray" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ivy.functional.ivy.experimental.SparseArray.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coo_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csr_crow_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csr_col_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dense_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/ivy/functional/ivy/experimental.html#SparseArray.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.functional.ivy.experimental.SparseArray.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coo_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csr_crow_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csr_col_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csc_ccol_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csc_row_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dense_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/ivy/functional/ivy/experimental.html#SparseArray.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.functional.ivy.experimental.SparseArray.__init__" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ivy.functional.ivy.experimental.SparseArray.coo_indices">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coo_indices</span></span><a class="headerlink" href="#ivy.functional.ivy.experimental.SparseArray.coo_indices" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ivy.functional.ivy.experimental.SparseArray.csc_ccol_indices">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">csc_ccol_indices</span></span><a class="headerlink" href="#ivy.functional.ivy.experimental.SparseArray.csc_ccol_indices" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ivy.functional.ivy.experimental.SparseArray.csc_row_indices">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">csc_row_indices</span></span><a class="headerlink" href="#ivy.functional.ivy.experimental.SparseArray.csc_row_indices" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -260,7 +279,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="zeta/zeta_container.html" class="btn btn-neutral float-left" title="ivy.Container.zeta" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gradient/static_gradient_container.html" class="btn btn-neutral float-left" title="ivy.Container.static_gradient" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="NativeSparseArray.html" class="btn btn-neutral float-right" title="NativeSparseArray" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

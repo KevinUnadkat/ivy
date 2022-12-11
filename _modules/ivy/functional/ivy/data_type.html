@@ -436,13 +436,13 @@
 <span class="sd">    ----------</span>
 <span class="sd">    arrays</span>
 <span class="sd">        an arbitrary number of arrays to-be broadcasted.</span>
-<span class="sd">        Each array must have the same shape. Each array must have the same dtype as its</span>
-<span class="sd">        corresponding input array.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    ret</span>
 <span class="sd">        A list containing broadcasted arrays of type `ivy.Array`</span>
+<span class="sd">        Each array must have the same shape, and each array must have the same</span>
+<span class="sd">        dtype as its corresponding input array.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -1022,6 +1022,8 @@
 
 
 <span class="k">def</span> <span class="nf">_check_float64</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">is_native_array</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;float64&quot;</span>
     <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
         <span class="n">m</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">frexp</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">3.4028235e38</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">e</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">126</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="mi">128</span><span class="p">)</span>
@@ -1072,7 +1074,7 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="nb">input</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">float_dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">FloatDtype</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDtype</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">as_native</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">as_native</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Dtype</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDtype</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
@@ -1112,9 +1114,7 @@
     <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">float_dtype</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">as_native</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">as_native_dtype</span><span class="p">(</span><span class="n">float_dtype</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">as_native</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">FloatDtype</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">as_ivy_dtype</span><span class="p">(</span><span class="n">float_dtype</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">float_dtype</span>
+        <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">FloatDtype</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">as_ivy_dtype</span><span class="p">(</span><span class="n">float_dtype</span><span class="p">))</span>
     <span class="n">as_native</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">as_native</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">is_array</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
@@ -1122,7 +1122,9 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">nested_argwhere</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">_check_float64</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">nested_argwhere</span><span class="p">(</span>
+                <span class="nb">input</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">_check_float64</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">stop_after_n_found</span><span class="o">=</span><span class="mi">1</span>
+            <span class="p">):</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">float64</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">def_dtype</span> <span class="o">=</span> <span class="n">default_dtype</span><span class="p">()</span>
@@ -1201,7 +1203,7 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Dtype</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">item</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">as_native</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">as_native</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Dtype</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDtype</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
@@ -1222,9 +1224,7 @@
     <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">as_native</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">as_native_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">as_native</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">as_ivy_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">dtype</span>
+        <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">as_ivy_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
     <span class="n">as_native</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">as_native</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1257,7 +1257,7 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="nb">input</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">int_dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">IntDtype</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDtype</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">as_native</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">as_native</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">IntDtype</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDtype</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
@@ -1294,9 +1294,7 @@
     <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">int_dtype</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">as_native</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">as_native_dtype</span><span class="p">(</span><span class="n">int_dtype</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">as_native</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">IntDtype</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">as_ivy_dtype</span><span class="p">(</span><span class="n">int_dtype</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">int_dtype</span>
+        <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">IntDtype</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">as_ivy_dtype</span><span class="p">(</span><span class="n">int_dtype</span><span class="p">))</span>
     <span class="n">as_native</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">as_native</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">is_array</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
@@ -1304,16 +1302,21 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
-            <span class="n">get_scalar</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">to_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">is_array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span>
+            <span class="n">is_native</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">is_native_array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">nested_argwhere</span><span class="p">(</span>
                 <span class="nb">input</span><span class="p">,</span>
-                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">9223372036854775807</span>
-                <span class="ow">and</span> <span class="n">get_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;uint64&quot;</span>
+                <span class="k">if</span> <span class="n">is_native</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">9223372036854775807</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+                <span class="n">stop_after_n_found</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="p">):</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">uint64</span>
             <span class="k">elif</span> <span class="n">ivy</span><span class="o">.</span><span class="n">nested_argwhere</span><span class="p">(</span>
                 <span class="nb">input</span><span class="p">,</span>
-                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2147483647</span> <span class="ow">and</span> <span class="n">get_scalar</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;int64&quot;</span>
+                <span class="k">if</span> <span class="n">is_native</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">2147483647</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+                <span class="n">stop_after_n_found</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="p">):</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">int64</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1358,7 +1361,7 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="nb">input</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">uint_dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">UintDtype</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDtype</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">as_native</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">as_native</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">UintDtype</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDtype</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters</span>
@@ -1403,7 +1406,14 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">dtype</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">nested_argwhere</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">4294967295</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">inf</span><span class="p">):</span>
+            <span class="n">is_native</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">is_native_array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ivy</span><span class="o">.</span><span class="n">nested_argwhere</span><span class="p">(</span>
+                <span class="nb">input</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;uint64&quot;</span>
+                <span class="k">if</span> <span class="n">is_native</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">9223372036854775807</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+                <span class="n">stop_after_n_found</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">):</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">uint64</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">def_dtype</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">default_dtype</span><span class="p">()</span>
@@ -2137,27 +2147,34 @@
 <span class="sd">    as inputs only for those functions that expect an array-like or tensor-like objects,</span>
 <span class="sd">    otherwise it might give unexpected results.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">x1</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="n">x2</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
-            <span class="n">promoted</span> <span class="o">=</span> <span class="n">promote_types</span><span class="p">(</span>
-                <span class="n">x1</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">x2</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">array_api_promotion</span><span class="o">=</span><span class="n">array_api_promotion</span>
-            <span class="p">)</span>
-            <span class="n">x1</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">promoted</span><span class="p">)</span>
-            <span class="n">x2</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">promoted</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_special_case</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">):</span>
+        <span class="c1"># check for float number and integer array case</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;int&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">a2</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x1</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_special_case</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x2</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_special_case</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">)):</span>
         <span class="n">x1</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
-        <span class="n">x2</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x1</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
-        <span class="n">x1</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x2</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
         <span class="n">x2</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">x1</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
-        <span class="n">x2</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">x1</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="n">x2</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
         <span class="n">promoted</span> <span class="o">=</span> <span class="n">promote_types</span><span class="p">(</span>
             <span class="n">x1</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">x2</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">array_api_promotion</span><span class="o">=</span><span class="n">array_api_promotion</span>
         <span class="p">)</span>
         <span class="n">x1</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">promoted</span><span class="p">)</span>
         <span class="n">x2</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">promoted</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">to_native</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span> <span class="n">ivy</span><span class="o">.</span><span class="n">to_native</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span></div>
 </pre></div>
 

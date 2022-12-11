@@ -74,6 +74,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../avg_pool2d.html">avg_pool2d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../avg_pool3d.html">avg_pool3d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dct.html">dct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fft.html">fft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dropout1d.html">dropout1d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isin.html">isin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../msort.html">msort</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../triu_indices.html">triu_indices</a></li>
@@ -89,6 +91,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../dirichlet.html">dirichlet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../beta.html">beta</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gamma.html">gamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../binary_cross_entropy_with_logits.html">binary_cross_entropy_with_logits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../flatten.html">flatten</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../moveaxis.html">moveaxis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ndenumerate.html">ndenumerate</a></li>
@@ -107,10 +110,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../atleast_1d.html">atleast_1d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dstack.html">dstack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../atleast_2d.html">atleast_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../atleast_3d.html">atleast_3d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../take_along_axis.html">take_along_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hsplit.html">hsplit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../median.html">median</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nanmean.html">nanmean</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../unravel_index.html">unravel_index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quantile.html">quantile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../diagflat.html">diagflat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../kron.html">kron</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sinc.html">sinc</a></li>
@@ -120,6 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../trapz.html">trapz</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../float_power.html">float_power</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../exp2.html">exp2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../copysign.html">copysign</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../count_nonzero.html">count_nonzero</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nansum.html">nansum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gcd.html">gcd</a></li>
@@ -129,10 +136,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../nan_to_num.html">nan_to_num</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logaddexp2.html">logaddexp2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../signbit.html">signbit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../diff.html">diff</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../allclose.html">allclose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../fix.html">fix</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nextafter.html">nextafter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../zeta.html">zeta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gradient.html">gradient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../SparseArray.html">SparseArray</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../NativeSparseArray.html">NativeSparseArray</a></li>
 </ul>
@@ -212,7 +221,7 @@
 <h1>ivy.Array.max_pool1d<a class="headerlink" href="#ivy-array-max-pool1d" title="Permalink to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="ivy.array.array_methods.max_pool1d">
-<span class="sig-prename descclassname">ivy.Array.</span></span><span class="sig-name descname"><span class="pre">max_pool1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NHWC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/ivy/array/experimental.html#ArrayWithExperimental.max_pool1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.array.array_methods.max_pool1d" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname">ivy.Array.</span></span><span class="sig-name descname"><span class="pre">max_pool1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strides</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NWC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/ivy/array/experimental.html#ArrayWithExperimental.max_pool1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ivy.array.array_methods.max_pool1d" title="Permalink to this definition"></a></dt>
 <dd><p>ivy.Array instance method variant of <a href="../max_pool1d/max_pool1d_functional.html">ivy.max_pool1d</a>. This method simply
 wraps the function, and so the docstring for <a href="../max_pool1d/max_pool1d_functional.html">ivy.max_pool1d</a> also applies
 to this method with minimal changes.</p>
@@ -224,7 +233,7 @@ to this method with minimal changes.</p>
 <li><p><strong>strides</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – The stride of the sliding window for each dimension of input.</p></li>
 <li><p><strong>padding</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – “SAME” or “VALID” indicating the algorithm, or list indicating
 the per-dimension paddings.</p></li>
-<li><p><strong>data_format</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – “NWC” or “NCW”. Defaults to “NWC”. (default: <code class="docutils literal notranslate"><span class="pre">'NHWC'</span></code>)</p></li>
+<li><p><strong>data_format</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – “NWC” or “NCW”. Defaults to “NWC”. (default: <code class="docutils literal notranslate"><span class="pre">'NWC'</span></code>)</p></li>
 <li><p><strong>out</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="../../../../data_classes/array/array/Array.html#ivy.array.array.Array" title="ivy.array.array.Array"><code class="xref py py-class docutils literal notranslate"><span class="pre">Array</span></code></a>]) – optional output array, for writing the result to. It must have a shape that (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)
 the inputs broadcast to.</p></li>
 </ul>
