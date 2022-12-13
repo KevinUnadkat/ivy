@@ -434,7 +434,7 @@ For example, consider a case where two containers of arrays should be identical 
 We can then very quickly find conflicting leaves.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cnt0</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">]),</span>
                   <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">])})</span>
-<span class="n">cnt1</span> <span class="o">=</span> <span class="n">cnt0</span><span class="o">.</span><span class="n">deep_copy</span><span class="p">()</span>
+<span class="n">cnt1</span> <span class="o">=</span> <span class="n">cnt0</span><span class="o">.</span><span class="n">cont_deep_copy</span><span class="p">()</span>
 <span class="n">cnt1</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">])</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">cnt0</span><span class="p">,</span> <span class="n">cnt1</span><span class="p">))</span>
@@ -510,7 +510,7 @@ Consider the following nested structure.</p>
 </div>
 <p>We can clip the depth of the printed container in order to make the structure of the root keys clearer.
 All nested structures below this depth are truncated into single keys with a “__” delimiter appending all keys below this depth.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weights</span><span class="o">.</span><span class="n">flatten_key_chains</span><span class="p">(</span><span class="n">above_height</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weights</span><span class="o">.</span><span class="n">cont_flatten_key_chains</span><span class="p">(</span><span class="n">above_height</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="p">{</span>
     <span class="n">decoder__l0</span><span class="p">:</span> <span class="p">{</span>
@@ -542,7 +542,7 @@ All nested structures below this depth are truncated into single keys with a “
 </div>
 <p>Likewise, we can clip the height of the printed container in order to make the structure of the leaf keys clearer.
 All nested structures above this height are truncated into single keys with a “__” delimiter appending all keys above this height.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weights</span><span class="o">.</span><span class="n">flatten_key_chains</span><span class="p">(</span><span class="n">below_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">weights</span><span class="o">.</span><span class="n">cont_flatten_key_chains</span><span class="p">(</span><span class="n">below_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="p">{</span>
     <span class="n">decoder</span><span class="p">:</span> <span class="p">{</span>
@@ -569,7 +569,7 @@ All nested structures above this height are truncated into single keys with a �
 </pre></div>
 </div>
 <p>These are very useful methods when stepping through code and debugging complex nested structures such as the weights of a network.</p>
-<p>There are also methods: <code class="code docutils literal notranslate"><span class="pre">with_print_limit</span></code> for controlling the printable size of arrays before the shape is instead displayed, <code class="code docutils literal notranslate"><span class="pre">with_key_length_limit</span></code> for setting the maximum key length before string clipping, <code class="code docutils literal notranslate"><span class="pre">with_print_indent</span></code> for controlling the nested indent, and many more.
+<p>There are also methods: <code class="code docutils literal notranslate"><span class="pre">cont_with_print_limit</span></code> for controlling the printable size of arrays before the shape is instead displayed, <code class="code docutils literal notranslate"><span class="pre">cont_with_key_length_limit</span></code> for setting the maximum key length before string clipping, <code class="code docutils literal notranslate"><span class="pre">cont_with_print_indent</span></code> for controlling the nested indent, and many more.
 Check out the <a class="reference external" href="https://lets-unify.ai/ivy/core/container.html">docs</a> for more details!</p>
 </section>
 <section id="use-cases">
@@ -668,17 +668,17 @@ This is useful if we need to recursively unroll the entire batch in the time dim
         <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">cnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span><span class="o">.</span><span class="n">cont_copy</span><span class="p">()</span>
 
         <span class="c1"># image filenames</span>
-        <span class="n">img_fnames</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="o">.</span><span class="n">list_stack</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">cnt</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+        <span class="n">img_fnames</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="o">.</span><span class="n">cont_list_stack</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">cnt</span><span class="o">.</span><span class="n">imgs</span><span class="o">.</span><span class="n">cont_map</span><span class="p">(</span>
                 <span class="k">lambda</span> <span class="n">fname</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">fname</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
             <span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_batch_size</span><span class="p">)],</span> <span class="mi">0</span>
         <span class="p">)</span>
 
         <span class="c1"># load from disk</span>
-        <span class="n">loaded_imgs</span> <span class="o">=</span> <span class="n">img_fnames</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+        <span class="n">loaded_imgs</span> <span class="o">=</span> <span class="n">img_fnames</span><span class="o">.</span><span class="n">cont_map</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">fnames</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
                 <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
                  <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">fnames</span><span class="p">],</span> <span class="mi">0</span>
