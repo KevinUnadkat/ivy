@@ -332,6 +332,14 @@ Citation
 .. toctree::
    :hidden:
    :maxdepth: -1
+   :caption: Nested array
+
+   nested_array/nested_array.rst
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: -1
    :caption: Docs
 
    docs/ivy.rst

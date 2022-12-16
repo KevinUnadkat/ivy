@@ -129,6 +129,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../isclose.html">isclose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isposinf.html">isposinf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../isneginf.html">isneginf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../angle.html">angle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nan_to_num.html">nan_to_num</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../logaddexp2.html">logaddexp2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../signbit.html">signbit</a></li>
@@ -179,6 +180,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../stateful/sequential.html">Sequential</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../stateful/norms.html">Norms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../stateful/optimizers.html">Optimizers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Nested array</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../nested_array/nested_array.html">Nested array</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Docs</span></p>
 <ul>
@@ -261,8 +266,8 @@ in which it is returned.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">x1</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="go">{</span>
-<span class="go">    a: true,</span>
-<span class="go">    b: true</span>
+<span class="go">    a: ivy.array(True),</span>
+<span class="go">    b: ivy.array(True)</span>
 <span class="go">}</span>
 </pre></div>
 </div>
@@ -271,8 +276,8 @@ in which it is returned.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">x1</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="go">{</span>
-<span class="go">    a: true,</span>
-<span class="go">    b: true</span>
+<span class="go">    a: ivy.array(True),</span>
+<span class="go">    b: ivy.array(True)</span>
 <span class="go">}</span>
 </pre></div>
 </div>
