@@ -2640,6 +2640,18 @@
 <span class="sd">    ret</span>
 <span class="sd">        an array containing the element-wise results.</span>
 <span class="sd">        The returned array must have the same data type as ``self``.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([1, 6, 9])</span>
+<span class="sd">    &gt;&gt;&gt; y = x.bitwise_invert()</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    ivy.array([-2, -7, -10])</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([False, True])</span>
+<span class="sd">    &gt;&gt;&gt; y = x.bitwise_invert()</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    ivy.array([True, False])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">bitwise_invert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
@@ -5719,6 +5731,32 @@
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="matrix_exp"><a class="viewcode-back" href="../../../functional/ivy/experimental/matrix_exp/matrix_exp_array.html#ivy.array.array_methods.matrix_exp">[docs]</a><span class="k">def</span> <span class="nf">matrix_exp</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ivy.Array instance method variant of ivy.kron.</span>
+<span class="sd">    This method simply wraps the function, and so the docstring for</span>
+<span class="sd">    ivy.matrix_exp also applies to this method with minimal changes.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([[[1., 0.],</span>
+<span class="sd">                        [0., 1.]],</span>
+<span class="sd">                        [[2., 0.],</span>
+<span class="sd">                        [0., 2.]]])</span>
+<span class="sd">    &gt;&gt;&gt; ivy.matrix_exp(x)</span>
+<span class="sd">    ivy.array([[[2.7183, 1.0000],</span>
+<span class="sd">                [1.0000, 2.7183]],</span>
+<span class="sd">                [[7.3891, 1.0000],</span>
+<span class="sd">                [1.0000, 7.3891]]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">matrix_exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+
 <span class="k">def</span> <span class="nf">eig</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
@@ -5730,7 +5768,7 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">     &gt;&gt;&gt; x = ivy.array([[1,2], [3,4]])</span>
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([[1,2], [3,4]])</span>
 <span class="sd">    &gt;&gt;&gt; x.eig()</span>
 <span class="sd">    (</span>
 <span class="sd">    ivy.array([-0.37228132+0.j,  5.37228132+0.j]),</span>
@@ -10890,6 +10928,13 @@
 <span class="sd">    &gt;&gt;&gt; y = x.roll(1)</span>
 <span class="sd">    &gt;&gt;&gt; print(y)</span>
 <span class="sd">    ivy.array([2., 0., 1.])</span>
+
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([[0., 1., 2.],</span>
+<span class="sd">    ...                [3., 4., 5.]])</span>
+<span class="sd">    &gt;&gt;&gt; y = x.roll(2, axis=-1)</span>
+<span class="sd">    &gt;&gt;&gt; print(y)</span>
+<span class="sd">    ivy.array([[1., 2., 0.],</span>
+<span class="sd">                [4., 5., 3.]])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="n">shift</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
