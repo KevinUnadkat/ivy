@@ -48,7 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../extensions.html">Extensions</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../contributing.html">Contributing</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Setting Up</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#clone-ivy">Clone Ivy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forking-and-cloning-the-repo">Forking and cloning the repo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pycharm">PyCharm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#virtual-environments-no-docker">Virtual environments - No Docker</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#using-miniconda">Using miniconda</a></li>
@@ -86,9 +86,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Functions</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../functional/ivy/experimental.html">Experimental</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../functional/ivy/activations.html">Activations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../functional/ivy/compilation.html">Compilation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../functional/ivy/constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functional/ivy/control_flow_ops.html">Control flow ops</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../functional/ivy/creation.html">Creation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../functional/ivy/data_type.html">Data type</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../functional/ivy/device.html">Device</a></li>
@@ -117,18 +118,30 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Framework Classes</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../stateful/optimizers.html">Optimizers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stateful/activations.html">Activations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stateful/layers.html">Layers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../stateful/converters.html">Converters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stateful/module.html">Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stateful/initializers.html">Initializers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stateful/converters.html">Converters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stateful/sequential.html">Sequential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stateful/helpers.html">Helpers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stateful/norms.html">Norms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../stateful/optimizers.html">Optimizers</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Nested array</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../nested_array/nested_array.html">Nested array</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Testing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing/assertions.html">Assertions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/available_frameworks.html">Available frameworks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/function_testing.html">Function testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/globals.html">Globals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/hypothesis_helpers.html">Hypothesis helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/structs.html">Structs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/test_parameter_flags.html">Test parameter flags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/testing_helpers.html">Testing helpers</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Docs</span></p>
 <ul>
@@ -172,17 +185,24 @@
 <h1>Setting Up<a class="headerlink" href="#setting-up" title="Permalink to this heading"></a></h1>
 <p>We’re really happy you’d like to learn how to contribute towards Ivy 🙂</p>
 <p>This page explains the main steps to get started!</p>
-<section id="clone-ivy">
-<h2>Clone Ivy<a class="headerlink" href="#clone-ivy" title="Permalink to this heading"></a></h2>
-<p>The first step is simple, clone Ivy!</p>
+<section id="forking-and-cloning-the-repo">
+<h2>Forking and cloning the repo<a class="headerlink" href="#forking-and-cloning-the-repo" title="Permalink to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>You first need to fork the Ivy repository from the repository page here <a class="reference external" href="https://github.com/unifyai/ivy">repo</a> by using the fork button on the top right. This creates a copy of Ivy repository in your GitHub account.</p></li>
+<li><p>Clone your forked repo to your local machine.</p></li>
+</ol>
 <p>Depending on your preferred mode of cloning, any of the below should work:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone --recurse-submodules git@github.com:unifyai/ivy.git
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone --recurse-submodules git@github.com:YOUR_USERNAME/ivy.git
 </pre></div>
 </div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone --recurse-submodules https://github.com/unifyai/ivy.git
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone --recurse-submodules https://github.com/YOUR_USERNAME/ivy.git
 </pre></div>
 </div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gh repo clone --recurse-submodules unifyai/ivy your_folder
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>gh repo clone YOUR_USERNAME/ivy your_folder -- --recurse-submodules
+</pre></div>
+</div>
+<p>Then add Ivy original repository as upstream, to easily sync with latest changes.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git remote add upstream https://github.com/unifyai/ivy.git
 </pre></div>
 </div>
 </section>
@@ -362,13 +382,18 @@ Add the remote python interpreter by:</p>
 Click the “+” on top left and it should add a docker connection.</p></li>
 <li><p>Going to settings -&gt; project -&gt; Python Interpreter</p></li>
 <li><p>Clicking add interpreter (currently by clicking the ⚙ icon by the right side) which should open a new window.</p></li>
-<li><p>Choosing “Docker” from the left panel.
-Type python3 (with the number) in python interpreter path and press ok.</p></li>
+<li><p>Choosing “On Docker” from the dropdown menu.</p></li>
+<li><p>Choosing “Docker” from the “Docker server” dropdown menu, choosing “Pull” if you want to use a remote interpreter, and using <code class="code docutils literal notranslate"><span class="pre">unifyai/ivy:latest</span></code> as the image tag.</p></li>
+<li><p>If you don’t want to use a remote interpreter, choose “Build” and use the suitable Dockerfile; then choosing <code class="code docutils literal notranslate"><span class="pre">docker/Dockerfile</span></code> to be the Dockerfile.</p></li>
+<li><p>Clicking next and navigating to system interpreter tab from the menu on the left.</p></li>
+<li><p>Choosing the built interpreter from the dropdown menu.</p></li>
 </ol>
 </li>
 </ol>
 <p>Once these steps are finished, your interpreter should be set up correctly!
 If Docker’s latest version causes error, try using an earlier version by visiting <a class="reference external" href="https://docs.docker.com/desktop/release-notes/">Docker release note</a>.</p>
+<p><strong>Important Note</strong></p>
+<p>When setting up on an M1 Mac, you would have to update the Dockerfile to install libraries from <code class="code docutils literal notranslate"><span class="pre">requirements/optional_m1_1.txt</span></code> and <code class="code docutils literal notranslate"><span class="pre">requirements/optional_m1_2.txt</span></code> instead of <code class="code docutils literal notranslate"><span class="pre">requirements/optional.txt</span></code>.</p>
 <p><strong>Video</strong></p>
 <iframe width="420" height="315"
 src="https://www.youtube.com/embed/5BxizBIC-GQ" class="video" allowfullscreen="true">
@@ -665,7 +690,7 @@ To proceed with the commit, the modified files must be re-added using git, and t
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Ivy Team.</p>
+    <p>&#169; Copyright 2020-2023, Ivy Team.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
