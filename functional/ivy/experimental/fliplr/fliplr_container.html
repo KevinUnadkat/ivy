@@ -18,6 +18,7 @@
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -333,6 +334,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../nested_array/nested_array.html">Nested array</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Utils</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utils/backend.html">Backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utils/dynamic_import.html">Dynamic import</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Testing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../testing/assertions.html">Assertions</a></li>
@@ -408,7 +414,7 @@ with elements order reversed along axis 1.</p>
 </dl>
 <p class="rubric">Examples</p>
 <p>With one <code class="xref py py-class docutils literal notranslate"><span class="pre">ivy.Container</span></code> input:
-&gt;&gt;&gt; m = ivy.Container(a=ivy.diag([1, 2, 3]),                        b=ivy.array([[1, 2, 3],[4, 5, 6]]))
+&gt;&gt;&gt; m = ivy.Container(a=ivy.diag([1, 2, 3]),    …                    b=ivy.array([[1, 2, 3],[4, 5, 6]]))
 &gt;&gt;&gt; m.fliplr()
 {</p>
 <blockquote>

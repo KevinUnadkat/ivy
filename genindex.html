@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -95,6 +96,11 @@
 <p class="caption" role="heading"><span class="caption-text">Nested array</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="nested_array/nested_array.html">Nested array</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Utils</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="utils/backend.html">Backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils/dynamic_import.html">Dynamic import</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Testing</span></p>
 <ul>
@@ -219,8 +225,6 @@
       <li><a href="data_classes/array.html#ivy.array.array.Array.__init__">__init__() (ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.__init__">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.__init__">[2]</a>
 
       <ul>
-        <li><a href="backend_handler.html#ivy.backend_handler.ContextManager.__init__">(ivy.backend_handler.ContextManager method)</a>, <a href="backend_handler/ContextManager.html#ivy.backend_handler.ContextManager.__init__">[1]</a>
-</li>
         <li><a href="data_classes/container/base.html#ivy.container.base.ContainerBase.__init__">(ivy.container.base.ContainerBase method)</a>, <a href="data_classes/container/base/ContainerBase.html#ivy.container.base.ContainerBase.__init__">[1]</a>
 </li>
         <li><a href="data_classes/container.html#ivy.container.container.Container.__init__">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.__init__">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.__init__">[2]</a>
@@ -310,6 +314,12 @@
         <li><a href="stateful/optimizers.html#ivy.stateful.optimizers.SGD.__init__">(ivy.stateful.optimizers.SGD method)</a>, <a href="stateful/optimizers/SGD.html#ivy.stateful.optimizers.SGD.__init__">[1]</a>
 </li>
         <li><a href="stateful/sequential.html#ivy.stateful.sequential.Sequential.__init__">(ivy.stateful.sequential.Sequential method)</a>, <a href="stateful/sequential/Sequential.html#ivy.stateful.sequential.Sequential.__init__">[1]</a>
+</li>
+        <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.ImportTransformer.__init__">(ivy.utils.backend.ast_helpers.ImportTransformer method)</a>, <a href="utils/backend/ast_helpers/ImportTransformer.html#ivy.utils.backend.ast_helpers.ImportTransformer.__init__">[1]</a>
+</li>
+        <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.IvyLoader.__init__">(ivy.utils.backend.ast_helpers.IvyLoader method)</a>, <a href="utils/backend/ast_helpers/IvyLoader.html#ivy.utils.backend.ast_helpers.IvyLoader.__init__">[1]</a>
+</li>
+        <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.ContextManager.__init__">(ivy.utils.backend.handler.ContextManager method)</a>, <a href="utils/backend/handler/ContextManager.html#ivy.utils.backend.handler.ContextManager.__init__">[1]</a>
 </li>
         <li><a href="testing/globals.html#ivy_tests.test_ivy.helpers.globals.InterruptedTest.__init__">(ivy_tests.test_ivy.helpers.globals.InterruptedTest method)</a>, <a href="testing/globals/InterruptedTest.html#ivy_tests.test_ivy.helpers.globals.InterruptedTest.__init__">[1]</a>
 </li>
@@ -1326,9 +1336,9 @@
         <li><a href="data_classes/container/linear_algebra.html#ivy.container.linear_algebra.ContainerWithLinearAlgebra.cholesky">(ivy.container.linear_algebra.ContainerWithLinearAlgebra method)</a>, <a href="data_classes/container/linear_algebra/ContainerWithLinearAlgebra.html#ivy.container.linear_algebra.ContainerWithLinearAlgebra.cholesky">[1]</a>
 </li>
       </ul></li>
-      <li><a href="backend_handler.html#ivy.backend_handler.choose_random_backend">choose_random_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/choose_random_backend.html#ivy.backend_handler.choose_random_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.choose_random_backend">choose_random_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/choose_random_backend.html#ivy.utils.backend.handler.choose_random_backend">[1]</a>
 </li>
-      <li><a href="backend_handler.html#ivy.backend_handler.clear_backend_stack">clear_backend_stack() (in module ivy.backend_handler)</a>, <a href="backend_handler/clear_backend_stack.html#ivy.backend_handler.clear_backend_stack">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.clear_backend_stack">clear_backend_stack() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/clear_backend_stack.html#ivy.utils.backend.handler.clear_backend_stack">[1]</a>
 </li>
       <li><a href="functional/ivy/device.html#ivy.functional.ivy.device.clear_mem_on_dev">clear_mem_on_dev() (in module ivy.functional.ivy.device)</a>, <a href="functional/ivy/device/clear_mem_on_dev.html#ivy.functional.ivy.device.clear_mem_on_dev">[1]</a>
 
@@ -1714,7 +1724,7 @@
 </li>
       <li><a href="data_classes/container/experimental.html#ivy.container.experimental.ContainerWithUtilityExperimental">ContainerWithUtilityExperimental (class in ivy.container.experimental)</a>
 </li>
-      <li><a href="backend_handler.html#ivy.backend_handler.ContextManager">ContextManager (class in ivy.backend_handler)</a>, <a href="backend_handler/ContextManager.html#ivy.backend_handler.ContextManager">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.ContextManager">ContextManager (class in ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/ContextManager.html#ivy.utils.backend.handler.ContextManager">[1]</a>
 </li>
       <li><a href="functional/ivy/layers.html#ivy.functional.ivy.layers.conv">conv() (in module ivy.functional.ivy.layers)</a>, <a href="functional/ivy/layers/conv.html#ivy.functional.ivy.layers.conv">[1]</a>
 
@@ -1826,9 +1836,9 @@
       </ul></li>
       <li><a href="glossary.html#term-Convenience-Functions"><strong>Convenience Functions</strong></a>
 </li>
-      <li><a href="backend_handler.html#ivy.backend_handler.convert_from_numpy_to_target_backend">convert_from_numpy_to_target_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/convert_from_numpy_to_target_backend.html#ivy.backend_handler.convert_from_numpy_to_target_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.convert_from_numpy_to_target_backend">convert_from_numpy_to_target_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/convert_from_numpy_to_target_backend.html#ivy.utils.backend.handler.convert_from_numpy_to_target_backend">[1]</a>
 </li>
-      <li><a href="backend_handler.html#ivy.backend_handler.convert_from_source_backend_to_numpy">convert_from_source_backend_to_numpy() (in module ivy.backend_handler)</a>, <a href="backend_handler/convert_from_source_backend_to_numpy.html#ivy.backend_handler.convert_from_source_backend_to_numpy">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.convert_from_source_backend_to_numpy">convert_from_source_backend_to_numpy() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/convert_from_source_backend_to_numpy.html#ivy.utils.backend.handler.convert_from_source_backend_to_numpy">[1]</a>
 </li>
       <li><a href="testing/function_testing.html#ivy_tests.test_ivy.helpers.function_testing.convtrue">convtrue() (in module ivy_tests.test_ivy.helpers.function_testing)</a>, <a href="testing/function_testing/convtrue.html#ivy_tests.test_ivy.helpers.function_testing.convtrue">[1]</a>
 </li>
@@ -1984,7 +1994,7 @@
         <li><a href="data_classes/container/statistical.html#ivy.container.statistical.ContainerWithStatistical.cumsum">(ivy.container.statistical.ContainerWithStatistical method)</a>, <a href="data_classes/container/statistical/ContainerWithStatistical.html#ivy.container.statistical.ContainerWithStatistical.cumsum">[1]</a>
 </li>
       </ul></li>
-      <li><a href="backend_handler.html#ivy.backend_handler.current_backend">current_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/current_backend.html#ivy.backend_handler.current_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.current_backend">current_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/current_backend.html#ivy.utils.backend.handler.current_backend">[1]</a>
 
       <ul>
         <li><a href="data_classes/array.html#ivy.array.array.Array.current_backend">(ivy.array.array.Array method)</a>, <a href="data_classes/array/array.html#ivy.array.array.Array.current_backend">[1]</a>, <a href="data_classes/array/array/Array.html#ivy.array.array.Array.current_backend">[2]</a>
@@ -2534,6 +2544,8 @@
         <li><a href="data_classes/container/elementwise.html#ivy.container.elementwise.ContainerWithElementwise.erf">(ivy.container.elementwise.ContainerWithElementwise method)</a>, <a href="data_classes/container/elementwise/ContainerWithElementwise.html#ivy.container.elementwise.ContainerWithElementwise.erf">[1]</a>
 </li>
       </ul></li>
+      <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.IvyLoader.exec_module">exec_module() (ivy.utils.backend.ast_helpers.IvyLoader method)</a>, <a href="utils/backend/ast_helpers/IvyLoader.html#ivy.utils.backend.ast_helpers.IvyLoader.exec_module">[1]</a>
+</li>
       <li><a href="functional/ivy/gradients.html#ivy.functional.ivy.gradients.execute_with_gradients">execute_with_gradients() (in module ivy.functional.ivy.gradients)</a>, <a href="functional/ivy/gradients/execute_with_gradients.html#ivy.functional.ivy.gradients.execute_with_gradients">[1]</a>
 
       <ul>
@@ -2658,6 +2670,8 @@
         <li><a href="data_classes/container/experimental.html#ivy.container.experimental.ContainerWithLayersExperimental.fft">(ivy.container.experimental.ContainerWithLayersExperimental method)</a>
 </li>
       </ul></li>
+      <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.IvyPathFinder.find_spec">find_spec() (ivy.utils.backend.ast_helpers.IvyPathFinder method)</a>, <a href="utils/backend/ast_helpers/IvyPathFinder.html#ivy.utils.backend.ast_helpers.IvyPathFinder.find_spec">[1]</a>
+</li>
       <li><a href="functional/ivy/data_type/finfo.html#ivy.array.array_methods.finfo">finfo() (in module ivy.array.array_methods)</a>, <a href="functional/ivy/data_type/finfo/finfo_array.html#ivy.array.array_methods.finfo">[1]</a>
 
       <ul>
@@ -2834,7 +2848,7 @@
 </li>
       <li><a href="testing/globals.html#ivy_tests.test_ivy.helpers.globals.TestData.fn_name">fn_name (ivy_tests.test_ivy.helpers.globals.TestData attribute)</a>, <a href="testing/globals/TestData.html#ivy_tests.test_ivy.helpers.globals.TestData.fn_name">[1]</a>
 </li>
-      <li><a href="backend_handler.html#ivy.backend_handler.fn_name_from_version_specific_fn_name">fn_name_from_version_specific_fn_name() (in module ivy.backend_handler)</a>, <a href="backend_handler/fn_name_from_version_specific_fn_name.html#ivy.backend_handler.fn_name_from_version_specific_fn_name">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.fn_name_from_version_specific_fn_name">fn_name_from_version_specific_fn_name() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/fn_name_from_version_specific_fn_name.html#ivy.utils.backend.handler.fn_name_from_version_specific_fn_name">[1]</a>
 </li>
       <li><a href="testing/globals.html#ivy_tests.test_ivy.helpers.globals.TestData.fn_tree">fn_tree (ivy_tests.test_ivy.helpers.globals.TestData attribute)</a>, <a href="testing/globals/TestData.html#ivy_tests.test_ivy.helpers.globals.TestData.fn_tree">[1]</a>
 </li>
@@ -3068,7 +3082,7 @@
       </ul></li>
       <li><a href="testing/hypothesis_helpers/general_helpers.html#ivy_tests.test_ivy.helpers.hypothesis_helpers.general_helpers.get_axis">get_axis() (in module ivy_tests.test_ivy.helpers.hypothesis_helpers.general_helpers)</a>, <a href="testing/hypothesis_helpers/general_helpers/get_axis.html#ivy_tests.test_ivy.helpers.hypothesis_helpers.general_helpers.get_axis">[1]</a>
 </li>
-      <li><a href="backend_handler.html#ivy.backend_handler.get_backend">get_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/get_backend.html#ivy.backend_handler.get_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.get_backend">get_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/get_backend.html#ivy.utils.backend.handler.get_backend">[1]</a>
 </li>
       <li><a href="testing/hypothesis_helpers/general_helpers.html#ivy_tests.test_ivy.helpers.hypothesis_helpers.general_helpers.get_bounds">get_bounds() (in module ivy_tests.test_ivy.helpers.hypothesis_helpers.general_helpers)</a>, <a href="testing/hypothesis_helpers/general_helpers/get_bounds.html#ivy_tests.test_ivy.helpers.hypothesis_helpers.general_helpers.get_bounds">[1]</a>
 </li>
@@ -3464,6 +3478,12 @@
         <li><a href="data_classes/container/experimental.html#ivy.container.experimental.ContainerWithElementWiseExperimental.imag">(ivy.container.experimental.ContainerWithElementWiseExperimental method)</a>
 </li>
       </ul></li>
+      <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.ImportTransformer.impersonate_import">impersonate_import() (ivy.utils.backend.ast_helpers.ImportTransformer method)</a>, <a href="utils/backend/ast_helpers/ImportTransformer.html#ivy.utils.backend.ast_helpers.ImportTransformer.impersonate_import">[1]</a>
+</li>
+      <li><a href="utils/dynamic_import.html#ivy.utils.dynamic_import.import_module">import_module() (in module ivy.utils.dynamic_import)</a>, <a href="utils/dynamic_import/import_module.html#ivy.utils.dynamic_import.import_module">[1]</a>
+</li>
+      <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.ImportTransformer">ImportTransformer (class in ivy.utils.backend.ast_helpers)</a>, <a href="utils/backend/ast_helpers/ImportTransformer.html#ivy.utils.backend.ast_helpers.ImportTransformer">[1]</a>
+</li>
       <li><a href="functional/ivy/nest.html#ivy.functional.ivy.nest.index_nest">index_nest() (in module ivy.functional.ivy.nest)</a>, <a href="functional/ivy/nest/index_nest.html#ivy.functional.ivy.nest.index_nest">[1]</a>
 </li>
       <li><a href="functional/ivy/constants.html#ivy.functional.ivy.constants.inf">inf (in module ivy.functional.ivy.constants)</a>
@@ -3958,8 +3978,6 @@
         <li><a href="data_classes/array/layers.html#module-ivy.array.layers">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     ivy.array.linear_algebra
 
@@ -3974,6 +3992,8 @@
         <li><a href="data_classes/array/losses.html#module-ivy.array.losses">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     ivy.array.manipulation
 
@@ -4042,13 +4062,6 @@
 
       <ul>
         <li><a href="assertions.html#module-ivy.assertions">module</a>
-</li>
-      </ul></li>
-      <li>
-    ivy.backend_handler
-
-      <ul>
-        <li><a href="backend_handler.html#module-ivy.backend_handler">module</a>
 </li>
       </ul></li>
       <li>
@@ -4626,6 +4639,41 @@
 </li>
       </ul></li>
       <li>
+    ivy.utils._importlib
+
+      <ul>
+        <li><a href="utils/_importlib.html#module-ivy.utils._importlib">module</a>
+</li>
+      </ul></li>
+      <li>
+    ivy.utils.backend
+
+      <ul>
+        <li><a href="utils/backend.html#module-ivy.utils.backend">module</a>
+</li>
+      </ul></li>
+      <li>
+    ivy.utils.backend.ast_helpers
+
+      <ul>
+        <li><a href="utils/backend/ast_helpers.html#module-ivy.utils.backend.ast_helpers">module</a>
+</li>
+      </ul></li>
+      <li>
+    ivy.utils.backend.handler
+
+      <ul>
+        <li><a href="utils/backend/handler.html#module-ivy.utils.backend.handler">module</a>
+</li>
+      </ul></li>
+      <li>
+    ivy.utils.dynamic_import
+
+      <ul>
+        <li><a href="utils/dynamic_import.html#module-ivy.utils.dynamic_import">module</a>
+</li>
+      </ul></li>
+      <li>
     ivy.verbosity
 
       <ul>
@@ -4718,6 +4766,10 @@
         <li><a href="testing/testing_helpers.html#module-ivy_tests.test_ivy.helpers.testing_helpers">module</a>
 </li>
       </ul></li>
+      <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.IvyLoader">IvyLoader (class in ivy.utils.backend.ast_helpers)</a>, <a href="utils/backend/ast_helpers/IvyLoader.html#ivy.utils.backend.ast_helpers.IvyLoader">[1]</a>
+</li>
+      <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.IvyPathFinder">IvyPathFinder (class in ivy.utils.backend.ast_helpers)</a>, <a href="utils/backend/ast_helpers/IvyPathFinder.html#ivy.utils.backend.ast_helpers.IvyPathFinder">[1]</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -5430,8 +5482,6 @@
 </li>
         <li><a href="assertions.html#module-ivy.assertions">ivy.assertions</a>
 </li>
-        <li><a href="backend_handler.html#module-ivy.backend_handler">ivy.backend_handler</a>
-</li>
         <li><a href="data_classes/container/activations.html#module-ivy.container.activations">ivy.container.activations</a>
 </li>
         <li><a href="data_classes/container/base.html#module-ivy.container.base">ivy.container.base</a>
@@ -5595,6 +5645,16 @@
         <li><a href="stateful/optimizers.html#module-ivy.stateful.optimizers">ivy.stateful.optimizers</a>
 </li>
         <li><a href="stateful/sequential.html#module-ivy.stateful.sequential">ivy.stateful.sequential</a>
+</li>
+        <li><a href="utils/_importlib.html#module-ivy.utils._importlib">ivy.utils._importlib</a>
+</li>
+        <li><a href="utils/backend.html#module-ivy.utils.backend">ivy.utils.backend</a>
+</li>
+        <li><a href="utils/backend/ast_helpers.html#module-ivy.utils.backend.ast_helpers">ivy.utils.backend.ast_helpers</a>
+</li>
+        <li><a href="utils/backend/handler.html#module-ivy.utils.backend.handler">ivy.utils.backend.handler</a>
+</li>
+        <li><a href="utils/dynamic_import.html#module-ivy.utils.dynamic_import">ivy.utils.dynamic_import</a>
 </li>
         <li><a href="verbosity.html#module-ivy.verbosity">ivy.verbosity</a>
 </li>
@@ -6137,6 +6197,8 @@
         <li><a href="data_classes/container/experimental.html#ivy.container.experimental.ContainerWithActivationExperimental.prelu">(ivy.container.experimental.ContainerWithActivationExperimental method)</a>
 </li>
       </ul></li>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.prevent_access_locally">prevent_access_locally() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/prevent_access_locally.html#ivy.utils.backend.handler.prevent_access_locally">[1]</a>
+</li>
       <li><a href="glossary.html#term-Primary-Functions"><strong>Primary Functions</strong></a>
 </li>
       <li><a href="functional/ivy/general.html#ivy.functional.ivy.general.print_all_arrays_in_memory">print_all_arrays_in_memory() (in module ivy.functional.ivy.general)</a>, <a href="functional/ivy/general/print_all_arrays_in_memory.html#ivy.functional.ivy.general.print_all_arrays_in_memory">[1]</a>
@@ -6497,9 +6559,9 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.set_array_mode">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.set_array_mode">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.set_array_mode">[2]</a>
 </li>
       </ul></li>
-      <li><a href="backend_handler.html#ivy.backend_handler.set_backend">set_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/set_backend.html#ivy.backend_handler.set_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.set_backend">set_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/set_backend.html#ivy.utils.backend.handler.set_backend">[1]</a>
 </li>
-      <li><a href="backend_handler.html#ivy.backend_handler.set_backend_to_specific_version">set_backend_to_specific_version() (in module ivy.backend_handler)</a>, <a href="backend_handler/set_backend_to_specific_version.html#ivy.backend_handler.set_backend_to_specific_version">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.set_backend_to_specific_version">set_backend_to_specific_version() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/set_backend_to_specific_version.html#ivy.utils.backend.handler.set_backend_to_specific_version">[1]</a>
 </li>
       <li><a href="functional/ivy/data_type.html#ivy.functional.ivy.data_type.set_default_complex_dtype">set_default_complex_dtype() (in module ivy.functional.ivy.data_type)</a>, <a href="functional/ivy/data_type/set_default_complex_dtype.html#ivy.functional.ivy.data_type.set_default_complex_dtype">[1]</a>
 
@@ -6557,7 +6619,7 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.set_exception_trace_mode">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.set_exception_trace_mode">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.set_exception_trace_mode">[2]</a>
 </li>
       </ul></li>
-      <li><a href="backend_handler.html#ivy.backend_handler.set_jax_backend">set_jax_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/set_jax_backend.html#ivy.backend_handler.set_jax_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.set_jax_backend">set_jax_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/set_jax_backend.html#ivy.utils.backend.handler.set_jax_backend">[1]</a>
 </li>
       <li><a href="functional/ivy/general.html#ivy.functional.ivy.general.set_min_base">set_min_base() (in module ivy.functional.ivy.general)</a>, <a href="functional/ivy/general/set_min_base.html#ivy.functional.ivy.general.set_min_base">[1]</a>
 
@@ -6587,7 +6649,7 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.set_nestable_mode">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.set_nestable_mode">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.set_nestable_mode">[2]</a>
 </li>
       </ul></li>
-      <li><a href="backend_handler.html#ivy.backend_handler.set_numpy_backend">set_numpy_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/set_numpy_backend.html#ivy.backend_handler.set_numpy_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.set_numpy_backend">set_numpy_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/set_numpy_backend.html#ivy.utils.backend.handler.set_numpy_backend">[1]</a>
 </li>
       <li><a href="functional/ivy/general.html#ivy.functional.ivy.general.set_queue_timeout">set_queue_timeout() (in module ivy.functional.ivy.general)</a>, <a href="functional/ivy/general/set_queue_timeout.html#ivy.functional.ivy.general.set_queue_timeout">[1]</a>
 
@@ -6633,7 +6695,7 @@
         <li><a href="stateful/optimizers.html#ivy.stateful.optimizers.SGD.set_state">(ivy.stateful.optimizers.SGD method)</a>, <a href="stateful/optimizers/SGD.html#ivy.stateful.optimizers.SGD.set_state">[1]</a>
 </li>
       </ul></li>
-      <li><a href="backend_handler.html#ivy.backend_handler.set_tensorflow_backend">set_tensorflow_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/set_tensorflow_backend.html#ivy.backend_handler.set_tensorflow_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.set_tensorflow_backend">set_tensorflow_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/set_tensorflow_backend.html#ivy.utils.backend.handler.set_tensorflow_backend">[1]</a>
 </li>
       <li><a href="functional/ivy/general.html#ivy.functional.ivy.general.set_tmp_dir">set_tmp_dir() (in module ivy.functional.ivy.general)</a>, <a href="functional/ivy/general/set_tmp_dir.html#ivy.functional.ivy.general.set_tmp_dir">[1]</a>
 
@@ -6643,7 +6705,7 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.set_tmp_dir">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.set_tmp_dir">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.set_tmp_dir">[2]</a>
 </li>
       </ul></li>
-      <li><a href="backend_handler.html#ivy.backend_handler.set_torch_backend">set_torch_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/set_torch_backend.html#ivy.backend_handler.set_torch_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.set_torch_backend">set_torch_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/set_torch_backend.html#ivy.utils.backend.handler.set_torch_backend">[1]</a>
 </li>
       <li><a href="functional/ivy/gradients.html#ivy.functional.ivy.gradients.set_with_grads">set_with_grads() (in module ivy.functional.ivy.gradients)</a>, <a href="functional/ivy/gradients/set_with_grads.html#ivy.functional.ivy.gradients.set_with_grads">[1]</a>
 
@@ -9693,7 +9755,7 @@
         <li><a href="data_classes/container.html#ivy.container.container.Container.unset_array_mode">(ivy.container.container.Container method)</a>, <a href="data_classes/container/container.html#ivy.container.container.Container.unset_array_mode">[1]</a>, <a href="data_classes/container/container/Container.html#ivy.container.container.Container.unset_array_mode">[2]</a>
 </li>
       </ul></li>
-      <li><a href="backend_handler.html#ivy.backend_handler.unset_backend">unset_backend() (in module ivy.backend_handler)</a>, <a href="backend_handler/unset_backend.html#ivy.backend_handler.unset_backend">[1]</a>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.unset_backend">unset_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/unset_backend.html#ivy.utils.backend.handler.unset_backend">[1]</a>
 </li>
       <li><a href="functional/ivy/data_type.html#ivy.functional.ivy.data_type.unset_default_complex_dtype">unset_default_complex_dtype() (in module ivy.functional.ivy.data_type)</a>, <a href="functional/ivy/data_type/unset_default_complex_dtype.html#ivy.functional.ivy.data_type.unset_default_complex_dtype">[1]</a>
 
@@ -9921,6 +9983,10 @@
         <li><a href="data_classes/container/linear_algebra.html#ivy.container.linear_algebra.ContainerWithLinearAlgebra.vector_to_skew_symmetric_matrix">(ivy.container.linear_algebra.ContainerWithLinearAlgebra method)</a>, <a href="data_classes/container/linear_algebra/ContainerWithLinearAlgebra.html#ivy.container.linear_algebra.ContainerWithLinearAlgebra.vector_to_skew_symmetric_matrix">[1]</a>
 </li>
       </ul></li>
+      <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.ImportTransformer.visit_Import">visit_Import() (ivy.utils.backend.ast_helpers.ImportTransformer method)</a>, <a href="utils/backend/ast_helpers/ImportTransformer.html#ivy.utils.backend.ast_helpers.ImportTransformer.visit_Import">[1]</a>
+</li>
+      <li><a href="utils/backend/ast_helpers.html#ivy.utils.backend.ast_helpers.ImportTransformer.visit_ImportFrom">visit_ImportFrom() (ivy.utils.backend.ast_helpers.ImportTransformer method)</a>, <a href="utils/backend/ast_helpers/ImportTransformer.html#ivy.utils.backend.ast_helpers.ImportTransformer.visit_ImportFrom">[1]</a>
+</li>
       <li><a href="functional/ivy/general.html#ivy.functional.ivy.general.vmap">vmap() (in module ivy.functional.ivy.general)</a>, <a href="functional/ivy/general/vmap.html#ivy.functional.ivy.general.vmap">[1]</a>
 
       <ul>
@@ -9988,6 +10054,8 @@
       <li><a href="functional/ivy/control_flow_ops.html#ivy.functional.ivy.control_flow_ops.while_loop">while_loop() (in module ivy.functional.ivy.control_flow_ops)</a>, <a href="functional/ivy/control_flow_ops/while_loop.html#ivy.functional.ivy.control_flow_ops.while_loop">[1]</a>
 </li>
       <li><a href="functional/ivy/control_flow_ops.html#ivy.functional.ivy.control_flow_ops.WhileLoop">WhileLoop() (in module ivy.functional.ivy.control_flow_ops)</a>, <a href="functional/ivy/control_flow_ops/WhileLoop.html#ivy.functional.ivy.control_flow_ops.WhileLoop">[1]</a>
+</li>
+      <li><a href="utils/backend/handler.html#ivy.utils.backend.handler.with_backend">with_backend() (in module ivy.utils.backend.handler)</a>, <a href="utils/backend/handler/with_backend.html#ivy.utils.backend.handler.with_backend">[1]</a>
 </li>
       <li><a href="functional/ivy/gradients.html#ivy.functional.ivy.gradients.with_grads">with_grads() (in module ivy.functional.ivy.gradients)</a>, <a href="functional/ivy/gradients/with_grads.html#ivy.functional.ivy.gradients.with_grads">[1]</a>
 
