@@ -271,16 +271,16 @@
 <div class="viewcode-block" id="sigmoid"><a class="viewcode-back" href="../../../functional/ivy/activations/sigmoid/sigmoid_array.html#ivy.array.array_methods.sigmoid">[docs]</a><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ivy.Array instance method variant of ivy.sigmoid.</span>
-<span class="sd">    This method simply wraps the function, and so the docstring for ivy.sigmoid also</span>
-<span class="sd">    applies to this method with minimal changes.</span>
+<span class="sd">    This method simply wraps the function, and so the docstring for ivy.sigmoid also applies to this method</span>
+<span class="sd">    with minimal changes.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    self</span>
 <span class="sd">        Input array</span>
 <span class="sd">    out</span>
-<span class="sd">        optional output array for writing the result to. It must have the same shape</span>
-<span class="sd">        the input broadcast to default: None</span>
+<span class="sd">        optional output array for writing the result to. It must have the same shape the input broadcast to</span>
+<span class="sd">        default: None</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -9646,11 +9646,11 @@
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="supports_inplace_updates"><a class="viewcode-back" href="../../../functional/ivy/general/supports_inplace_updates/supports_inplace_updates_array.html#ivy.array.array_methods.supports_inplace_updates">[docs]</a><span class="k">def</span> <span class="nf">supports_inplace_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="o">/</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="supports_inplace_updates"><a class="viewcode-back" href="../../../functional/ivy/general/supports_inplace_updates/supports_inplace_updates_array.html#ivy.array.array_methods.supports_inplace_updates">[docs]</a><span class="k">def</span> <span class="nf">supports_inplace_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ivy.Array instance method variant of ivy.supports_inplace_updates. This method</span>
-<span class="sd">    simply wraps the function, and so the docstring for ivy.supports_inplace_updates</span>
-<span class="sd">    also applies to this method with minimal changes.</span>
+<span class="sd">    simply wraps the function, and so the docstring for ivy.supports_inplace also</span>
+<span class="sd">    applies to this method with minimal changes.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -9665,14 +9665,7 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    With :class:`ivy.Array` input and default backend set as `numpy`:</span>
-
-<span class="sd">    &gt;&gt;&gt; x = ivy.array([0, 1, 2])</span>
-<span class="sd">    &gt;&gt;&gt; ret = x.supports_inplace_updates()</span>
-<span class="sd">    &gt;&gt;&gt; print(ret)</span>
-<span class="sd">    True</span>
 <span class="sd">    With `ivy.Array` input and backend set as &quot;tensorflow&quot;:</span>
-
 <span class="sd">    &gt;&gt;&gt; x = ivy.array([1., 4.2, 2.2])</span>
 <span class="sd">    &gt;&gt;&gt; ret = x.supports_inplace_updates()</span>
 <span class="sd">    &gt;&gt;&gt; print(ret)</span>
@@ -9875,8 +9868,7 @@
 <span class="sd">    &gt;&gt;&gt; x = ivy.array([1, 2, 3])</span>
 <span class="sd">    &gt;&gt;&gt; print(x.assert_supports_inplace())</span>
 <span class="sd">    IvyBackendException: jax: assert_supports_inplace: Inplace operations \</span>
-<span class="sd">    are not supported &lt;class &#39;jaxlib.xla_extension.DeviceArray&#39;&gt; types </span>
-<span class="sd">    with jax backend</span>
+<span class="sd">    are not supported &lt;class &#39;jaxlib.xla_extension.DeviceArray&#39;&gt; types with jax backend</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">assert_supports_inplace</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
@@ -10959,48 +10951,6 @@
 <span class="sd">    ivy.array([[[2., 0, 2.]]])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dropout1d</span><span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span>
-        <span class="n">prob</span><span class="p">,</span>
-        <span class="n">training</span><span class="o">=</span><span class="n">training</span><span class="p">,</span>
-        <span class="n">data_format</span><span class="o">=</span><span class="n">data_format</span><span class="p">,</span>
-        <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
-    <span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">dropout3d</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
-    <span class="n">prob</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="o">/</span><span class="p">,</span>
-    <span class="o">*</span><span class="p">,</span>
-    <span class="n">training</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">data_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;NDHWC&quot;</span><span class="p">,</span>
-    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ivy.Array instance method variant of ivy.dropout3d. This method simply</span>
-<span class="sd">    wraps the function, and so the docstring for ivy.droput3d also applies</span>
-<span class="sd">    to this method with minimal changes.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    self</span>
-<span class="sd">        The input array x to perform dropout on.</span>
-<span class="sd">    prob</span>
-<span class="sd">        The probability of zeroing out each array element, float between 0 and 1.</span>
-<span class="sd">    training</span>
-<span class="sd">        Turn on dropout if training, turn off otherwise. Default is ``True``.</span>
-<span class="sd">    data_format</span>
-<span class="sd">        &quot;NDHWC&quot; or &quot;NCDHW&quot;. Default is ``&quot;NDHWC&quot;``.</span>
-<span class="sd">    out</span>
-<span class="sd">        optional output array, for writing the result to. It must have</span>
-<span class="sd">        a shape that the inputs broadcast to.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    ret</span>
-<span class="sd">        Result array of the output after dropout is performed.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dropout3d</span><span class="p">(</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span>
         <span class="n">prob</span><span class="p">,</span>
         <span class="n">training</span><span class="o">=</span><span class="n">training</span><span class="p">,</span>
