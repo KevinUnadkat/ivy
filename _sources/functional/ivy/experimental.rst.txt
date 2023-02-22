@@ -13,6 +13,7 @@ Experimental
    :maxdepth: -1
    :caption: Experimental
 
+   experimental/eigh_tridiagonal.rst
    experimental/diagflat.rst
    experimental/kron.rst
    experimental/matrix_exp.rst
