@@ -597,6 +597,7 @@
     <span class="n">BuiltContainerStrategy</span><span class="p">,</span>
     <span class="n">BuiltWithOutStrategy</span><span class="p">,</span>
     <span class="n">BuiltInplaceStrategy</span><span class="p">,</span>
+    <span class="n">BuiltCompileStrategy</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">ivy_tests.test_ivy.helpers.structs</span> <span class="kn">import</span> <span class="n">FrontendMethodData</span>
 <span class="kn">from</span> <span class="nn">ivy_tests.test_ivy.helpers.available_frameworks</span> <span class="kn">import</span> <span class="p">(</span>
@@ -615,6 +616,7 @@
     <span class="s2">&quot;with_out&quot;</span><span class="p">,</span>
     <span class="s2">&quot;instance_method&quot;</span><span class="p">,</span>
     <span class="s2">&quot;test_gradients&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;test_compile&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">cmd_line_args_lists</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;as_variable&quot;</span><span class="p">,</span>
@@ -641,11 +643,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    A strategy that can be used in the @given hypothesis decorator.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">total</span><span class="p">,</span> <span class="n">num_positional_only</span><span class="p">,</span> <span class="n">num_keyword_only</span><span class="p">,</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="mi">0</span><span class="p">,</span>
-        <span class="mi">0</span><span class="p">,</span>
-        <span class="mi">0</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">total</span><span class="p">,</span> <span class="n">num_positional_only</span><span class="p">,</span> <span class="n">num_keyword_only</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;self&quot;</span><span class="p">:</span>
             <span class="k">continue</span>
@@ -834,6 +832,7 @@
     <span class="n">test_instance_method</span><span class="o">=</span><span class="n">BuiltInstanceStrategy</span><span class="p">,</span>
     <span class="n">test_with_out</span><span class="o">=</span><span class="n">BuiltWithOutStrategy</span><span class="p">,</span>
     <span class="n">test_gradients</span><span class="o">=</span><span class="n">BuiltGradientStrategy</span><span class="p">,</span>
+    <span class="n">test_compile</span><span class="o">=</span><span class="n">BuiltCompileStrategy</span><span class="p">,</span>
     <span class="n">as_variable_flags</span><span class="o">=</span><span class="n">BuiltAsVariableStrategy</span><span class="p">,</span>
     <span class="n">native_array_flags</span><span class="o">=</span><span class="n">BuiltNativeArrayStrategy</span><span class="p">,</span>
     <span class="n">container_flags</span><span class="o">=</span><span class="n">BuiltContainerStrategy</span><span class="p">,</span>
@@ -866,6 +865,10 @@
 <span class="sd">        A search strategy that generates a boolean to test the function with arrays as</span>
 <span class="sd">        gradients</span>
 
+<span class="sd">    test_compile</span>
+<span class="sd">        A search strategy that generates a boolean to graph compile and test the</span>
+<span class="sd">        function</span>
+
 <span class="sd">    as_variable_flags</span>
 <span class="sd">        A search strategy that generates a list of boolean flags for array inputs to be</span>
 <span class="sd">        passed as a Variable array</span>
@@ -894,6 +897,7 @@
             <span class="n">instance_method</span><span class="o">=</span><span class="n">test_instance_method</span><span class="p">,</span>
             <span class="n">with_out</span><span class="o">=</span><span class="n">test_with_out</span><span class="p">,</span>
             <span class="n">test_gradients</span><span class="o">=</span><span class="n">test_gradients</span><span class="p">,</span>
+            <span class="n">test_compile</span><span class="o">=</span><span class="n">test_compile</span><span class="p">,</span>
             <span class="n">as_variable</span><span class="o">=</span><span class="n">as_variable_flags</span><span class="p">,</span>
             <span class="n">native_arrays</span><span class="o">=</span><span class="n">native_array_flags</span><span class="p">,</span>
             <span class="n">container_flags</span><span class="o">=</span><span class="n">container_flags</span><span class="p">,</span>
@@ -1043,6 +1047,7 @@
     <span class="n">method_tree</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ground_truth_backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">ground_truth</span><span class="p">,</span>
     <span class="n">test_gradients</span><span class="o">=</span><span class="n">BuiltGradientStrategy</span><span class="p">,</span>
+    <span class="n">test_compile</span><span class="o">=</span><span class="n">BuiltCompileStrategy</span><span class="p">,</span>
     <span class="n">init_num_positional_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">init_native_arrays</span><span class="o">=</span><span class="n">BuiltNativeArrayStrategy</span><span class="p">,</span>
     <span class="n">init_as_variable_flags</span><span class="o">=</span><span class="n">BuiltAsVariableStrategy</span><span class="p">,</span>
@@ -1072,6 +1077,7 @@
     <span class="n">possible_arguments</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;ground_truth_backend&quot;</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">just</span><span class="p">(</span><span class="n">ground_truth_backend</span><span class="p">),</span>
         <span class="s2">&quot;test_gradients&quot;</span><span class="p">:</span> <span class="n">test_gradients</span><span class="p">,</span>
+        <span class="s2">&quot;test_compile&quot;</span><span class="p">:</span> <span class="n">test_compile</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">if</span> <span class="n">is_hypothesis_test</span> <span class="ow">and</span> <span class="n">is_method_tree_provided</span><span class="p">:</span>
@@ -1123,13 +1129,14 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">wrapped_test</span> <span class="o">=</span> <span class="n">test_fn</span>
 
-        <span class="k">if</span> <span class="n">is_method_tree_provided</span><span class="p">:</span>
-            <span class="n">wrapped_test</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">TestData</span><span class="p">(</span>
-                <span class="n">test_fn</span><span class="o">=</span><span class="n">wrapped_test</span><span class="p">,</span>
-                <span class="n">fn_tree</span><span class="o">=</span><span class="n">method_tree</span><span class="p">,</span>
-                <span class="n">fn_name</span><span class="o">=</span><span class="n">method_name</span><span class="p">,</span>
-                <span class="n">supported_device_dtypes</span><span class="o">=</span><span class="n">supported_device_dtypes</span><span class="p">,</span>
-            <span class="p">)</span>
+        <span class="n">wrapped_test</span><span class="o">.</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">TestData</span><span class="p">(</span>
+            <span class="n">test_fn</span><span class="o">=</span><span class="n">wrapped_test</span><span class="p">,</span>
+            <span class="n">fn_tree</span><span class="o">=</span><span class="n">method_tree</span><span class="p">,</span>
+            <span class="n">fn_name</span><span class="o">=</span><span class="n">method_name</span><span class="p">,</span>
+            <span class="n">supported_device_dtypes</span><span class="o">=</span><span class="n">supported_device_dtypes</span><span class="p">,</span>
+            <span class="n">is_method</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
         <span class="n">wrapped_test</span><span class="o">.</span><span class="n">ground_truth_backend</span> <span class="o">=</span> <span class="n">ground_truth_backend</span>
         <span class="n">wrapped_test</span><span class="o">.</span><span class="n">_ivy_test</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -1211,11 +1218,11 @@
             <span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">ivy_init_modules</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">ivy_init_module</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">ivy_init_modules</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ivy_init_module</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">framework_init_modules</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">framework_init_module</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="n">framework_init_modules</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">framework_init_module</span><span class="p">)</span>
             <span class="n">frontend_helper_data</span> <span class="o">=</span> <span class="n">FrontendMethodData</span><span class="p">(</span>
                 <span class="n">ivy_init_module</span><span class="o">=</span><span class="n">ivy_init_modules</span><span class="p">,</span>
@@ -1243,6 +1250,7 @@
             <span class="n">fn_tree</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">init_tree</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">fn_name</span><span class="o">=</span><span class="n">method_name</span><span class="p">,</span>
             <span class="n">supported_device_dtypes</span><span class="o">=</span><span class="n">supported_device_dtypes</span><span class="p">,</span>
+            <span class="n">is_method</span><span class="o">=</span><span class="p">[</span><span class="n">method_name</span><span class="p">,</span> <span class="n">class_tree</span><span class="p">,</span> <span class="n">split_index</span><span class="p">],</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">wrapped_test</span>
