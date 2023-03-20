@@ -1197,7 +1197,10 @@
 
 <span class="c1"># noinspection PyProtectedMember</span>
 <div class="viewcode-block" id="with_backend"><a class="viewcode-back" href="../../../../utils/backend/handler/with_backend.html#ivy.functional.ivy.experimental.with_backend">[docs]</a><span class="nd">@prevent_access_locally</span>
-<span class="k">def</span> <span class="nf">with_backend</span><span class="p">(</span><span class="n">backend</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">with_backend</span><span class="p">(</span><span class="n">backend</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cached</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="c1"># Use already compiled object</span>
+    <span class="k">if</span> <span class="n">cached</span> <span class="ow">and</span> <span class="n">backend</span> <span class="ow">in</span> <span class="n">compiled_backends</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">compiled_backends</span><span class="p">[</span><span class="n">backend</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="c1"># TODO do error handling if finder fails</span>
     <span class="n">finder</span> <span class="o">=</span> <span class="n">ast_helpers</span><span class="o">.</span><span class="n">IvyPathFinder</span><span class="p">()</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">meta_path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">finder</span><span class="p">)</span>
@@ -1217,7 +1220,10 @@
     <span class="n">_importlib</span><span class="o">.</span><span class="n">path_hooks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">finder</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">meta_path</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">finder</span><span class="p">)</span>
     <span class="n">_importlib</span><span class="o">.</span><span class="n">_clear_cache</span><span class="p">()</span>
-    <span class="n">compiled_backends</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ivy_pack</span><span class="o">.</span><span class="n">backend</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">ivy_pack</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ivy_pack</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">compiled_backends</span><span class="p">[</span><span class="n">backend</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ivy_pack</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">compiled_backends</span><span class="p">[</span><span class="n">backend</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ivy_pack</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">ivy_pack</span></div>
 </pre></div>
 
